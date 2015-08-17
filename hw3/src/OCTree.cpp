@@ -1,6 +1,7 @@
 #include "OCTree.h"
 #include <cstdlib>
-#define OCTREE_MAX_LEVEL 2
+
+int OCTree::MAX_LEVEL = 1;
 
 OCTree::OCTree(const vector<Object*> &objects,
     const BBox &boudingbox,
@@ -8,7 +9,7 @@ OCTree::OCTree(const vector<Object*> &objects,
     int level
     ) : objs(objects), box(boudingbox) {
 
-    if (level == OCTREE_MAX_LEVEL) {
+    if (level == MAX_LEVEL) {
         // Leaf.
         isLeaf = true;
         for (const auto i : index) {
@@ -22,24 +23,21 @@ OCTree::OCTree(const vector<Object*> &objects,
         int axis = rand() % 3;
         auto childboxes = box.split(axis);
 
-        // Left child
-        vector<int> left_idx;
+        // Split the objects into left and right child.
+        vector<int> left_idx, right_idx;
         BBox left_box = childboxes.first;
+        BBox right_box = childboxes.second;
         for (const auto id : index) {
             if (objs[id]->intersectBBox(left_box) >= 0) {
                 left_idx.push_back(id);
             }
-        }
-        left = new OCTree(objs, left_box, left_idx, level + 1);
-
-        vector<int> right_idx;
-        BBox right_box = childboxes.first;
-        for (const auto id : index) {
             if (objs[id]->intersectBBox(right_box) >= 0) {
                 right_idx.push_back(id);
             }
         }
+        left = new OCTree(objs, left_box, left_idx, level + 1);
         right = new OCTree(objs, right_box, right_idx, level + 1);
+
     }
 }
 

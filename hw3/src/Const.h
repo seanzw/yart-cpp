@@ -14,7 +14,7 @@ using namespace std;
 using namespace glm;
 
 #define CONST_FAR 1000000.0f
-#define CONST_NEAR 0.01f
+#define CONST_NEAR 0.0001f
 #define PI 3.14159265f
 
 

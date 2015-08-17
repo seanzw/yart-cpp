@@ -232,6 +232,11 @@ RayTracer::RayTracer(const string &fn) : scene(objs) {
                 }
 
                 else if (cmd == "buildOCTree") {
+
+                    // Set the max level of OCTree.
+                    readvalues(s, 1, values);
+                    OCTree::MAX_LEVEL = int(values[0]) >= 1 ? int(values[0]) : 1;
+
                     BBox b;
                     for (const auto obj : objs) {
                         b = b.merge(obj->getBBox());
@@ -242,7 +247,7 @@ RayTracer::RayTracer(const string &fn) : scene(objs) {
                     }
                     trees.push_back(new OCTree(objs, b, idx, 0));
                     useTree = true;
-                    DEBUG("PARSE BUIILD_OCTREE\n");
+                    DEBUG("PARSE BUIILD_OCTREE LEVEL %d\n", OCTree::MAX_LEVEL);
                 }
 
                 else {

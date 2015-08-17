@@ -12,6 +12,8 @@ public:
         int level);
     ~OCTree();
 
+    static int MAX_LEVEL;
+
     virtual Hit intersect(const Ray &r) const;
     virtual BBox getBBox() const { return box; }
     virtual int intersectBBox(const BBox &b) const;
