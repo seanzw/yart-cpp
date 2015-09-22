@@ -7,7 +7,7 @@ class BBox;
 class Object {
 public:
     Object() {}
-    ~Object() {}
+    virtual ~Object() {}
 
     virtual Hit intersect(const Ray &r) const = 0;
     virtual BBox getBBox() const = 0;
