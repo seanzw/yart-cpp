@@ -33,8 +33,7 @@
 
 # VS
 *.opensdf
-*.db
+Thumbs.db
+.vs/
 Debug/
 x64/
-
-.vs/
