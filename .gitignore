@@ -30,5 +30,8 @@
 
 # Debug files
 *.dSYM/
+
+# VS
+*.opensdf
 Debug/
 x64/
