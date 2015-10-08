@@ -35,3 +35,5 @@
 *.opensdf
 Debug/
 x64/
+Thumbs.db
+.vs/
