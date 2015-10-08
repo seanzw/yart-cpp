@@ -33,6 +33,7 @@
 
 # VS
 *.opensdf
+*.suo
 Thumbs.db
 .vs/
 Debug/
