@@ -161,7 +161,6 @@
     <None Include="test\scene6.test" />
     <None Include="test\scene7-oc.test" />
     <None Include="test\scene7.test" />
-    <None Include="test\test.test" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

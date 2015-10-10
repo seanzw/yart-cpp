@@ -50,26 +50,27 @@ extern int yydebug;
     SIZE = 260,
     INTEGRATOR = 261,
     OUTPUT = 262,
-    CAMERA = 263,
-    MAXVERTS = 264,
-    MAXVERTNORMS = 265,
-    VERTEX = 266,
-    TRI = 267,
-    SPHERE = 268,
-    TRANSLATE = 269,
-    SCALE = 270,
-    ROTATE = 271,
-    PUSHTRANSFORM = 272,
-    POPTRANSFORM = 273,
-    DIRECTIONAL = 274,
-    POINT = 275,
-    ATTENUATION = 276,
-    DIFFUSE = 277,
-    AMBIENT = 278,
-    SPECULAR = 279,
-    EMISSION = 280,
-    SHININESS = 281,
-    BUILDOCTREE = 282
+    INCLUDE = 263,
+    CAMERA = 264,
+    MAXVERTS = 265,
+    MAXVERTNORMS = 266,
+    VERTEX = 267,
+    TRI = 268,
+    SPHERE = 269,
+    TRANSLATE = 270,
+    SCALE = 271,
+    ROTATE = 272,
+    PUSHTRANSFORM = 273,
+    POPTRANSFORM = 274,
+    DIRECTIONAL = 275,
+    POINT = 276,
+    ATTENUATION = 277,
+    DIFFUSE = 278,
+    AMBIENT = 279,
+    SPECULAR = 280,
+    EMISSION = 281,
+    SHININESS = 282,
+    BUILDOCTREE = 283
   };
 #endif
 
@@ -78,12 +79,12 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 15 "yart-cpp.yy" /* yacc.c:1909  */
+#line 21 "yart-cpp.yy" /* yacc.c:1909  */
 
     char string[1024];
     float num;
 
-#line 87 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 88 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

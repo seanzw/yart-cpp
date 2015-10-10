@@ -10,6 +10,12 @@ extern RayTracer *yart;
 extern int yylex();
 void yyerror(const std::string &s);
 
+extern void include_push(char *filename);
+int line_num = 0;
+string current_file;
+
+bool faceIndexStartFromOne = false;		/* For obj file. */
+
 %}
 
 %union {
@@ -24,6 +30,7 @@ void yyerror(const std::string &s);
 %token SIZE
 %token INTEGRATOR
 %token OUTPUT
+%token INCLUDE
 %token CAMERA
 %token MAXVERTS
 %token MAXVERTNORMS
@@ -76,6 +83,10 @@ yart_stmt: SIZE NUMBER NUMBER {
 	yart->yartOutput(outfn);
 }
 
+| INCLUDE STR {
+	include_push($2);
+}
+
 | CAMERA NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 	vec3 eye($2, $3, $4);
 	vec3 center($5, $6, $7);
@@ -99,15 +110,19 @@ yart_stmt: SIZE NUMBER NUMBER {
 | VERTEX NUMBER NUMBER NUMBER {
 	vec3 v($2, $3, $4);
 	yart->yartVertex(v);
-	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
+	DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
 
 | TRI NUMBER NUMBER NUMBER {
+	
 	int id1 = (int)$2;
 	int id2 = (int)$3;
 	int id3 = (int)$4;
+	if (faceIndexStartFromOne) {
+		id1--; id2--; id3--;
+	}
 	yart->yartTri(id1, id2, id3);
-	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
+	DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
 
 | SPHERE NUMBER NUMBER NUMBER NUMBER {

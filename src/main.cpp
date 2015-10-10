@@ -12,7 +12,10 @@ int main(int argc, char *argv[]) {
     }
 
 	extern FILE *yyin;
+	extern string current_file;
 	extern int yyparse(void);
+
+	current_file = string(argv[1]);
 
 	string fn(argv[1]);
 	RayTracer rt(fn);

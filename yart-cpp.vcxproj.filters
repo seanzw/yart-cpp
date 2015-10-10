@@ -151,9 +151,6 @@
     <None Include="test\scene7-oc.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
-    <None Include="test\test.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
     <None Include="src\Makefile">
       <Filter>Resource Files\parser</Filter>
     </None>
