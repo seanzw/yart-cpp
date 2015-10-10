@@ -144,6 +144,9 @@
     <ClInclude Include="src\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\Makefile" />
+    <None Include="src\yart-cpp.ll" />
+    <None Include="src\yart-cpp.yy" />
     <None Include="test\scene1.test" />
     <None Include="test\scene2.test" />
     <None Include="test\scene3.test" />

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Resource Files\parser">
+      <UniqueIdentifier>{998e8163-6626-4bc3-8d3a-710f475d2ea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\scenes">
+      <UniqueIdentifier>{15963d21-a4bc-495a-9d45-12f786bb9a60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BBox.cpp">
@@ -97,41 +103,50 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="src\yart-cpp.ll">
+      <Filter>Resource Files\parser</Filter>
+    </None>
+    <None Include="src\yart-cpp.yy">
+      <Filter>Resource Files\parser</Filter>
+    </None>
     <None Include="test\scene1.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene2.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene3.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene4-ambient.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene4-diffuse.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene4-emission.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene4-specular.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene5.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene6.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene7.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene7-oc.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\test.test">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="src\Makefile">
+      <Filter>Resource Files\parser</Filter>
     </None>
   </ItemGroup>
 </Project>

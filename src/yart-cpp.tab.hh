@@ -46,7 +46,30 @@ extern int yydebug;
   enum yytokentype
   {
     NUMBER = 258,
-    SIZE = 259
+    STR = 259,
+    SIZE = 260,
+    MAXDEPTH = 261,
+    OUTPUT = 262,
+    CAMERA = 263,
+    MAXVERTS = 264,
+    MAXVERTNORMS = 265,
+    VERTEX = 266,
+    TRI = 267,
+    SPHERE = 268,
+    TRANSLATE = 269,
+    SCALE = 270,
+    ROTATE = 271,
+    PUSHTRANSFORM = 272,
+    POPTRANSFORM = 273,
+    DIRECTIONAL = 274,
+    POINT = 275,
+    ATTENUATION = 276,
+    DIFFUSE = 277,
+    AMBIENT = 278,
+    SPECULAR = 279,
+    EMISSION = 280,
+    SHININESS = 281,
+    BUILDOCTREE = 282
   };
 #endif
 
@@ -55,12 +78,12 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 13 "yart-cpp.yy" /* yacc.c:1909  */
+#line 15 "yart-cpp.yy" /* yacc.c:1909  */
 
     char string[1024];
     float num;
 
-#line 64 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 87 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
