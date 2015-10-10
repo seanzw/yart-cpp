@@ -7,21 +7,21 @@ integrator "DirectLight" 5
 
 maxverts 12
 #planar face
-vertex -1 +1 0
-vertex -1 -1 0
-vertex +1 -1 0
-vertex +1 +1 0
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
 
 #cube
-vertex -1 +1 +1
-vertex +1 +1 +1
-vertex -1 -1 +1
-vertex +1 -1 +1
+v -1 +1 +1
+v +1 +1 +1
+v -1 -1 +1
+v +1 -1 +1
 
-vertex -1 +1 -1
-vertex +1 +1 -1
-vertex -1 -1 -1
-vertex +1 -1 -1
+v -1 +1 -1
+v +1 +1 -1
+v -1 -1 -1
+v +1 -1 -1
 
 
 ambient 0 0 0
@@ -47,8 +47,8 @@ translate 0 0 -3
 rotate 0 1 0 60
 scale 10 10 1
 diffuse 1 0 0
-tri 0 1 2
-tri 0 2 3
+f 0 1 2
+f 0 2 3
 popTransform
 
 #green
@@ -57,8 +57,8 @@ translate 0 0 -3
 rotate 0 1 0 -60
 scale 10 10 1
 diffuse 0 1 0
-tri 0 1 2
-tri 0 2 3
+f 0 1 2
+f 0 2 3
 popTransform
 
 #back
@@ -66,8 +66,8 @@ pushTransform
 scale 10 10 1
 translate 0 0 -2
 diffuse 1 1 1
-tri 0 1 2
-tri 0 2 3
+f 0 1 2
+f 0 2 3
 popTransform
 
 #top
@@ -77,8 +77,8 @@ rotate 1 0 0 60
 translate 0 0 -1
 scale 10 10 1
 diffuse 1 1 1
-tri 0 1 2
-tri 0 2 3
+f 0 1 2
+f 0 2 3
 popTransform
 
 #bottom
@@ -88,8 +88,8 @@ rotate 1 0 0 -60
 translate 0 0 -1
 scale 10 10 1
 diffuse 1 1 1
-tri 0 1 2
-tri 0 2 3
+f 0 1 2
+f 0 2 3
 popTransform
 
 #sphere
@@ -137,18 +137,18 @@ rotate 0 1 0 15
 scale 0.25 0.4 0.2
 diffuse 1 1 1
 
-tri 4 6 5
-tri 6 7 5
-tri 4 5 8
-tri 5 9 8
-tri 7 9 5
-tri 7 11 9
-tri 4 8 10
-tri 4 10 6
-tri 6 10 11
-tri 6 11 7
-tri 10 8 9
-tri 10 9 11
+f 4 6 5
+f 6 7 5
+f 4 5 8
+f 5 9 8
+f 7 9 5
+f 7 11 9
+f 4 8 10
+f 4 10 6
+f 6 10 11
+f 6 11 7
+f 10 8 9
+f 10 9 11
 popTransform
 
 #cube2
@@ -160,31 +160,31 @@ rotate 0 1 0 -15
 scale 0.2 0.2 0.2
 diffuse 1 1 1
 
-tri 4 6 5
-tri 6 7 5
-tri 4 5 8
-tri 5 9 8
-tri 7 9 5
-tri 7 11 9
-tri 4 8 10
-tri 4 10 6
-tri 6 10 11
-tri 6 11 7
-tri 10 8 9
-tri 10 9 11
+f 4 6 5
+f 6 7 5
+f 4 5 8
+f 5 9 8
+f 7 9 5
+f 7 11 9
+f 4 8 10
+f 4 10 6
+f 6 10 11
+f 6 11 7
+f 10 8 9
+f 10 9 11
 
-#trinormal 0 2 1
-#trinormal 2 3 1
-#trinormal 0 1 4
-#trinormal 1 5 4
-#trinormal 3 5 1
-#trinormal 3 7 5
-#trinormal 0 4 6
-#trinormal 0 6 2
-#trinormal 2 6 7
-#trinormal 2 7 3
-#trinormal 6 4 5
-#trinormal 6 5 7
+#fnormal 0 2 1
+#fnormal 2 3 1
+#fnormal 0 1 4
+#fnormal 1 5 4
+#fnormal 3 5 1
+#fnormal 3 7 5
+#fnormal 0 4 6
+#fnormal 0 6 2
+#fnormal 2 6 7
+#fnormal 2 7 3
+#fnormal 6 4 5
+#fnormal 6 5 7
 popTransform
 
 popTransform

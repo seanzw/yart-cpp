@@ -1,4 +1,12 @@
 
+%top{
+
+// Avoid stdint.h redefinition warning.
+#include <cstdint>
+
+}
+
+
 %{
 
 #include <string>
@@ -40,8 +48,8 @@ output			{ return OUTPUT;		}
 camera			{ return CAMERA;		}
 maxverts		{ return MAXVERTS;		}
 maxvertnorms	{ return MAXVERTNORMS;	}
-vertex			{ return VERTEX;		}
-tri				{ return TRI;			}
+v				{ return VERTEX;		}
+f				{ return TRI;			}
 sphere			{ return SPHERE;		}
 translate		{ return TRANSLATE;		}
 scale			{ return SCALE;			}
