@@ -2,32 +2,20 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
-#include <stack>
 #include <thread>
 
 #include "RayTracer.h"
-#include "FreeImage\FreeImage.h"
-#include "glm\glm.hpp"
 
-#include "DirectionalLight.h"
-#include "Transform.h"
-#include "PointLight.h"
-#include "Triangle.h"
-#include "Sphere.h"
-#include "OCTree.h"
 
 using namespace glm;
 
-RayTracer::RayTracer(const string &fn) : scene(objs) {
-    ifstream f(fn);
+RayTracer::RayTracer(const string &fn) {
+	scene = shared_ptr<Scene>(new Scene());
 
     // Set some default value
-    this->camera = NULL;
-    this->film = NULL;
     width = 80;
     height = 60;
     recurdepth = 5;
-    useTree = false;
     outfn = "raytracer.png";
 
 	transforms.push(mat4(1.0f));
@@ -116,8 +104,7 @@ Hit RayTracer::intersect(const Ray &r) const {
     hit.t = CONST_FAR;
 
     // Get the intersection.
-    const vector<Object*> &scene = useTree ? trees : objs;
-    for (const auto &obj : scene) {
+    for (const auto &obj : scene->getObjs()) {
         Hit temp = obj->intersect(r);
         if (temp.t < hit.t) {
             hit = temp;
@@ -149,7 +136,7 @@ vec3 RayTracer::trace(const Ray &r, int level) {
     // Diffuse and specular for each light.
     vec3 diffuse = vec3(0.0f);
     vec3 specular = vec3(0.0f);
-    for (const auto &light : lights) {
+    for (const auto &light : scene->lights) {
 
         // Get the shadow ray and the distance to the light.
         float distanceToLight;
@@ -191,20 +178,5 @@ vec3 RayTracer::trace(const Ray &r, int level) {
 }
 
 RayTracer::~RayTracer() {
-    delete camera;
-    camera = NULL;
-    delete film;
-    film = NULL;
-    for (auto &light : lights) {
-        delete light;
-        light = NULL;
-    }
-    for (auto &obj : objs) {
-        delete obj;
-        obj = NULL;
-    }
-    for (auto &tree : trees) {
-        delete tree;
-        tree = NULL;
-    }
+
 }

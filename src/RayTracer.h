@@ -15,6 +15,8 @@
 #include "Sphere.h"
 #include "OCTree.h"
 
+#include "Scene.h"
+
 using namespace std;
 
 class RayTracer {
@@ -26,25 +28,25 @@ public:
     void rinse();
 
 	/* API for yyac parser. */
-	void yart_size(int width, int height) {
+	void yartSize(int width, int height) {
 		if (film != NULL) {
 			cerr << "ERROR: Can't have more than one size." << endl;
 			exit(1);
 		}
 		this->width = width;
 		this->height = height;
-		this->film = new Film(width, height);
+		this->film = shared_ptr<Film>(new Film(width, height));
 	}
 
-	void yart_maxdepth(int depth) {
+	void yartMaxDepth(int depth) {
 		recurdepth = depth;
 	}
 
-	void yart_output(const string &s) {
+	void yartOutput(const string &s) {
 		outfn = s;
 	}
 
-	void yart_camera(const vec3 &eye,
+	void yartCamera(const vec3 &eye,
 		const vec3 &center,
 		const vec3 &up,
 		float fov_degree) {
@@ -52,39 +54,39 @@ public:
 			cerr << "ERROR: Can't have more than one camera." << endl;
 			exit(1);
 		}
-		this->camera = new Camera(eye, center, up, radians(fov_degree), width, height);
+		this->camera = shared_ptr<Camera>(new Camera(eye, center, up, radians(fov_degree), width, height));
 	}
 
-	void yart_vertex(const vec3 &v) {
+	void yartVertex(const vec3 &v) {
 		vec3 v_transformed = applyMatrix(this->transforms.top(), v);
 		this->vbuffer.push_back(v_transformed);
 	}
 
-	void yart_tri(int id1, int id2, int id3) {
+	void yartTri(int id1, int id2, int id3) {
 		vec3 v1 = vbuffer[id1];
 		vec3 v2 = vbuffer[id2];
 		vec3 v3 = vbuffer[id3];
 		v1 = applyMatrix(transforms.top(), v1);
 		v2 = applyMatrix(transforms.top(), v2);
 		v3 = applyMatrix(transforms.top(), v3);
-		this->objs.push_back(new Triangle(m, v1, v2, v3));
+		scene->objs.push_back(shared_ptr<Object>(new Triangle(m, v1, v2, v3)));
 	}
 
-	void yart_sphere(const vec3 &center, float r) {
-		this->objs.push_back(new Sphere(m, center, r, transforms.top()));
+	void yartSphere(const vec3 &center, float r) {
+		scene->objs.push_back(shared_ptr<Object>(new Sphere(m, center, r, transforms.top())));
 	}
 
-	void yart_translate(float s1, float s2, float s3) {
+	void yartTranslate(float s1, float s2, float s3) {
 		mat4 translate_mat = Transform::translate(s1, s2, s3);
 		transforms.top() *= translate_mat;
 	}
 
-	void yart_scale(float s1, float s2, float s3) {
+	void yartScale(float s1, float s2, float s3) {
 		mat4 scale_mat = Transform::scale(s1, s2, s3);
 		transforms.top() *= scale_mat;
 	}
 
-	void yart_rotate(const vec3 &axis, float angle) {
+	void yartRotate(const vec3 &axis, float angle) {
 		mat3 rotate_mat = Transform::rotate(angle, axis);
 		transforms.top() *= mat4(vec4(rotate_mat[0], 0.0f),
 			vec4(rotate_mat[1], 0.0f),
@@ -92,11 +94,11 @@ public:
 			vec4(0.0f, 0.0f, 0.0f, 1.0f));
 	}
 
-	void yart_pushTransform() {
+	void yartPushTransform() {
 		transforms.push(transforms.top());
 	}
 
-	void yart_popTransform() {
+	void yartPopTransform() {
 		if (transforms.size() <= 1) {
 			cerr << "ERROR: Transform stack is empty.\n";
 			exit(1);
@@ -106,51 +108,51 @@ public:
 		}
 	}
 
-	void yart_directional(const vec3 &direction, const vec3 &color) {
-		lights.push_back(new DirectioalLight(color, direction));
+	void yartDirectional(const vec3 &direction, const vec3 &color) {
+		scene->lights.push_back(shared_ptr<Light>(new DirectioalLight(color, direction)));
 	}
 
-	void yart_point(vec3 &position, const vec3 &color) {
+	void yartPoint(vec3 &position, const vec3 &color) {
 		position = applyMatrix(transforms.top(), position);
-		lights.push_back(new PointLight(color, position, this->attenuation));
+		scene->lights.push_back(shared_ptr<Light>(new PointLight(color, position, this->attenuation)));
 	}
 
-	void yart_attenuation(const vec3 &a) {
+	void yartAttenuation(const vec3 &a) {
 		this->attenuation = a;
 	}
 
-	void yart_diffuse(const vec3 &d) {
+	void yartDiffuse(const vec3 &d) {
 		this->m.diffuse = d;
 	}
 
-	void yart_ambient(const vec3 &a) {
+	void yartAmbient(const vec3 &a) {
 		this->m.ambient = a;
 	}
 
-	void yart_specular(const vec3 &s) {
+	void yartSpecular(const vec3 &s) {
 		this->m.specular = s;
 	}
 
-	void yart_emission(const vec3 &e) {
+	void yartEmission(const vec3 &e) {
 		this->m.emission = e;
 	}
 
-	void yart_shininess(float s) {
+	void yartShininess(float s) {
 		this->m.shininess = s;
 	}
 
-	void yart_buildOCTree(int level) {
+	void yartBuildOCTree(int level) {
 		OCTree::MAX_LEVEL = level > 1 ? level : 1;
 		BBox b;
-		for (const auto obj : objs) {
+		for (const auto obj : scene->objs) {
 			b = b.merge(obj->getBBox());
 		}
 		vector<int> idx;
-		for (unsigned int i = 0; i < objs.size(); ++i) {
+		for (unsigned int i = 0; i < scene->objs.size(); ++i) {
 			idx.push_back(i);
 		}
-		trees.push_back(new OCTree(objs, b, idx, 0));
-		useTree = true;
+		scene->trees.push_back(shared_ptr<Object>(new OCTree(scene->objs, b, idx, 0)));
+		scene->useTree = true;
 	}
 
 
@@ -173,20 +175,14 @@ private:
     int width, height;
     int recurdepth;
     string outfn;
-    bool useTree;
 
-    Camera *camera;
-    vector<Light*> lights;
+	shared_ptr<Scene> scene;
+
+    shared_ptr<Camera> camera;
 
     vector<vec3> vbuffer;
-    //vector<pair<vec3, vec3> > vnbuffer;
 
-    vector<Object*> objs;
-    vector<Object *> trees;
-
-    vector<Object *> &scene;
-
-    Film *film;
+    shared_ptr<Film> film;
 };
 
 #endif

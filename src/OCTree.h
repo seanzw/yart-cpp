@@ -6,7 +6,7 @@
 
 class OCTree : public Object {
 public:
-    OCTree(const vector<Object*> &objs,
+    OCTree(const vector<shared_ptr<Object> > &objs,
         const BBox &boudingbox,
         const vector<int> &index,
         int level);
@@ -22,7 +22,7 @@ private:
     bool isLeaf;
     OCTree *left;
     OCTree *right;
-    const vector<Object*> &objs;
+    const vector<shared_ptr<Object> > &objs;
     vector<int> idx;
     BBox box;
 };

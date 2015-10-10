@@ -3,7 +3,7 @@
 
 int OCTree::MAX_LEVEL = 1;
 
-OCTree::OCTree(const vector<Object*> &objects,
+OCTree::OCTree(const vector<shared_ptr<Object> > &objects,
     const BBox &boudingbox,
     const vector<int> &index,
     int level

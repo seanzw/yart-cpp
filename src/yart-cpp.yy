@@ -61,18 +61,18 @@ yart_stmt_list: yart_stmt_list yart_stmt {
 
 yart_stmt: SIZE NUMBER NUMBER {
     DEBUG("PARSE SIZE %d, %d\n", (int)$2, (int)$3);
-	yart->yart_size((int)$2, (int)$3);
+	yart->yartSize((int)$2, (int)$3);
 }
 
 | MAXDEPTH NUMBER {
 	DEBUG("PARSE MAXDEPTH %d\n", (int)$2);
-	yart->yart_maxdepth((int)$2);
+	yart->yartMaxDepth((int)$2);
 }
 	
 | OUTPUT STR {
 	string outfn($2);
 	DEBUG("PARSE OUTPUT %s\n", outfn.c_str());
-	yart->yart_output(outfn);
+	yart->yartOutput(outfn);
 }
 
 | CAMERA NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
@@ -84,7 +84,7 @@ yart_stmt: SIZE NUMBER NUMBER {
                         center[0], center[1], center[2],
                         up[0], up[1], up[2],
                         $11);
-	yart->yart_camera(eye, center, up, $11);
+	yart->yartCamera(eye, center, up, $11);
 }
 
 | MAXVERTS NUMBER {
@@ -97,7 +97,7 @@ yart_stmt: SIZE NUMBER NUMBER {
 
 | VERTEX NUMBER NUMBER NUMBER {
 	vec3 v($2, $3, $4);
-	yart->yart_vertex(v);
+	yart->yartVertex(v);
 	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
 
@@ -105,42 +105,42 @@ yart_stmt: SIZE NUMBER NUMBER {
 	int id1 = (int)$2;
 	int id2 = (int)$3;
 	int id3 = (int)$4;
-	yart->yart_tri(id1, id2, id3);
+	yart->yartTri(id1, id2, id3);
 	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
 
 | SPHERE NUMBER NUMBER NUMBER NUMBER {
 	vec3 center($2, $3, $4);
-	yart->yart_sphere(center, $5);
+	yart->yartSphere(center, $5);
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], $5);
 }
 
 | TRANSLATE NUMBER NUMBER NUMBER {
-	yart->yart_translate($2, $3, $4);
+	yart->yartTranslate($2, $3, $4);
 }
 
 | SCALE NUMBER NUMBER NUMBER {
-	yart->yart_scale($2, $3, $4);
+	yart->yartScale($2, $3, $4);
 }
 
 | ROTATE NUMBER NUMBER NUMBER NUMBER {
 	vec3 axis($2, $3, $4);
-	yart->yart_rotate(axis, $5);
+	yart->yartRotate(axis, $5);
 }
 
 | PUSHTRANSFORM {
-	yart->yart_pushTransform();
+	yart->yartPushTransform();
 }
 
 | POPTRANSFORM {
-	yart->yart_popTransform();
+	yart->yartPopTransform();
 }
 
 | DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 	vec3 direction($2, $3, $4);
 	vec3 color($5, $6, $7);
-	yart->yart_directional(direction, color);
+	yart->yartDirectional(direction, color);
 	DEBUG("PARSE DIRECTIONAL d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
 		direction[0], direction[1], direction[2],
 		color[0], color[1], color[2]);
@@ -149,7 +149,7 @@ yart_stmt: SIZE NUMBER NUMBER {
 | POINT NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 	vec3 direction($2, $3, $4);
 	vec3 color($5, $6, $7);
-	yart->yart_point(direction, color);
+	yart->yartPoint(direction, color);
 	DEBUG("PARSE POINT  d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
 		direction[0], direction[1], direction[2],
 		color[0], color[1], color[2]);
@@ -157,39 +157,39 @@ yart_stmt: SIZE NUMBER NUMBER {
 
 | ATTENUATION NUMBER NUMBER NUMBER {
 	vec3 a($2, $3, $4);
-	yart->yart_attenuation(a);
+	yart->yartAttenuation(a);
 }
 
 | DIFFUSE NUMBER NUMBER NUMBER {
 	vec3 a($2, $3, $4);
-	yart->yart_diffuse(a);
+	yart->yartDiffuse(a);
 	DEBUG("PARSE DIFFUSE %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 
 | AMBIENT NUMBER NUMBER NUMBER {
 	vec3 a($2, $3, $4);
-	yart->yart_ambient(a);
+	yart->yartAmbient(a);
 	DEBUG("PARSE AMBIENT %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 
 | SPECULAR NUMBER NUMBER NUMBER {
 	vec3 a($2, $3, $4);
-	yart->yart_specular(a);
+	yart->yartSpecular(a);
 	DEBUG("PARSE SPECULAR %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 
 | EMISSION NUMBER NUMBER NUMBER {
 	vec3 a($2, $3, $4);
-	yart->yart_emission(a);
+	yart->yartEmission(a);
 	DEBUG("PARSE EMISSION %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 
 | SHININESS NUMBER {
-	yart->yart_shininess($2);
+	yart->yartShininess($2);
 }
 
 | BUILDOCTREE NUMBER {
-	yart->yart_buildOCTree((int)$2);
+	yart->yartBuildOCTree((int)$2);
 };
 
 

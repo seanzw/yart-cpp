@@ -1313,7 +1313,7 @@ yyreduce:
 #line 62 "yart-cpp.yy" /* yacc.c:1646  */
     {
     DEBUG("PARSE SIZE %d, %d\n", (int)(yyvsp[-1].num), (int)(yyvsp[0].num));
-	yart->yart_size((int)(yyvsp[-1].num), (int)(yyvsp[0].num));
+	yart->yartSize((int)(yyvsp[-1].num), (int)(yyvsp[0].num));
 }
 #line 1319 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1322,7 +1322,7 @@ yyreduce:
 #line 67 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	DEBUG("PARSE MAXDEPTH %d\n", (int)(yyvsp[0].num));
-	yart->yart_maxdepth((int)(yyvsp[0].num));
+	yart->yartMaxDepth((int)(yyvsp[0].num));
 }
 #line 1328 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1332,7 +1332,7 @@ yyreduce:
     {
 	string outfn((yyvsp[0].string));
 	DEBUG("PARSE OUTPUT %s\n", outfn.c_str());
-	yart->yart_output(outfn);
+	yart->yartOutput(outfn);
 }
 #line 1338 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1348,7 +1348,7 @@ yyreduce:
                         center[0], center[1], center[2],
                         up[0], up[1], up[2],
                         (yyvsp[0].num));
-	yart->yart_camera(eye, center, up, (yyvsp[0].num));
+	yart->yartCamera(eye, center, up, (yyvsp[0].num));
 }
 #line 1354 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1373,7 +1373,7 @@ yyreduce:
 #line 98 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 v((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_vertex(v);
+	yart->yartVertex(v);
 	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
 #line 1380 "yart-cpp.tab.cc" /* yacc.c:1646  */
@@ -1385,7 +1385,7 @@ yyreduce:
 	int id1 = (int)(yyvsp[-2].num);
 	int id2 = (int)(yyvsp[-1].num);
 	int id3 = (int)(yyvsp[0].num);
-	yart->yart_tri(id1, id2, id3);
+	yart->yartTri(id1, id2, id3);
 	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
 #line 1392 "yart-cpp.tab.cc" /* yacc.c:1646  */
@@ -1395,7 +1395,7 @@ yyreduce:
 #line 112 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 center((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
-	yart->yart_sphere(center, (yyvsp[0].num));
+	yart->yartSphere(center, (yyvsp[0].num));
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], (yyvsp[0].num));
 }
@@ -1405,7 +1405,7 @@ yyreduce:
   case 14:
 #line 119 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yart_translate((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
+	yart->yartTranslate((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
 #line 1411 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1413,7 +1413,7 @@ yyreduce:
   case 15:
 #line 123 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yart_scale((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
+	yart->yartScale((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
 #line 1419 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1422,7 +1422,7 @@ yyreduce:
 #line 127 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 axis((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
-	yart->yart_rotate(axis, (yyvsp[0].num));
+	yart->yartRotate(axis, (yyvsp[0].num));
 }
 #line 1428 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1430,7 +1430,7 @@ yyreduce:
   case 17:
 #line 132 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yart_pushTransform();
+	yart->yartPushTransform();
 }
 #line 1436 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1438,7 +1438,7 @@ yyreduce:
   case 18:
 #line 136 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yart_popTransform();
+	yart->yartPopTransform();
 }
 #line 1444 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1448,7 +1448,7 @@ yyreduce:
     {
 	vec3 direction((yyvsp[-5].num), (yyvsp[-4].num), (yyvsp[-3].num));
 	vec3 color((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_directional(direction, color);
+	yart->yartDirectional(direction, color);
 	DEBUG("PARSE DIRECTIONAL d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
 		direction[0], direction[1], direction[2],
 		color[0], color[1], color[2]);
@@ -1461,7 +1461,7 @@ yyreduce:
     {
 	vec3 direction((yyvsp[-5].num), (yyvsp[-4].num), (yyvsp[-3].num));
 	vec3 color((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_point(direction, color);
+	yart->yartPoint(direction, color);
 	DEBUG("PARSE POINT  d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
 		direction[0], direction[1], direction[2],
 		color[0], color[1], color[2]);
@@ -1473,7 +1473,7 @@ yyreduce:
 #line 158 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_attenuation(a);
+	yart->yartAttenuation(a);
 }
 #line 1479 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1482,7 +1482,7 @@ yyreduce:
 #line 163 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_diffuse(a);
+	yart->yartDiffuse(a);
 	DEBUG("PARSE DIFFUSE %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 #line 1489 "yart-cpp.tab.cc" /* yacc.c:1646  */
@@ -1492,7 +1492,7 @@ yyreduce:
 #line 169 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_ambient(a);
+	yart->yartAmbient(a);
 	DEBUG("PARSE AMBIENT %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 #line 1499 "yart-cpp.tab.cc" /* yacc.c:1646  */
@@ -1502,7 +1502,7 @@ yyreduce:
 #line 175 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_specular(a);
+	yart->yartSpecular(a);
 	DEBUG("PARSE SPECULAR %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 #line 1509 "yart-cpp.tab.cc" /* yacc.c:1646  */
@@ -1512,7 +1512,7 @@ yyreduce:
 #line 181 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yart_emission(a);
+	yart->yartEmission(a);
 	DEBUG("PARSE EMISSION %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
 #line 1519 "yart-cpp.tab.cc" /* yacc.c:1646  */
@@ -1521,7 +1521,7 @@ yyreduce:
   case 26:
 #line 187 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yart_shininess((yyvsp[0].num));
+	yart->yartShininess((yyvsp[0].num));
 }
 #line 1527 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
@@ -1529,7 +1529,7 @@ yyreduce:
   case 27:
 #line 191 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yart_buildOCTree((int)(yyvsp[0].num));
+	yart->yartBuildOCTree((int)(yyvsp[0].num));
 }
 #line 1535 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
