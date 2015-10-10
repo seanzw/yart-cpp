@@ -15,7 +15,6 @@ RayTracer::RayTracer(const string &fn) {
     // Set some default value
     width = 80;
     height = 60;
-    recurdepth = 5;
     outfn = "raytracer.png";
 
 	transforms.push(mat4(1.0f));
@@ -82,7 +81,7 @@ void RayTracer::generate_one_thread(int row_init, int row_step) {
     for (int row = row_init; row < height; row += row_step) {
         for (int col = 0; col < width; ++col) {
             Ray ray = this->camera->genRay(row, col);
-            vec3 color = trace(ray, 0);
+			vec3 color = integrator->income(ray, scene);
             color = clamp(color, 0.0f, 1.0f);
             film->expose(color, row, col);
 
@@ -97,84 +96,6 @@ void RayTracer::generate_one_thread(int row_init, int row_step) {
 
 void RayTracer::rinse() {
     film->rinse(outfn);
-}
-
-Hit RayTracer::intersect(const Ray &r) const {
-    Hit hit;
-    hit.t = CONST_FAR;
-
-    // Get the intersection.
-    for (const auto &obj : scene->getObjs()) {
-        Hit temp = obj->intersect(r);
-        if (temp.t < hit.t) {
-            hit = temp;
-        }
-    }
-
-    return hit;
-}
-
-vec3 RayTracer::trace(const Ray &r, int level) {
-
-    // Initialize default value.
-    vec3 ret = vec3(0.0f);
-
-    // Find the intersect.
-    Hit hit = intersect(r);
-
-    // Is there intersection?
-    if (hit.t >= CONST_FAR) {
-        return ret;
-    }
-
-    // Ambient.
-    ret += hit.m.ambient;
-
-    // Emission.
-    ret += hit.m.emission;
-
-    // Diffuse and specular for each light.
-    vec3 diffuse = vec3(0.0f);
-    vec3 specular = vec3(0.0f);
-    for (const auto &light : scene->lights) {
-
-        // Get the shadow ray and the distance to the light.
-        float distanceToLight;
-        Ray shadowRay = light->genShadowRay(hit.point, &distanceToLight);
-
-        // Use the shadow ray to find intersect.
-        Hit shadowHit = intersect(shadowRay);
-
-        // Is the light blocked£¿
-        if (shadowHit.t < distanceToLight) {
-            continue;
-        }
-
-        // Get the light color.
-        vec3 lightColor = light->getColor(distanceToLight);
-
-        // Calculate the diffuse term.
-        diffuse += lightColor * hit.m.diffuse * max(0.0f, dot(hit.normal, shadowRay.d));
-        
-        // Specular.
-        vec3 half = normalize(shadowRay.d - r.d);
-        specular += lightColor * hit.m.specular * powf(max(0.0f, dot(hit.normal, half)), hit.m.shininess);
-        
-    }
-    ret += diffuse;
-    ret += specular;
-
-    // Mirror reflection
-    if (level < recurdepth - 1) {
-
-        // Mirror the incoming ray.
-        vec3 reflectDirection = reflect(r.d, hit.normal);
-        Ray reflectRay(hit.point, reflectDirection);
-        vec3 specularColor = trace(reflectRay, level + 1);
-        ret += hit.m.specular * specularColor;
-    }
-
-    return ret;
 }
 
 RayTracer::~RayTracer() {

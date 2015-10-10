@@ -116,6 +116,7 @@
   <ItemGroup>
     <ClCompile Include="src\BBox.cpp" />
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\DirectLightIntegrator.cpp" />
     <ClCompile Include="src\Film.cpp" />
     <ClCompile Include="src\lex.yy.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -132,7 +133,9 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
     <ClInclude Include="src\DirectionalLight.h" />
+    <ClInclude Include="src\DirectLightIntegrator.h" />
     <ClInclude Include="src\Film.h" />
+    <ClInclude Include="src\Integrator.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\OCTree.h" />

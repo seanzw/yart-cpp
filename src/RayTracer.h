@@ -16,6 +16,7 @@
 #include "OCTree.h"
 
 #include "Scene.h"
+#include "DirectLightIntegrator.h"
 
 using namespace std;
 
@@ -38,8 +39,10 @@ public:
 		this->film = shared_ptr<Film>(new Film(width, height));
 	}
 
-	void yartMaxDepth(int depth) {
-		recurdepth = depth;
+	void yartIntegrator(const string &type, int maxDepth) {
+		if (type == "DirectLight") {
+			integrator = shared_ptr<Integrator>(new DirectLightIntegrator(maxDepth));
+		}
 	}
 
 	void yartOutput(const string &s) {
@@ -166,15 +169,14 @@ private:
     // HELPER FUNCTIONS.
     void readvalues(stringstream &s, int n, float *values);
     void showProgress(int row, int col);
-    Hit intersect(const Ray &r) const;
 
     void generate_one_thread(int row_init, int row_step);
-    vec3 trace(const Ray &r, int level);
 
     // DATA.
     int width, height;
-    int recurdepth;
     string outfn;
+
+	shared_ptr<Integrator> integrator;
 
 	shared_ptr<Scene> scene;
 

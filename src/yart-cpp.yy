@@ -22,7 +22,7 @@ void yyerror(const std::string &s);
 %token STR
 %type <string> STR
 %token SIZE
-%token MAXDEPTH
+%token INTEGRATOR
 %token OUTPUT
 %token CAMERA
 %token MAXVERTS
@@ -64,9 +64,10 @@ yart_stmt: SIZE NUMBER NUMBER {
 	yart->yartSize((int)$2, (int)$3);
 }
 
-| MAXDEPTH NUMBER {
-	DEBUG("PARSE MAXDEPTH %d\n", (int)$2);
-	yart->yartMaxDepth((int)$2);
+| INTEGRATOR STR NUMBER {
+	DEBUG("PARSE INTEGRATOR %s %d\n", $2, (int)$3);
+	string integrator($2);
+	yart->yartIntegrator(integrator, (int)$3);
 }
 	
 | OUTPUT STR {

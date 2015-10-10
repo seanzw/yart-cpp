@@ -86,8 +86,7 @@ mat4 Transform::translate(const float &tx, const float &ty, const float &tz) {
     return ret;
 }
 
-vec3 Transform::upvector(const vec3 &up, const vec3 & zvec)
-{
+vec3 Transform::upvector(const vec3 &up, const vec3 & zvec) {
     vec3 x = cross(up, zvec);
     vec3 y = cross(zvec, x);
     vec3 ret = normalize(y);
@@ -95,12 +94,10 @@ vec3 Transform::upvector(const vec3 &up, const vec3 & zvec)
 }
 
 
-Transform::Transform()
-{
+Transform::Transform() {
 
 }
 
-Transform::~Transform()
-{
+Transform::~Transform() {
 
 }

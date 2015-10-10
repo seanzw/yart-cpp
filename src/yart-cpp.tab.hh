@@ -48,7 +48,7 @@ extern int yydebug;
     NUMBER = 258,
     STR = 259,
     SIZE = 260,
-    MAXDEPTH = 261,
+    INTEGRATOR = 261,
     OUTPUT = 262,
     CAMERA = 263,
     MAXVERTS = 264,

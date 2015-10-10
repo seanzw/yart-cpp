@@ -35,7 +35,7 @@ Number      [-+]?([0-9]+|(([0-9]+\.[0-9]*)|(\.[0-9]+)))([eE][-+]?[0-9]+)?
 <COMMENT>\n { BEGIN INITIAL; }
 
 size			{ return SIZE;			}
-maxdepth		{ return MAXDEPTH;		}
+integrator		{ return INTEGRATOR;	}
 output			{ return OUTPUT;		}
 camera			{ return CAMERA;		}
 maxverts		{ return MAXVERTS;		}
