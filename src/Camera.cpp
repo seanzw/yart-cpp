@@ -14,9 +14,9 @@ Camera::Camera(const vec3 &eye,
     x = cross(y, z);
 }
 
-Ray Camera::genRay(int row, int col) {
-    float r = (((float)row + 0.5f) / h - 0.5f) * 2.0f * tantheta;
-    float c = (((float)col + 0.5f) / w - 0.5f) * 2.0f * tantheta * w / h;
+Ray Camera::genRay(float row, float col) {
+    float r = ((row) / h - 0.5f) * 2.0f * tantheta;
+    float c = ((col) / w - 0.5f) * 2.0f * tantheta * w / h;
     vec3 direction = normalize(c * x + r * y - z);
     return Ray(e, direction);
 }

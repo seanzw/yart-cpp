@@ -29,6 +29,7 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %type <string> STR
 %token SIZE
 %token INTEGRATOR
+%token PIXELSAMPLER
 %token OUTPUT
 %token INCLUDE
 %token CAMERA
@@ -76,6 +77,12 @@ yart_stmt: SIZE NUMBER NUMBER {
 	string integrator($2);
 	yart->yartIntegrator(integrator, (int)$3);
 }
+
+| PIXELSAMPLER STR NUMBER {
+	DEBUG("PARSE PIXELSAMPLER %s %d\n", $2, (int)$3);
+	string pixelSampler($2);
+	yart->yartPixelSampler(pixelSampler, (int)$3);
+}
 	
 | OUTPUT STR {
 	string outfn($2);
@@ -110,7 +117,7 @@ yart_stmt: SIZE NUMBER NUMBER {
 | VERTEX NUMBER NUMBER NUMBER {
 	vec3 v($2, $3, $4);
 	yart->yartVertex(v);
-	DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
+	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
 
 | TRI NUMBER NUMBER NUMBER {
@@ -122,7 +129,7 @@ yart_stmt: SIZE NUMBER NUMBER {
 		id1--; id2--; id3--;
 	}
 	yart->yartTri(id1, id2, id3);
-	DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
+	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
 
 | SPHERE NUMBER NUMBER NUMBER NUMBER {

@@ -123,6 +123,7 @@ Number      [-+]?([0-9]+|(([0-9]+\.[0-9]*)|(\.[0-9]+)))([eE][-+]?[0-9]+)?
 
 size			{ return SIZE;			}
 integrator		{ return INTEGRATOR;	}
+pixelSampler	{ return PIXELSAMPLER;	}
 output			{ return OUTPUT;		}
 include			{ return INCLUDE;		}	
 camera			{ return CAMERA;		}

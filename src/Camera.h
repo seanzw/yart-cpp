@@ -14,7 +14,7 @@ public:
         );
     ~Camera() {}
 
-    Ray genRay(int row, int col);
+    Ray genRay(float row, float col);
     
 private:
     vec3 e, x, y, z;

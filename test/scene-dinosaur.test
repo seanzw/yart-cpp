@@ -1,0 +1,31 @@
+# Test Scene 1 
+# A simple quad viewed from different camera positions
+
+size 480 1000
+output "outputs/dinosaur.png"
+
+integrator "DirectLight" 5
+
+# Now specify the camera.  This is what you should implement.
+# This file has 4 camera positions.  Render your scene for all 4.
+
+camera 0 -20 150 0 -20 0 0 1 0 60
+#camera 0 -3 3 0 0 0 0 1 0 30
+#camera -4 0 1 0 0 1 0 0 1 45
+#camera -4 -4 4 1 0 0 0 1 0 30
+
+# lighting/material definitions
+# for initial testing, you should get the geometry right
+# you may want to use dummy (constant) shading, ignoring these lines
+
+ambient 0.1 .1 .1
+directional 0 0 100 .5 .5 .5 
+point 100 0 100 .5 .5 .5
+diffuse 0 0 1 
+specular 0.3 0.3 0.3
+
+scale 1.0 1.0 1.0
+# Test include.
+include "objs/dinosaur.2k.obj"
+
+buildOCTree 8

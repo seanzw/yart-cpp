@@ -1,9 +1,10 @@
 #Cornell Box
 size 640 480
 camera 0 0 1 0 0 -1 0 1 0 45
-output "scene6.png"
+output "scene6-16eye.png"
 
 integrator "DirectLight" 5
+pixelSampler "UniformPixelSampler" 4
 
 maxverts 12
 #planar face

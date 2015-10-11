@@ -49,28 +49,29 @@ extern int yydebug;
     STR = 259,
     SIZE = 260,
     INTEGRATOR = 261,
-    OUTPUT = 262,
-    INCLUDE = 263,
-    CAMERA = 264,
-    MAXVERTS = 265,
-    MAXVERTNORMS = 266,
-    VERTEX = 267,
-    TRI = 268,
-    SPHERE = 269,
-    TRANSLATE = 270,
-    SCALE = 271,
-    ROTATE = 272,
-    PUSHTRANSFORM = 273,
-    POPTRANSFORM = 274,
-    DIRECTIONAL = 275,
-    POINT = 276,
-    ATTENUATION = 277,
-    DIFFUSE = 278,
-    AMBIENT = 279,
-    SPECULAR = 280,
-    EMISSION = 281,
-    SHININESS = 282,
-    BUILDOCTREE = 283
+    PIXELSAMPLER = 262,
+    OUTPUT = 263,
+    INCLUDE = 264,
+    CAMERA = 265,
+    MAXVERTS = 266,
+    MAXVERTNORMS = 267,
+    VERTEX = 268,
+    TRI = 269,
+    SPHERE = 270,
+    TRANSLATE = 271,
+    SCALE = 272,
+    ROTATE = 273,
+    PUSHTRANSFORM = 274,
+    POPTRANSFORM = 275,
+    DIRECTIONAL = 276,
+    POINT = 277,
+    ATTENUATION = 278,
+    DIFFUSE = 279,
+    AMBIENT = 280,
+    SPECULAR = 281,
+    EMISSION = 282,
+    SHININESS = 283,
+    BUILDOCTREE = 284
   };
 #endif
 
@@ -84,7 +85,7 @@ union YYSTYPE
     char string[1024];
     float num;
 
-#line 88 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 89 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

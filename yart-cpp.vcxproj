@@ -126,6 +126,7 @@
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
+    <ClCompile Include="src\UniformPixelSampler.cpp" />
     <ClCompile Include="src\yart-cpp.tab.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -142,9 +143,11 @@
     <ClInclude Include="src\PointLight.h" />
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\RayTracer.h" />
+    <ClInclude Include="src\Sampler.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Triangle.h" />
+    <ClInclude Include="src\UniformPixelSampler.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Makefile" />
