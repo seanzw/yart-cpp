@@ -17,3 +17,16 @@ This program depends on FreeImage to store the image amd glm for linear algebra.
 ```
 > yart-cpp.exe scene.yart
 ```
+
+####Features
+#####Pixel Sampler
+Currently yart support the following pixel samplers:
+- Uniform sampler
+For example, to use a 4 by 4 uniform pixel sampler, type the following line in the script.
+```
+pixelSampler "UniformPixelSampler" 4
+```
+
+#####Integrator
+Currently yart support the following integrators:
+- DirectLight
