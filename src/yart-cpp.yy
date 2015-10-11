@@ -31,6 +31,8 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %token INTEGRATOR
 %token PIXELSAMPLER
 %token OUTPUT
+%token OBJBEGIN
+%token OBJEND
 %token INCLUDE
 %token CAMERA
 %token MAXVERTS
@@ -92,6 +94,15 @@ yart_stmt: SIZE NUMBER NUMBER {
 
 | INCLUDE STR {
 	include_push($2);
+}
+
+| OBJBEGIN STR {
+	string type($2);
+	yart->yartObjBegin(type);
+}
+
+| OBJEND {
+	yart->yartObjEnd();
 }
 
 | CAMERA NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {

@@ -6,10 +6,12 @@
 
 class OCTree : public Object {
 public:
-    OCTree(const vector<shared_ptr<Object> > &objs,
+    OCTree(const vector<unique_ptr<Object> > &objs,
         const BBox &boudingbox,
         const vector<int> &index,
         int level);
+
+	
     ~OCTree();
 
     static int MAX_LEVEL;
@@ -22,7 +24,7 @@ private:
     bool isLeaf;
     OCTree *left;
     OCTree *right;
-    const vector<shared_ptr<Object> > &objs;
+    const vector<unique_ptr<Object> > &objs;
     vector<int> idx;
     BBox box;
 };

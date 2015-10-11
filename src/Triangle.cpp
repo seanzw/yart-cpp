@@ -2,10 +2,11 @@
 #include "BBox.h"
 
 Triangle::Triangle(const Material &material,
-    const vec3 &vertex1, const vec3 & vertex2, const vec3 & vertex3) :
-    m(material), v1(vertex1), v2(vertex2), v3(vertex3) {
-    vec3 edge1 = v2 - v1;
-    vec3 edge2 = v3 - v2;
+	int idx1, int idx2, int idx3,
+	const vector<vec3> &vBuffer
+	) : m(material), v(vBuffer), id1(idx1), id2(idx2), id3(idx3) {
+    vec3 edge1 = v[id2] - v[id1];
+    vec3 edge2 = v[id3] - v[id2];
     n = normalize(cross(edge1, edge2));
 }
 
@@ -14,8 +15,8 @@ Hit Triangle::intersect(const Ray &r) const {
 
     ret.t = CONST_FAR;
 
-    vec3 edge1 = v2 - v1;
-    vec3 edge2 = v3 - v1;
+    vec3 edge1 = v[id2] - v[id1];
+    vec3 edge2 = v[id3] - v[id1];
 
     vec3 pvec = cross(r.d, edge2);
     float det = dot(edge1, pvec);
@@ -24,7 +25,7 @@ Hit Triangle::intersect(const Ray &r) const {
         return ret;
     } else {
         float inv_det = 1.0f / det;
-        vec3 tvec = r.o - v1;
+        vec3 tvec = r.o - v[id1];
         float u = dot(tvec, pvec) * inv_det;
 
         if (u < 0.0f || u > 1.0f) {
@@ -55,43 +56,43 @@ Hit Triangle::intersect(const Ray &r) const {
 }
 
 BBox Triangle::getBBox() const {
-    return BBox(min(v1, min(v2, v3)) - vec3(CONST_NEAR), max(v1, max(v2, v3)) + vec3(CONST_NEAR));
+    return BBox(min(v[id1], min(v[id2], v[id3])) - vec3(CONST_NEAR), max(v[id1], max(v[id2], v[id3])) + vec3(CONST_NEAR));
 }
 
 int Triangle::intersectBBox(const BBox &box) const {
-    if (box.vertexInside(v1) ||
-        box.vertexInside(v2) ||
-        box.vertexInside(v3)) {
+    if (box.vertexInside(v[id1]) ||
+        box.vertexInside(v[id2]) ||
+        box.vertexInside(v[id3])) {
         return 1;
     }
 
-    if (box.triangleOutsideSlash(v1, v2, v3)) {
+    if (box.triangleOutsideSlash(v[id1], v[id2], v[id3])) {
         return -1;
     }
 
     // edge test.
     Hit ret;
 
-    vec3 e1 = v2 - v1;
+    vec3 e1 = v[id2] - v[id1];
     float t1 = length(e1);
     vec3 d1 = normalize(e1);
-    ret = box.intersect(Ray(v1, d1));
+    ret = box.intersect(Ray(v[id1], d1));
     if (ret.t < t1) {
         return 1;
     }
 
-    vec3 e2 = v3 - v1;
+    vec3 e2 = v[id3] - v[id1];
     float t2 = length(e2);
     vec3 d2 = normalize(e2);
-    ret = box.intersect(Ray(v1, d2));
+    ret = box.intersect(Ray(v[id1], d2));
     if (ret.t < t2) {
         return 1;
     }
 
-    vec3 e3 = v3 - v2;
+    vec3 e3 = v[id3] - v[id2];
     float t3 = length(e3);
     vec3 d3 = normalize(e3);
-    ret = box.intersect(Ray(v2, d3));
+    ret = box.intersect(Ray(v[id2], d3));
     if (ret.t < t3) {
         return 1;
     }

@@ -28,6 +28,8 @@ public:
 	void yartIntegrator(const string &type, int maxDepth);
 	void yartPixelSampler(const string &type, int num);
 	void yartOutput(const string &s);
+	void yartObjBegin(const string &s);
+	void yartObjEnd();
 	void yartCamera(const vec3 &eye,
 		const vec3 &center,
 		const vec3 &up,

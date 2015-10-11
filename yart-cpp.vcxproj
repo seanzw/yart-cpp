@@ -120,9 +120,11 @@
     <ClCompile Include="src\Film.cpp" />
     <ClCompile Include="src\lex.yy.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\OCTree.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
     <ClCompile Include="src\RayTracer.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
@@ -138,6 +140,7 @@
     <ClInclude Include="src\Film.h" />
     <ClInclude Include="src\Integrator.h" />
     <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\OCTree.h" />
     <ClInclude Include="src\PointLight.h" />

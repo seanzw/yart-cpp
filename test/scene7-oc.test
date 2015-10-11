@@ -11,9 +11,12 @@ shininess 20
 specular 0.3 0.3 0.3
 
 integrator "DirectLight" 5
+pixelSampler "UniformPixelSampler" 1
 
 maxverts 50001
-
+objBegin "Mesh"
+pushTransform
+translate 0 -5 0
 v 0 0 0
 v  1.6831 3.0852 -0.9792
 v  1.7310 3.1590 -0.9106
@@ -50017,8 +50020,6 @@ v  5.0126 3.9222 0.2961
 v  -4.0968 7.6150 1.1201
 # 50000 vertices
 
-pushTransform
-translate 0 -5 0
 f 1 2 3 
 f 4 5 6 
 f 7 8 9 
@@ -150022,3 +150023,4 @@ f 29825 42257 47438
 
 popTransform
 buildOCTree 8
+objEnd

@@ -4,8 +4,9 @@
 #include "Object.h"
 class Triangle : public Object {
 public:
-    Triangle(const Material &m,
-        const vec3 & vertex1, const vec3 & vertex2, const vec3 & vertex3
+	Triangle(const Material &m,
+		int id1, int id2, int id3,
+		const vector<vec3> &vBuffer
         );
     virtual ~Triangle() {}
 
@@ -14,7 +15,9 @@ public:
     virtual int intersectBBox(const BBox &box) const;
 
 private:
-    vec3 v1, v2, v3;
+    // vec3 v1, v2, v3;
+	int id1, id2, id3;
+	const vector<vec3> &v;
     vec3 n;
     Material m;
 };

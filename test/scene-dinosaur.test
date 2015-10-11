@@ -27,6 +27,7 @@ specular 0.3 0.3 0.3
 
 scale 1.0 1.0 1.0
 # Test include.
+objBegin "Mesh"
 include "objs/dinosaur.2k.obj"
-
 buildOCTree 8
+objEnd

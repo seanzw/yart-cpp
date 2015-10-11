@@ -7,22 +7,6 @@ integrator "DirectLight" 5
 pixelSampler "UniformPixelSampler" 4
 
 maxverts 12
-#planar face
-v -1 +1 0
-v -1 -1 0
-v +1 -1 0
-v +1 +1 0
-
-#cube
-v -1 +1 +1
-v +1 +1 +1
-v -1 -1 +1
-v +1 -1 +1
-
-v -1 +1 -1
-v +1 +1 -1
-v -1 -1 -1
-v +1 -1 -1
 
 
 ambient 0 0 0
@@ -43,57 +27,88 @@ diffuse 0 0 1
 pushTransform
 
 #red
+objBegin "Mesh"
 pushTransform
 translate 0 0 -3
 rotate 0 1 0 60
 scale 10 10 1
 diffuse 1 0 0
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
 f 0 1 2
 f 0 2 3
 popTransform
+objEnd
 
 #green
+objBegin "Mesh"
 pushTransform
 translate 0 0 -3
 rotate 0 1 0 -60
 scale 10 10 1
 diffuse 0 1 0
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
 f 0 1 2
 f 0 2 3
 popTransform
+objEnd
 
 #back
+objBegin "Mesh"
 pushTransform
 scale 10 10 1
 translate 0 0 -2
 diffuse 1 1 1
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
 f 0 1 2
 f 0 2 3
 popTransform
+objEnd
 
 #top
+objBegin "Mesh"
 pushTransform
 translate 0 0.5 0
 rotate 1 0 0 60
 translate 0 0 -1
 scale 10 10 1
 diffuse 1 1 1
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
 f 0 1 2
 f 0 2 3
 popTransform
+objEnd
 
 #bottom
+objBegin "Mesh"
 pushTransform
 translate 0 -0.5 0
 rotate 1 0 0 -60
 translate 0 0 -1
 scale 10 10 1
 diffuse 1 1 1
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
 f 0 1 2
 f 0 2 3
 popTransform
+objEnd
 
 #sphere
+objBegin "Sphere"
 diffuse 0.7 0.5 0.2
 specular 0.2 0.2 0.2
 pushTransform
@@ -101,8 +116,10 @@ translate 0 -0.7 -1.5
 scale 0.1 0.1 0.1
 sphere 0 0 0 1
 popTransform
+objEnd
 
 #sphere2
+objBegin "Sphere"
 diffuse 0.7 0.5 0.2
 specular 0.2 0.2 0.2
 pushTransform
@@ -110,8 +127,10 @@ translate 0.4 -0.9 -1
 scale 0.1 0.1 0.1
 sphere 0 0 0 1
 popTransform
+objEnd
 
 #sphere3
+objBegin "Sphere"
 diffuse 0.7 0.5 0.2
 specular 0.2 0.2 0.2
 pushTransform
@@ -119,8 +138,10 @@ translate -0.5 -0.7 -1.5
 scale 0.1 0.1 0.1
 sphere 0 0 0 1
 popTransform
+objEnd
 
 #sphere4
+objBegin "Sphere"
 diffuse 0.7 0.5 0.2
 specular 0.2 0.2 0.2
 pushTransform
@@ -128,8 +149,10 @@ translate 0.5 -0.5 -2
 scale 0.3 0.6 0.3
 sphere 0 0 0 1
 popTransform
+objEnd
 
 #cube
+objBegin "Mesh"
 diffuse 0.5 0.7 0.2
 specular 0.2 0.2 0.2
 pushTransform
@@ -138,6 +161,21 @@ rotate 0 1 0 15
 scale 0.25 0.4 0.2
 diffuse 1 1 1
 
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+
+v -1 +1 +1
+v +1 +1 +1
+v -1 -1 +1
+v +1 -1 +1
+
+v -1 +1 -1
+v +1 +1 -1
+v -1 -1 -1
+v +1 -1 -1
+
 f 4 6 5
 f 6 7 5
 f 4 5 8
@@ -151,8 +189,10 @@ f 6 11 7
 f 10 8 9
 f 10 9 11
 popTransform
+objEnd
 
 #cube2
+objBegin "Mesh"
 diffuse 0.2 0.5 0.7
 specular 0.2 0.2 0.2
 pushTransform
@@ -161,6 +201,21 @@ rotate 0 1 0 -15
 scale 0.2 0.2 0.2
 diffuse 1 1 1
 
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+
+v -1 +1 +1
+v +1 +1 +1
+v -1 -1 +1
+v +1 -1 +1
+
+v -1 +1 -1
+v +1 +1 -1
+v -1 -1 -1
+v +1 -1 -1
+
 f 4 6 5
 f 6 7 5
 f 4 5 8
@@ -173,19 +228,8 @@ f 6 10 11
 f 6 11 7
 f 10 8 9
 f 10 9 11
-
-#fnormal 0 2 1
-#fnormal 2 3 1
-#fnormal 0 1 4
-#fnormal 1 5 4
-#fnormal 3 5 1
-#fnormal 3 7 5
-#fnormal 0 4 6
-#fnormal 0 6 2
-#fnormal 2 6 7
-#fnormal 2 7 3
-#fnormal 6 4 5
-#fnormal 6 5 7
 popTransform
+objEnd
+
 
 popTransform

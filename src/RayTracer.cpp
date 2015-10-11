@@ -151,6 +151,14 @@ void RayTracer::yartOutput(const string &s) {
 	outfn = s;
 }
 
+void RayTracer::yartObjBegin(const string &type) {
+	scene->objBegin(type);
+}
+
+void RayTracer::yartObjEnd() {
+	scene->objEnd();
+}
+
 void RayTracer::yartCamera(const vec3 &eye,
 	const vec3 &center,
 	const vec3 &up,
@@ -164,21 +172,24 @@ void RayTracer::yartCamera(const vec3 &eye,
 
 void RayTracer::yartVertex(const vec3 &v) {
 	vec3 v_transformed = applyMatrix(this->transforms.top(), v);
-	this->vbuffer.push_back(v_transformed);
+	scene->objVertex(v_transformed);
+	// this->vbuffer.push_back(v);
 }
 
 void RayTracer::yartTri(int id1, int id2, int id3) {
-	vec3 v1 = vbuffer[id1];
+
+	scene->objTri(m, id1, id2, id3);
+	/*vec3 v1 = vbuffer[id1];
 	vec3 v2 = vbuffer[id2];
 	vec3 v3 = vbuffer[id3];
 	v1 = applyMatrix(transforms.top(), v1);
 	v2 = applyMatrix(transforms.top(), v2);
 	v3 = applyMatrix(transforms.top(), v3);
-	scene->objs.push_back(shared_ptr<Object>(new Triangle(m, v1, v2, v3)));
+	scene->objs.push_back(shared_ptr<Object>(new Triangle(m, id1, id2, id3, )));*/
 }
 
 void RayTracer::yartSphere(const vec3 &center, float r) {
-	scene->objs.push_back(shared_ptr<Object>(new Sphere(m, center, r, transforms.top())));
+	scene->objSphere(center, r, transforms.top(), m);
 }
 
 void RayTracer::yartTranslate(float s1, float s2, float s3) {
@@ -247,15 +258,18 @@ void RayTracer::yartShininess(float s) {
 }
 
 void RayTracer::yartBuildOCTree(int level) {
-	OCTree::MAX_LEVEL = level > 1 ? level : 1;
-	BBox b;
-	for (const auto obj : scene->objs) {
-		b = b.merge(obj->getBBox());
-	}
-	vector<int> idx;
-	for (unsigned int i = 0; i < scene->objs.size(); ++i) {
-		idx.push_back(i);
-	}
-	scene->trees.push_back(shared_ptr<Object>(new OCTree(scene->objs, b, idx, 0)));
-	scene->useTree = true;
+
+	scene->objOCTree(level);
+
+	//OCTree::MAX_LEVEL = level > 1 ? level : 1;
+	//BBox b;
+	//for (const auto obj : scene->objs) {
+	//	b = b.merge(obj->getBBox());
+	//}
+	//vector<int> idx;
+	//for (unsigned int i = 0; i < scene->objs.size(); ++i) {
+	//	idx.push_back(i);
+	//}
+	//scene->trees.push_back(shared_ptr<Object>(new OCTree(scene->objs, b, idx, 0)));
+	//scene->useTree = true;
 }

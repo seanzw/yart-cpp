@@ -125,6 +125,8 @@ size			{ return SIZE;			}
 integrator		{ return INTEGRATOR;	}
 pixelSampler	{ return PIXELSAMPLER;	}
 output			{ return OUTPUT;		}
+objBegin		{ return OBJBEGIN;		}
+objEnd			{ return OBJEND;		}
 include			{ return INCLUDE;		}	
 camera			{ return CAMERA;		}
 maxverts		{ return MAXVERTS;		}

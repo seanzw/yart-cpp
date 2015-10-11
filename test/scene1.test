@@ -1,7 +1,7 @@
 # Test Scene 1 
 # A simple quad viewed from different camera positions
 
-size 80 60 
+size 640 480
 
 # Now specify the camera.  This is what you should implement.
 # This file has 4 camera positions.  Render your scene for all 4.
@@ -10,6 +10,9 @@ size 80 60
 camera 0 -3 3 0 0 0 0 1 0 30
 #camera -4 0 1 0 0 1 0 0 1 45
 #camera -4 -4 4 1 0 0 0 1 0 30
+
+integrator "DirectLight" 5
+pixelSampler "UniformPixelSampler" 4
 
 # lighting/material definitions
 # for initial testing, you should get the geometry right
@@ -29,12 +32,14 @@ specular 0 0 0
 
 maxverts 4 
 
-vertex -1 -1 0 
-vertex +1 -1 0
-vertex +1 +1 0
-vertex -1 +1 0
+objBegin "Mesh"
+v -1 -1 0 
+v +1 -1 0
+v +1 +1 0
+v -1 +1 0
 
-tri 0 1 2
-tri 0 2 3
+f 0 1 2
+f 0 2 3
 
-buildOCTree
+buildOCTree 2
+objEnd

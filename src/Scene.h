@@ -3,14 +3,23 @@
 
 #include "Light.h"
 #include "Object.h"
-#include "OCTree.h"
+#include "Mesh.h"
 
 class Scene {
 public:
 	Scene() {
 		useTree = false;
+		isInObject = false;
 	}
 	~Scene() {}
+
+	/* API for parser. */
+	void objBegin(const string &type);
+	void objEnd();
+	void objSphere(const vec3 &center, float r, const mat4 &transform, const Material &m);
+	void objVertex(const vec3 &v);
+	void objTri(const Material &m, int id1, int id2, int id3);
+	void objOCTree(int level);
 
 	// Lights.
 	vector<shared_ptr<Light> > lights;
@@ -40,6 +49,16 @@ public:
 	}
 
 private:
+
+	enum ObjType {
+		SCENE_SPHERE,
+		SCENE_MESH
+	};
+
+	ObjType objType;
+	bool isInObject;
+
+	shared_ptr<Mesh> mesh;
 
 	inline const vector<shared_ptr<Object> > &getObjs() const {
 		return useTree ? trees : objs;
