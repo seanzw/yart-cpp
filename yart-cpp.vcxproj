@@ -153,6 +153,10 @@
     <None Include="src\Makefile" />
     <None Include="src\yart-cpp.ll" />
     <None Include="src\yart-cpp.yy" />
+    <None Include="test\scene-cube.test" />
+    <None Include="test\scene-dinosaur.test" />
+    <None Include="test\scene-kitten.test" />
+    <None Include="test\scene-sphere.test" />
     <None Include="test\scene1.test" />
     <None Include="test\scene2.test" />
     <None Include="test\scene3.test" />
