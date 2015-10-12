@@ -123,6 +123,7 @@
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\NormalTriangle.cpp" />
     <ClCompile Include="src\OCTree.cpp" />
+    <ClCompile Include="src\PlaneTriangle.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
     <ClCompile Include="src\RayTracer.cpp" />
     <ClCompile Include="src\Scene.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="src\NormalTriangle.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\OCTree.h" />
+    <ClInclude Include="src\PlaneTriangle.h" />
     <ClInclude Include="src\PointLight.h" />
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\RayTracer.h" />

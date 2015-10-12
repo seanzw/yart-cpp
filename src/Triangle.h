@@ -10,7 +10,7 @@ public:
         );
     virtual ~Triangle() {}
 
-    virtual Hit intersect(const Ray &r) const;
+    virtual Hit intersect(const Ray &r) const = 0;
     virtual BBox getBBox() const;
     virtual int intersectBBox(const BBox &box) const;
 
@@ -18,9 +18,8 @@ public:
 	int id1, id2, id3;
     Material m;
 
-private:
+protected:
 	const vector<vec3> &v;
-    vec3 n;
 };
 
 #endif

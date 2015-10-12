@@ -18,5 +18,5 @@ Ray Camera::genRay(float row, float col) {
     float r = ((row) / h - 0.5f) * 2.0f * tantheta;
     float c = ((col) / w - 0.5f) * 2.0f * tantheta * w / h;
     vec3 direction = normalize(c * x + r * y - z);
-    return Ray(e, direction);
+    return Ray(e, direction, CONST_NEAR, CONST_FAR);
 }

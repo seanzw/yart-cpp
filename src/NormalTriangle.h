@@ -1,27 +1,21 @@
 #ifndef NORMAL_TRIANGLE_HEADER
 #define NORMAL_TRIANGLE_HEADER
 
-#include "Object.h"
+#include "Triangle.h"
 
-class NormalTriangle : public Object {
+class NormalTriangle : public Triangle {
 public:
     NormalTriangle(const Material &m,
-        int id1, int id2, int id3,
+        int idx1, int idx2, int idx3,
         const vector<vec3> &vBuffer,
         const vector<vec3> &nBuffer
         );
     virtual ~NormalTriangle() {}
 
     virtual Hit intersect(const Ray &r) const;
-    virtual BBox getBBox() const;
-    virtual int intersectBBox(const BBox &box) const;
 
 private:
-
-    int id1, id2, id3;
-    const vector<vec3> &v;
     const vector<vec3> &n;
-    Material m;
 };
 
 #endif

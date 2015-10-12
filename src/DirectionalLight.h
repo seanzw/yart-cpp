@@ -10,7 +10,7 @@ public:
 
     inline virtual Ray genShadowRay(const vec3 &hit, float *t_out) {
         *t_out = CONST_FAR;
-        return Ray(hit, d);
+        return Ray(hit, d, CONST_NEAR, CONST_FAR);
     }
 
     virtual vec3 getColor(float t) { return c; }

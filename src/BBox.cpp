@@ -137,22 +137,22 @@ vector<Ray> BBox::getDiagonals() const {
     o = m_min;
     e = m_max;
     d = normalize(e - o);
-    ret.push_back(Ray(o, d));
+    ret.push_back(Ray(o, d, CONST_NEAR, CONST_FAR));
 
     o = vec3(m_max.x, m_min.y, m_min.z);
     e = vec3(m_min.x, m_max.y, m_max.z);
     d = normalize(e - o);
-    ret.push_back(Ray(o, d));
+    ret.push_back(Ray(o, d, CONST_NEAR, CONST_FAR));
 
     o = vec3(m_min.x, m_max.y, m_min.z);
     e = vec3(m_max.x, m_min.y, m_max.z);
     d = normalize(e - o);
-    ret.push_back(Ray(o, d));
+    ret.push_back(Ray(o, d, CONST_NEAR, CONST_FAR));
 
     o = vec3(m_min.x, m_min.y, m_max.z);
     e = vec3(m_max.x, m_max.y, m_min.z);
     d = normalize(e - o);
-    ret.push_back(Ray(o, d));
+    ret.push_back(Ray(o, d, CONST_NEAR, CONST_FAR));
 
     return ret;
 }

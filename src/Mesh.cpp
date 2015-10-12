@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "BBox.h"
+#include "PlaneTriangle.h"
 #include "NormalTriangle.h"
 
 Hit Mesh::intersect(const Ray &r) const {
@@ -42,7 +43,7 @@ void Mesh::pushVertex(const vec3 &vertex) {
 
 void Mesh::pushTri(const Material &m, int id1, int id2, int id3) {
 
-	f.push_back(move(make_unique<Triangle>(m, id1, id2, id3, v)));
+	f.push_back(move(make_unique<PlaneTriangle>(m, id1, id2, id3, v)));
 }
 
 /* Refine the mesh by calculate the normal for each vertex and use NormalTriangle. */
@@ -52,7 +53,7 @@ void Mesh::refine() {
     vector<pair<vec3, float> > FNS(f.size());           /* Face normal and area. */
     vector<vector<int> > vNeighborFace(v.size());       /* Neighboring face for each vertex. */
     for (int i = 0; i < f.size(); ++i) {
-        Triangle *face = (Triangle *)f[i].get();        /* This is not good... */
+        PlaneTriangle *face = (PlaneTriangle *)f[i].get();        /* This is not good... */
         vNeighborFace[face->id1].push_back(i);
         vNeighborFace[face->id2].push_back(i);
         vNeighborFace[face->id3].push_back(i);

@@ -3,7 +3,7 @@
 Ray PointLight::genShadowRay(const vec3 &hit, float *t_out) {
     vec3 direction = p - hit;
     *t_out = length(direction);
-    return Ray(hit, normalize(direction));
+    return Ray(hit, normalize(direction), CONST_NEAR, CONST_FAR);
 }
 
 vec3 PointLight::getColor(float t) {
