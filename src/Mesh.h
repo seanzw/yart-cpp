@@ -18,6 +18,7 @@ public:
 
 	void pushVertex(const vec3 &vertex);
 	void pushTri(const Material &m, int id1, int id2, int id3);
+    void refine();
 	void buildOCTree(int level);
 
 private:

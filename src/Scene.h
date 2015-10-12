@@ -19,6 +19,7 @@ public:
 	void objSphere(const vec3 &center, float r, const mat4 &transform, const Material &m);
 	void objVertex(const vec3 &v);
 	void objTri(const Material &m, int id1, int id2, int id3);
+    void objRefineMesh();
 	void objOCTree(int level);
 
 	// Lights.

@@ -37,6 +37,7 @@ public:
 	void yartVertex(const vec3 &v);
 	void yartTri(int id1, int id2, int id3);
 	void yartSphere(const vec3 &center, float r);
+    void yartRefineMesh();
 	void yartTranslate(float s1, float s2, float s3);
 	void yartScale(float s1, float s2, float s3);
 	void yartRotate(const vec3 &axis, float angle);
@@ -61,9 +62,9 @@ private:
 	vec3 attenuation;
 
     // HELPER FUNCTIONS.
-    void showProgress(int row, int col);
+    void showProgress(int total);
 
-    void generate_one_thread(int row_init, int row_step, shared_ptr<vector<float> > samples);
+    void generate_one_thread(int row_init, int row_step, shared_ptr<vector<float> > samples, int *total);
 
     // DATA.
     int width, height;

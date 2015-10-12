@@ -40,6 +40,7 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %token VERTEX
 %token TRI
 %token SPHERE
+%token REFINEMESH
 %token TRANSLATE
 %token SCALE
 %token ROTATE
@@ -148,6 +149,11 @@ yart_stmt: SIZE NUMBER NUMBER {
 	yart->yartSphere(center, $5);
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], $5);
+}
+
+| REFINEMESH {
+    DEBUG("PARSE REFINE MESH\n");
+    yart->yartRefineMesh();
 }
 
 | TRANSLATE NUMBER NUMBER NUMBER {

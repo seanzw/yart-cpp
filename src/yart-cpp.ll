@@ -31,7 +31,7 @@ void add_string_char(char c) {
 struct IncludeInfo {
     std::string filename;
     YY_BUFFER_STATE bufState;
-	bool faceIndexType;
+    bool faceIndexType;
     int lineNum;
 };
 
@@ -39,43 +39,43 @@ vector<IncludeInfo> includeStack;
 
 void include_push(char *filename) {
 
-	extern std::string current_file;
+    extern std::string current_file;
 
     if (includeStack.size() > 32) {
         yyerror("Only 32 levels of nested Include allowed in scene files.");
         exit(1);
     }
 
-	std::string new_file(filename);
-	size_t pos = current_file.find_last_of('/');
+    std::string new_file(filename);
+    size_t pos = current_file.find_last_of('/');
     
-	if (pos != string::npos) {
-		new_file = current_file.substr(0, pos + 1);
-		new_file.append(filename);
-	}
+    if (pos != string::npos) {
+        new_file = current_file.substr(0, pos + 1);
+        new_file.append(filename);
+    }
 
-	DEBUG("INCLUDE %s\n", new_file.c_str());
+    DEBUG("INCLUDE %s\n", new_file.c_str());
 
     FILE *f = fopen(new_file.c_str(), "r");
     if (!f) {
-		string msg = "Unable to open included scene file: ";
-		msg.append(new_file);
+        string msg = "Unable to open included scene file: ";
+        msg.append(new_file);
         yyerror(msg);
-	}
+    }
     else {
 
-		
-		IncludeInfo ii;
+        
+        IncludeInfo ii;
         ii.filename = current_file;
         ii.bufState = YY_CURRENT_BUFFER;
         ii.lineNum = line_num;
-		ii.faceIndexType = faceIndexStartFromOne;
-		includeStack.push_back(ii);
+        ii.faceIndexType = faceIndexStartFromOne;
+        includeStack.push_back(ii);
 
-		pos = new_file.find_last_of('.');
-		if (pos != string::npos && new_file.substr(pos + 1, string::npos) == "obj") {
-			faceIndexStartFromOne = true;
-		}
+        pos = new_file.find_last_of('.');
+        if (pos != string::npos && new_file.substr(pos + 1, string::npos) == "obj") {
+            faceIndexStartFromOne = true;
+        }
 
         
         yyin = f;
@@ -94,7 +94,7 @@ void include_pop() {
     yy_switch_to_buffer(includeStack.back().bufState);
     current_file = includeStack.back().filename;
     line_num = includeStack.back().lineNum;
-	faceIndexStartFromOne = includeStack.back().faceIndexType;
+    faceIndexStartFromOne = includeStack.back().faceIndexType;
     includeStack.pop_back();
 }
 
@@ -117,37 +117,38 @@ Number      [-+]?([0-9]+|(([0-9]+\.[0-9]*)|(\.[0-9]+)))([eE][-+]?[0-9]+)?
 "#" { BEGIN COMMENT; }
 <COMMENT>.
 <COMMENT>\n {
-	line_num++;
-	BEGIN INITIAL;
+    line_num++;
+    BEGIN INITIAL;
 }
 
-size			{ return SIZE;			}
-integrator		{ return INTEGRATOR;	}
-pixelSampler	{ return PIXELSAMPLER;	}
-output			{ return OUTPUT;		}
-objBegin		{ return OBJBEGIN;		}
-objEnd			{ return OBJEND;		}
-include			{ return INCLUDE;		}	
-camera			{ return CAMERA;		}
-maxverts		{ return MAXVERTS;		}
-maxvertnorms	{ return MAXVERTNORMS;	}
-v				{ return VERTEX;		}
-f				{ return TRI;			}
-sphere			{ return SPHERE;		}
-translate		{ return TRANSLATE;		}
-scale			{ return SCALE;			}
-rotate			{ return ROTATE;		}
-pushTransform	{ return PUSHTRANSFORM; }
-popTransform	{ return POPTRANSFORM;	}
-directional		{ return DIRECTIONAL;	}
-point			{ return POINT;			}
-attenuation		{ return ATTENUATION;	}
-diffuse			{ return DIFFUSE;		}
-ambient			{ return AMBIENT;		}
-specular		{ return SPECULAR;		}
-emission		{ return EMISSION;		}
-shininess		{ return SHININESS;		}
-buildOCTree		{ return BUILDOCTREE;	}
+size                { return SIZE;          }
+integrator          { return INTEGRATOR;    }
+pixelSampler        { return PIXELSAMPLER;  }
+output              { return OUTPUT;        }
+objBegin            { return OBJBEGIN;      }
+objEnd              { return OBJEND;        }
+include             { return INCLUDE;       }    
+camera              { return CAMERA;        }
+maxverts            { return MAXVERTS;      }
+maxvertnorms        { return MAXVERTNORMS;  }
+v                   { return VERTEX;        }
+f                   { return TRI;           }
+sphere              { return SPHERE;        }
+refineMesh          { return REFINEMESH;    }
+translate           { return TRANSLATE;     }
+scale               { return SCALE;         }
+rotate              { return ROTATE;        }
+pushTransform       { return PUSHTRANSFORM; }
+popTransform        { return POPTRANSFORM;  }
+directional         { return DIRECTIONAL;   }
+point               { return POINT;         }
+attenuation         { return ATTENUATION;   }
+diffuse             { return DIFFUSE;       }
+ambient             { return AMBIENT;       }
+specular            { return SPECULAR;      }
+emission            { return EMISSION;      }
+shininess           { return SHININESS;     }
+buildOCTree         { return BUILDOCTREE;   }
 
 
 {WHITESPACE}    /* do nothing */
@@ -158,31 +159,31 @@ buildOCTree		{ return BUILDOCTREE;	}
 }
 
 \" {
-	BEGIN STRING;
-	str_pos = 0;
-	yylval.string[0] = '\0';
+    BEGIN STRING;
+    str_pos = 0;
+    yylval.string[0] = '\0';
 }
 
 <STRING>\\n {
-	add_string_char('\n');
+    add_string_char('\n');
 }
 <STRING>\\t {
-	add_string_char('\t');
+    add_string_char('\t');
 }
 <STRING>\\r {
-	add_string_char('\r');
+    add_string_char('\r');
 }
 <STRING>\\b {
-	add_string_char('\b');
+    add_string_char('\b');
 }
 <STRING>\\f {
-	add_string_char('\f');
+    add_string_char('\f');
 }
 <STRING>\\\" {
-	add_string_char('\"');
+    add_string_char('\"');
 }
 <STRING>\\\\ {
-	add_string_char('\\');
+    add_string_char('\\');
 }
 <STRING>\\[0-9]{3} {
   int val = atoi(yytext+1);
@@ -191,15 +192,15 @@ buildOCTree		{ return BUILDOCTREE;	}
   add_string_char(val);
 }
 <STRING>\" {
-	BEGIN INITIAL;
-	return STR;
+    BEGIN INITIAL;
+    return STR;
 }
 <STRING>. {
-	add_string_char(yytext[0]);
+    add_string_char(yytext[0]);
 }
 
 \n {
-	line_num++;
+    line_num++;
 }
 
 . {
@@ -211,8 +212,8 @@ buildOCTree		{ return BUILDOCTREE;	}
 %%
 
 int yywrap(void) {
-	if (includeStack.size() == 0)
-		return 1;
-	include_pop();
-	return 0;
+    if (includeStack.size() == 0)
+        return 1;
+    include_pop();
+    return 0;
 }

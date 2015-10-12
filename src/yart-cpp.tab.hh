@@ -60,20 +60,21 @@ extern int yydebug;
     VERTEX = 270,
     TRI = 271,
     SPHERE = 272,
-    TRANSLATE = 273,
-    SCALE = 274,
-    ROTATE = 275,
-    PUSHTRANSFORM = 276,
-    POPTRANSFORM = 277,
-    DIRECTIONAL = 278,
-    POINT = 279,
-    ATTENUATION = 280,
-    DIFFUSE = 281,
-    AMBIENT = 282,
-    SPECULAR = 283,
-    EMISSION = 284,
-    SHININESS = 285,
-    BUILDOCTREE = 286
+    REFINEMESH = 273,
+    TRANSLATE = 274,
+    SCALE = 275,
+    ROTATE = 276,
+    PUSHTRANSFORM = 277,
+    POPTRANSFORM = 278,
+    DIRECTIONAL = 279,
+    POINT = 280,
+    ATTENUATION = 281,
+    DIFFUSE = 282,
+    AMBIENT = 283,
+    SPECULAR = 284,
+    EMISSION = 285,
+    SHININESS = 286,
+    BUILDOCTREE = 287
   };
 #endif
 
@@ -87,7 +88,7 @@ union YYSTYPE
     char string[1024];
     float num;
 
-#line 91 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 92 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

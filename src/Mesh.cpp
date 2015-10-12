@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "BBox.h"
+#include "NormalTriangle.h"
 
 Hit Mesh::intersect(const Ray &r) const {
 	Hit ret;
@@ -42,6 +43,44 @@ void Mesh::pushVertex(const vec3 &vertex) {
 void Mesh::pushTri(const Material &m, int id1, int id2, int id3) {
 
 	f.push_back(move(make_unique<Triangle>(m, id1, id2, id3, v)));
+}
+
+/* Refine the mesh by calculate the normal for each vertex and use NormalTriangle. */
+void Mesh::refine() {
+    n.reserve(v.size());
+    // vector<unique_ptr<Object> > newFace;
+    vector<pair<vec3, float> > FNS(f.size());           /* Face normal and area. */
+    vector<vector<int> > vNeighborFace(v.size());       /* Neighboring face for each vertex. */
+    for (int i = 0; i < f.size(); ++i) {
+        Triangle *face = (Triangle *)f[i].get();        /* This is not good... */
+        vNeighborFace[face->id1].push_back(i);
+        vNeighborFace[face->id2].push_back(i);
+        vNeighborFace[face->id3].push_back(i);
+
+        // Calculate the area and normal for each face.
+        vec3 e1 = v[face->id2] - v[face->id1];
+        vec3 e2 = v[face->id3] - v[face->id1];
+        vec3 fN = cross(e1, e2);
+        float S = length(fN);
+        fN = normalize(fN);
+        FNS[i] = make_pair(fN, S);
+
+        f[i] = make_unique<NormalTriangle>(face->m, face->id1, face->id2, face->id3, v, n);
+
+        // f[i].reset(new NormalTriangle(face->m, face->id1, face->id2, face->id3, v, n));
+    }
+
+    // For each vertes calculate the normal weighted by the area of the neighboring face.
+    for (int i = 0; i < v.size(); ++i) {
+        vec3 nV(0.0f);
+        float totalS = 0.0f;
+        for (const auto &fIdx : vNeighborFace[i]) {
+            nV += (FNS[fIdx].first * FNS[fIdx].second);
+            totalS += FNS[fIdx].second;
+        }
+        nV /= totalS;
+        n.push_back(normalize(nV));
+    }
 }
 
 void Mesh::buildOCTree(int level) {

@@ -131,20 +131,21 @@ extern int yydebug;
     VERTEX = 270,
     TRI = 271,
     SPHERE = 272,
-    TRANSLATE = 273,
-    SCALE = 274,
-    ROTATE = 275,
-    PUSHTRANSFORM = 276,
-    POPTRANSFORM = 277,
-    DIRECTIONAL = 278,
-    POINT = 279,
-    ATTENUATION = 280,
-    DIFFUSE = 281,
-    AMBIENT = 282,
-    SPECULAR = 283,
-    EMISSION = 284,
-    SHININESS = 285,
-    BUILDOCTREE = 286
+    REFINEMESH = 273,
+    TRANSLATE = 274,
+    SCALE = 275,
+    ROTATE = 276,
+    PUSHTRANSFORM = 277,
+    POPTRANSFORM = 278,
+    DIRECTIONAL = 279,
+    POINT = 280,
+    ATTENUATION = 281,
+    DIFFUSE = 282,
+    AMBIENT = 283,
+    SPECULAR = 284,
+    EMISSION = 285,
+    SHININESS = 286,
+    BUILDOCTREE = 287
   };
 #endif
 
@@ -158,7 +159,7 @@ union YYSTYPE
     char string[1024];
     float num;
 
-#line 162 "yart-cpp.tab.cc" /* yacc.c:355  */
+#line 163 "yart-cpp.tab.cc" /* yacc.c:355  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
@@ -173,7 +174,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 177 "yart-cpp.tab.cc" /* yacc.c:358  */
+#line 178 "yart-cpp.tab.cc" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -413,23 +414,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  55
+#define YYFINAL  56
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   99
+#define YYLAST   100
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  32
+#define YYNTOKENS  33
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  4
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  31
+#define YYNRULES  32
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  103
+#define YYNSTATES  104
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   286
+#define YYMAXUTOK   287
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -466,17 +467,17 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31
+      25,    26,    27,    28,    29,    30,    31,    32
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    60,    60,    64,    68,    72,    77,    83,    89,    95,
-      99,   104,   108,   120,   124,   128,   134,   146,   153,   157,
-     161,   166,   170,   174,   183,   192,   197,   203,   209,   215,
-     221,   225
+       0,    61,    61,    65,    69,    73,    78,    84,    90,    96,
+     100,   105,   109,   121,   125,   129,   135,   147,   154,   159,
+     163,   167,   172,   176,   180,   189,   198,   203,   209,   215,
+     221,   227,   231
 };
 #endif
 
@@ -487,11 +488,11 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NUMBER", "STR", "SIZE", "INTEGRATOR",
   "PIXELSAMPLER", "OUTPUT", "OBJBEGIN", "OBJEND", "INCLUDE", "CAMERA",
-  "MAXVERTS", "MAXVERTNORMS", "VERTEX", "TRI", "SPHERE", "TRANSLATE",
-  "SCALE", "ROTATE", "PUSHTRANSFORM", "POPTRANSFORM", "DIRECTIONAL",
-  "POINT", "ATTENUATION", "DIFFUSE", "AMBIENT", "SPECULAR", "EMISSION",
-  "SHININESS", "BUILDOCTREE", "$accept", "start", "yart_stmt_list",
-  "yart_stmt", YY_NULLPTR
+  "MAXVERTS", "MAXVERTNORMS", "VERTEX", "TRI", "SPHERE", "REFINEMESH",
+  "TRANSLATE", "SCALE", "ROTATE", "PUSHTRANSFORM", "POPTRANSFORM",
+  "DIRECTIONAL", "POINT", "ATTENUATION", "DIFFUSE", "AMBIENT", "SPECULAR",
+  "EMISSION", "SHININESS", "BUILDOCTREE", "$accept", "start",
+  "yart_stmt_list", "yart_stmt", YY_NULLPTR
 };
 #endif
 
@@ -503,7 +504,7 @@ static const yytype_uint16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286
+     285,   286,   287
 };
 # endif
 
@@ -521,17 +522,17 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -5,    24,    25,    26,    27,    28,    -6,    29,    31,    32,
-      33,    34,    35,    36,    37,    38,    39,    -6,    -6,    40,
-      41,    42,    43,    44,    45,    46,    47,    48,    52,    -5,
-      -6,    50,    51,    53,    -6,    -6,    -6,    54,    -6,    -6,
-      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    -6,    -6,    -6,    -6,    -6,    -6,    -6,
-      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
-      78,    79,    80,    81,    82,    -6,    -6,    83,    -6,    -6,
-      84,    85,    86,    -6,    -6,    -6,    -6,    -6,    87,    -6,
-      -6,    88,    89,    90,    91,    92,    93,    -6,    -6,    94,
-      95,    96,    -6
+      -5,    25,    26,    27,    28,    29,    -6,    30,    32,    33,
+      34,    35,    36,    37,    -6,    38,    39,    40,    -6,    -6,
+      41,    42,    43,    44,    45,    46,    47,    48,    49,    53,
+      -5,    -6,    51,    52,    54,    -6,    -6,    -6,    55,    -6,
+      -6,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      65,    66,    67,    68,    -6,    -6,    -6,    -6,    -6,    -6,
+      -6,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    -6,    -6,    84,    -6,
+      -6,    85,    86,    87,    -6,    -6,    -6,    -6,    -6,    88,
+      -6,    -6,    89,    90,    91,    92,    93,    94,    -6,    -6,
+      95,    96,    97,    -6
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -540,16 +541,16 @@ static const yytype_int8 yypact[] =
 static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     0,     0,     0,    11,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    21,    22,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     2,
-       4,     0,     0,     0,     8,    10,     9,     0,    13,    14,
+       0,     0,     0,     0,    18,     0,     0,     0,    22,    23,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    30,    31,     1,     3,     5,     6,     7,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    15,    16,     0,    18,    19,
-       0,     0,     0,    25,    26,    27,    28,    29,     0,    17,
-      20,     0,     0,     0,     0,     0,     0,    23,    24,     0,
-       0,     0,    12
+       2,     4,     0,     0,     0,     8,    10,     9,     0,    13,
+      14,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    31,    32,     1,     3,     5,     6,
+       7,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,    15,    16,     0,    19,
+      20,     0,     0,     0,    26,    27,    28,    29,    30,     0,
+      17,    21,     0,     0,     0,     0,     0,     0,    24,    25,
+       0,     0,     0,    12
 };
 
   /* YYPGOTO[NTERM-NUM].  */
@@ -561,7 +562,7 @@ static const yytype_int8 yypgoto[] =
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,    28,    29,    30
+      -1,    29,    30,    31
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -571,28 +572,30 @@ static const yytype_uint8 yytable[] =
 {
        1,     2,     3,     4,     5,     6,     7,     8,     9,    10,
       11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
-      21,    22,    23,    24,    25,    26,    27,    31,    56,    32,
+      21,    22,    23,    24,    25,    26,    27,    28,    32,    57,
       33,    34,    35,    36,    37,    38,    39,    40,    41,    42,
       43,    44,    45,    46,    47,    48,    49,    50,    51,    52,
-      53,    54,    55,    57,    58,     0,    59,    60,    61,    62,
+      53,    54,    55,    56,    58,    59,     0,    60,    61,    62,
       63,    64,    65,    66,    67,    68,    69,    70,    71,    72,
       73,    74,    75,    76,    77,    78,    79,    80,    81,    82,
       83,    84,    85,    86,    87,    88,    89,    90,    91,    92,
-      93,    94,    95,    96,    97,    98,    99,   100,   101,   102
+      93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
+     103
 };
 
 static const yytype_int8 yycheck[] =
 {
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,     3,    29,     4,
-       4,     4,     4,     4,     3,     3,     3,     3,     3,     3,
+      25,    26,    27,    28,    29,    30,    31,    32,     3,    30,
+       4,     4,     4,     4,     4,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     0,     3,     3,    -1,     3,     3,     3,     3,
+       3,     3,     3,     0,     3,     3,    -1,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     3
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -601,33 +604,33 @@ static const yytype_uint8 yystos[] =
 {
        0,     5,     6,     7,     8,     9,    10,    11,    12,    13,
       14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
-      24,    25,    26,    27,    28,    29,    30,    31,    33,    34,
-      35,     3,     4,     4,     4,     4,     4,     3,     3,     3,
+      24,    25,    26,    27,    28,    29,    30,    31,    32,    34,
+      35,    36,     3,     4,     4,     4,     4,     4,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     0,    35,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     0,    36,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    32,    33,    34,    34,    35,    35,    35,    35,    35,
-      35,    35,    35,    35,    35,    35,    35,    35,    35,    35,
-      35,    35,    35,    35,    35,    35,    35,    35,    35,    35,
-      35,    35
+       0,    33,    34,    35,    35,    36,    36,    36,    36,    36,
+      36,    36,    36,    36,    36,    36,    36,    36,    36,    36,
+      36,    36,    36,    36,    36,    36,    36,    36,    36,    36,
+      36,    36,    36
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     2,     1,     3,     3,     3,     2,     2,
-       2,     1,    11,     2,     2,     4,     4,     5,     4,     4,
-       5,     1,     1,     7,     7,     4,     4,     4,     4,     4,
-       2,     2
+       2,     1,    11,     2,     2,     4,     4,     5,     1,     4,
+       4,     5,     1,     1,     7,     7,     4,     4,     4,     4,
+       4,     2,     2
 };
 
 
@@ -1304,95 +1307,95 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 60 "yart-cpp.yy" /* yacc.c:1646  */
+#line 61 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1312 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1315 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 64 "yart-cpp.yy" /* yacc.c:1646  */
+#line 65 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1320 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1323 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 68 "yart-cpp.yy" /* yacc.c:1646  */
+#line 69 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1328 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1331 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 72 "yart-cpp.yy" /* yacc.c:1646  */
+#line 73 "yart-cpp.yy" /* yacc.c:1646  */
     {
     DEBUG("PARSE SIZE %d, %d\n", (int)(yyvsp[-1].num), (int)(yyvsp[0].num));
 	yart->yartSize((int)(yyvsp[-1].num), (int)(yyvsp[0].num));
 }
-#line 1337 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1340 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 77 "yart-cpp.yy" /* yacc.c:1646  */
+#line 78 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	DEBUG("PARSE INTEGRATOR %s %d\n", (yyvsp[-1].string), (int)(yyvsp[0].num));
 	string integrator((yyvsp[-1].string));
 	yart->yartIntegrator(integrator, (int)(yyvsp[0].num));
 }
-#line 1347 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1350 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 83 "yart-cpp.yy" /* yacc.c:1646  */
+#line 84 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	DEBUG("PARSE PIXELSAMPLER %s %d\n", (yyvsp[-1].string), (int)(yyvsp[0].num));
 	string pixelSampler((yyvsp[-1].string));
 	yart->yartPixelSampler(pixelSampler, (int)(yyvsp[0].num));
 }
-#line 1357 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1360 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 89 "yart-cpp.yy" /* yacc.c:1646  */
+#line 90 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	string outfn((yyvsp[0].string));
 	DEBUG("PARSE OUTPUT %s\n", outfn.c_str());
 	yart->yartOutput(outfn);
 }
-#line 1367 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1370 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 95 "yart-cpp.yy" /* yacc.c:1646  */
+#line 96 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	include_push((yyvsp[0].string));
 }
-#line 1375 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1378 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 99 "yart-cpp.yy" /* yacc.c:1646  */
+#line 100 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	string type((yyvsp[0].string));
 	yart->yartObjBegin(type);
 }
-#line 1384 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1387 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 104 "yart-cpp.yy" /* yacc.c:1646  */
+#line 105 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartObjEnd();
 }
-#line 1392 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1395 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 108 "yart-cpp.yy" /* yacc.c:1646  */
+#line 109 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 eye((yyvsp[-9].num), (yyvsp[-8].num), (yyvsp[-7].num));
 	vec3 center((yyvsp[-6].num), (yyvsp[-5].num), (yyvsp[-4].num));
@@ -1404,37 +1407,37 @@ yyreduce:
                         (yyvsp[0].num));
 	yart->yartCamera(eye, center, up, (yyvsp[0].num));
 }
-#line 1408 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1411 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 120 "yart-cpp.yy" /* yacc.c:1646  */
+#line 121 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1416 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1419 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 124 "yart-cpp.yy" /* yacc.c:1646  */
+#line 125 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1424 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1427 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 128 "yart-cpp.yy" /* yacc.c:1646  */
+#line 129 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 v((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 	yart->yartVertex(v);
 	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
-#line 1434 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1437 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 134 "yart-cpp.yy" /* yacc.c:1646  */
+#line 135 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	
 	int id1 = (int)(yyvsp[-2].num);
@@ -1446,63 +1449,72 @@ yyreduce:
 	yart->yartTri(id1, id2, id3);
 	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
-#line 1450 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1453 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 146 "yart-cpp.yy" /* yacc.c:1646  */
+#line 147 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 center((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
 	yart->yartSphere(center, (yyvsp[0].num));
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], (yyvsp[0].num));
 }
-#line 1461 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1464 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 153 "yart-cpp.yy" /* yacc.c:1646  */
+#line 154 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yartTranslate((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
+    DEBUG("PARSE REFINE MESH\n");
+    yart->yartRefineMesh();
 }
-#line 1469 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1473 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 157 "yart-cpp.yy" /* yacc.c:1646  */
+#line 159 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yartScale((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
+	yart->yartTranslate((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
-#line 1477 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1481 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 161 "yart-cpp.yy" /* yacc.c:1646  */
+#line 163 "yart-cpp.yy" /* yacc.c:1646  */
+    {
+	yart->yartScale((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
+}
+#line 1489 "yart-cpp.tab.cc" /* yacc.c:1646  */
+    break;
+
+  case 21:
+#line 167 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 axis((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
 	yart->yartRotate(axis, (yyvsp[0].num));
 }
-#line 1486 "yart-cpp.tab.cc" /* yacc.c:1646  */
-    break;
-
-  case 21:
-#line 166 "yart-cpp.yy" /* yacc.c:1646  */
-    {
-	yart->yartPushTransform();
-}
-#line 1494 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1498 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 170 "yart-cpp.yy" /* yacc.c:1646  */
+#line 172 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yartPopTransform();
+	yart->yartPushTransform();
 }
-#line 1502 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1506 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 174 "yart-cpp.yy" /* yacc.c:1646  */
+#line 176 "yart-cpp.yy" /* yacc.c:1646  */
+    {
+	yart->yartPopTransform();
+}
+#line 1514 "yart-cpp.tab.cc" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 180 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 direction((yyvsp[-5].num), (yyvsp[-4].num), (yyvsp[-3].num));
 	vec3 color((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
@@ -1511,11 +1523,11 @@ yyreduce:
 		direction[0], direction[1], direction[2],
 		color[0], color[1], color[2]);
 }
-#line 1515 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1527 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
-  case 24:
-#line 183 "yart-cpp.yy" /* yacc.c:1646  */
+  case 25:
+#line 189 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 direction((yyvsp[-5].num), (yyvsp[-4].num), (yyvsp[-3].num));
 	vec3 color((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
@@ -1524,76 +1536,76 @@ yyreduce:
 		direction[0], direction[1], direction[2],
 		color[0], color[1], color[2]);
 }
-#line 1528 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1540 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
-  case 25:
-#line 192 "yart-cpp.yy" /* yacc.c:1646  */
+  case 26:
+#line 198 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 	yart->yartAttenuation(a);
 }
-#line 1537 "yart-cpp.tab.cc" /* yacc.c:1646  */
-    break;
-
-  case 26:
-#line 197 "yart-cpp.yy" /* yacc.c:1646  */
-    {
-	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yartDiffuse(a);
-	DEBUG("PARSE DIFFUSE %.2f %.2f %.2f\n", a[0], a[1], a[2]);
-}
-#line 1547 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1549 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 27:
 #line 203 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yartAmbient(a);
-	DEBUG("PARSE AMBIENT %.2f %.2f %.2f\n", a[0], a[1], a[2]);
+	yart->yartDiffuse(a);
+	DEBUG("PARSE DIFFUSE %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
-#line 1557 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1559 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 28:
 #line 209 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yartSpecular(a);
-	DEBUG("PARSE SPECULAR %.2f %.2f %.2f\n", a[0], a[1], a[2]);
+	yart->yartAmbient(a);
+	DEBUG("PARSE AMBIENT %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
-#line 1567 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1569 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 29:
 #line 215 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
-	yart->yartEmission(a);
-	DEBUG("PARSE EMISSION %.2f %.2f %.2f\n", a[0], a[1], a[2]);
+	yart->yartSpecular(a);
+	DEBUG("PARSE SPECULAR %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
-#line 1577 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1579 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 30:
 #line 221 "yart-cpp.yy" /* yacc.c:1646  */
     {
-	yart->yartShininess((yyvsp[0].num));
+	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
+	yart->yartEmission(a);
+	DEBUG("PARSE EMISSION %.2f %.2f %.2f\n", a[0], a[1], a[2]);
 }
-#line 1585 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1589 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 225 "yart-cpp.yy" /* yacc.c:1646  */
+#line 227 "yart-cpp.yy" /* yacc.c:1646  */
+    {
+	yart->yartShininess((yyvsp[0].num));
+}
+#line 1597 "yart-cpp.tab.cc" /* yacc.c:1646  */
+    break;
+
+  case 32:
+#line 231 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartBuildOCTree((int)(yyvsp[0].num));
 }
-#line 1593 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1605 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1597 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1609 "yart-cpp.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1821,7 +1833,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 230 "yart-cpp.yy" /* yacc.c:1906  */
+#line 236 "yart-cpp.yy" /* yacc.c:1906  */
 
 
 void yyerror(const std::string &s) {

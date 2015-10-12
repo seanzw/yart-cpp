@@ -2,7 +2,7 @@
 # A simple quad viewed from different camera positions
 
 size 480 1000
-output "outputs/dinosaur.png"
+output "outputs/dinosaur-new.png"
 
 integrator "DirectLight" 5
 pixelSampler "UniformPixelSampler" 4

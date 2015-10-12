@@ -121,6 +121,7 @@
     <ClCompile Include="src\lex.yy.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\NormalTriangle.cpp" />
     <ClCompile Include="src\OCTree.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
     <ClCompile Include="src\RayTracer.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="src\Integrator.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\NormalTriangle.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\OCTree.h" />
     <ClInclude Include="src\PointLight.h" />

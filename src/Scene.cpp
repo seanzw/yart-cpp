@@ -43,6 +43,12 @@ void Scene::objTri(const Material &m, int id1, int id2, int id3) {
 	}
 }
 
+void Scene::objRefineMesh() {
+    if (isInObject && objType == SCENE_MESH) {
+        mesh->refine();
+    }
+}
+
 void Scene::objOCTree(int level) {
 	if (isInObject && objType == SCENE_MESH) {
 		mesh->buildOCTree(level);

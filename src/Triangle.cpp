@@ -4,7 +4,7 @@
 Triangle::Triangle(const Material &material,
 	int idx1, int idx2, int idx3,
 	const vector<vec3> &vBuffer
-	) : m(material), v(vBuffer), id1(idx1), id2(idx2), id3(idx3) {
+    ) : m(material), v(vBuffer), id1(idx1), id2(idx2), id3(idx3) {
     vec3 edge1 = v[id2] - v[id1];
     vec3 edge2 = v[id3] - v[id2];
     n = normalize(cross(edge1, edge2));
@@ -51,6 +51,7 @@ Hit Triangle::intersect(const Ray &r) const {
         ret.m = m;
         ret.normal = n;
         ret.point = r.o + ret.t * r.d;
+
         return ret;
     }
 }

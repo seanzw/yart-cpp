@@ -9,7 +9,6 @@
 #include "Transform.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
-#include "Triangle.h"
 #include "Sphere.h"
 #include "OCTree.h"
 #include "DirectLightIntegrator.h"
@@ -34,13 +33,13 @@ RayTracer::RayTracer(const string &fn) {
 	attenuation = vec3(1.0f, 0.0f, 0.0f);
 }
 
-void RayTracer::showProgress(int row, int col) {
+void RayTracer::showProgress(int total) {
 
     static clock_t start = clock();
     double elapsed = (clock() - start) / (double)CLOCKS_PER_SEC;
 
     cout << '\r';
-    float percent = float(row * width + col) / float(width * height);
+    float percent = float(total) / float(width * height);
 
     for (int i = 0; i < percent * 32; ++i) {
         cout << "=";
@@ -57,10 +56,24 @@ void RayTracer::generate(int threadnum) {
     
     threadnum = threadnum < 1 ? 1 : (threadnum > 8 ? 8 : threadnum);
     thread **threads = new thread*[threadnum];
+    vector<int> progress(threadnum);
 	vector<shared_ptr<vector<float> > > samples_pool;
     for (int i = 0; i < threadnum; ++i) {
 		samples_pool.push_back(shared_ptr<vector<float> >(new vector<float>));
-        threads[i] = new thread(&RayTracer::generate_one_thread, this, i, threadnum, samples_pool[i]);
+        progress[i] = 0;
+        threads[i] = new thread(&RayTracer::generate_one_thread, this, i, threadnum, samples_pool[i], &progress[i]);
+    }
+
+    while (true) {
+        this_thread::sleep_for(2s);
+        int total = 0;
+        for (const auto &i : progress) {
+            total += i;
+        }
+        showProgress(total);
+        if (total >= width * height) {
+            break;
+        }
     }
 
     // Wait for the thread to return.
@@ -68,6 +81,7 @@ void RayTracer::generate(int threadnum) {
         threads[i]->join();
         delete threads[i];
         threads[i] = NULL;
+        DEBUG(" DONE!\n");
     }
 
     double duration = (clock() - start) / CLOCKS_PER_SEC;
@@ -76,7 +90,7 @@ void RayTracer::generate(int threadnum) {
     delete[] threads;
 }
 
-void RayTracer::generate_one_thread(int row_init, int row_step, shared_ptr<vector<float> > samples) {
+void RayTracer::generate_one_thread(int row_init, int row_step, shared_ptr<vector<float> > samples, int *total) {
 
     DEBUG("START Thread %d\n", row_init);
     for (int row = row_init; row < height; row += row_step) {
@@ -96,11 +110,11 @@ void RayTracer::generate_one_thread(int row_init, int row_step, shared_ptr<vecto
             film->expose(color, row, col);
 
             // Show progress only for one thread.
-            if (row_step == 1)
-                showProgress(row, col);
+            *total += 1;
+            /*if (row_step == 1)
+                showProgress(row, col);*/
         }
     }
-    DEBUG(" DONE!\n");
 
 }
 
@@ -190,6 +204,10 @@ void RayTracer::yartTri(int id1, int id2, int id3) {
 
 void RayTracer::yartSphere(const vec3 &center, float r) {
 	scene->objSphere(center, r, transforms.top(), m);
+}
+
+void RayTracer::yartRefineMesh() {
+    scene->objRefineMesh();
 }
 
 void RayTracer::yartTranslate(float s1, float s2, float s3) {
