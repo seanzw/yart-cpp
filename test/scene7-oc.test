@@ -1,19 +1,17 @@
 #Stanford Dragon
-
 size 1000 480
 camera -10 0 20 0 0 -1 0 1 0 45
 output "scene7-oc.png"
-
-point 10 10 20 1 1 1
-
 integrator "DirectLight" 5
 pixelSampler "UniformPixelSampler" 4
 
-maxverts 50001
+worldBegin
+point 10 10 20 1 1 1
+
+# maxverts 50001
 
 # Plane
 objBegin "Mesh"
-
 diffuse 0.5 0.5 0.5
 ambient 0.0 0.0 0.0
 shininess 20
@@ -150047,3 +150045,4 @@ popTransform
 refineMesh
 buildOCTree 8
 objEnd
+worldEnd

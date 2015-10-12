@@ -31,6 +31,8 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %token INTEGRATOR
 %token PIXELSAMPLER
 %token OUTPUT
+%token WORLDBEGIN
+%token WORLDEND
 %token OBJBEGIN
 %token OBJEND
 %token INCLUDE
@@ -97,15 +99,6 @@ yart_stmt: SIZE NUMBER NUMBER {
 	include_push($2);
 }
 
-| OBJBEGIN STR {
-	string type($2);
-	yart->yartObjBegin(type);
-}
-
-| OBJEND {
-	yart->yartObjEnd();
-}
-
 | CAMERA NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 	vec3 eye($2, $3, $4);
 	vec3 center($5, $6, $7);
@@ -118,7 +111,63 @@ yart_stmt: SIZE NUMBER NUMBER {
 	yart->yartCamera(eye, center, up, $11);
 }
 
-| MAXVERTS NUMBER {
+| world {
+
+};
+
+world: WORLDBEGIN world_stmt_list WORLDEND {
+
+};
+
+world_stmt_list: world_stmt_list world_stmt {
+
+}
+
+| world_stmt {
+
+};
+
+world_stmt: DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
+	vec3 direction($2, $3, $4);
+	vec3 color($5, $6, $7);
+	yart->yartDirectional(direction, color);
+	DEBUG("PARSE DIRECTIONAL d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
+		direction[0], direction[1], direction[2],
+		color[0], color[1], color[2]);
+}
+
+| POINT NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
+	vec3 direction($2, $3, $4);
+	vec3 color($5, $6, $7);
+	yart->yartPoint(direction, color);
+	DEBUG("PARSE POINT  d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
+		direction[0], direction[1], direction[2],
+		color[0], color[1], color[2]);
+}
+
+| ATTENUATION NUMBER NUMBER NUMBER {
+	vec3 a($2, $3, $4);
+	yart->yartAttenuation(a);
+}
+
+| OBJBEGIN obj_type obj_stmt_list OBJEND {
+    yart->yartObjEnd();
+};
+
+obj_type: STR {
+    string type($1);
+	yart->yartObjBegin(type);
+}
+
+obj_stmt_list: obj_stmt_list obj_stmt {
+
+}
+
+| obj_stmt {
+
+};
+
+obj_stmt: MAXVERTS NUMBER {
 
 }
 
@@ -170,34 +219,12 @@ yart_stmt: SIZE NUMBER NUMBER {
 }
 
 | PUSHTRANSFORM {
+    DEBUG("PARSE PUSHTRANSFORM\n");
 	yart->yartPushTransform();
 }
 
 | POPTRANSFORM {
 	yart->yartPopTransform();
-}
-
-| DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
-	vec3 direction($2, $3, $4);
-	vec3 color($5, $6, $7);
-	yart->yartDirectional(direction, color);
-	DEBUG("PARSE DIRECTIONAL d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
-		direction[0], direction[1], direction[2],
-		color[0], color[1], color[2]);
-}
-
-| POINT NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
-	vec3 direction($2, $3, $4);
-	vec3 color($5, $6, $7);
-	yart->yartPoint(direction, color);
-	DEBUG("PARSE POINT  d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
-		direction[0], direction[1], direction[2],
-		color[0], color[1], color[2]);
-}
-
-| ATTENUATION NUMBER NUMBER NUMBER {
-	vec3 a($2, $3, $4);
-	yart->yartAttenuation(a);
 }
 
 | DIFFUSE NUMBER NUMBER NUMBER {

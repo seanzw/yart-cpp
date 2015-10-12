@@ -125,6 +125,8 @@ size                { return SIZE;          }
 integrator          { return INTEGRATOR;    }
 pixelSampler        { return PIXELSAMPLER;  }
 output              { return OUTPUT;        }
+worldBegin          { return WORLDBEGIN;    }
+worldEnd            { return WORLDEND;      }
 objBegin            { return OBJBEGIN;      }
 objEnd              { return OBJEND;        }
 include             { return INCLUDE;       }    
