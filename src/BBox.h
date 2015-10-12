@@ -12,6 +12,7 @@ public:
     ~BBox() {}
 
     virtual Hit intersect(const Ray &r) const;
+    virtual bool occlude(const Ray &r) const;
     virtual BBox getBBox() const { return BBox(m_min, m_max); }
     virtual int intersectBBox(const BBox &other) const;
     pair<BBox, BBox> split(int axis, float ratio = 0.5f) const;

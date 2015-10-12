@@ -20,6 +20,20 @@ Hit Mesh::intersect(const Ray &r) const {
 	return ret;
 }
 
+bool Mesh::occlude(const Ray &r) const {
+    if (useTree) {
+        return tree->occlude(r);
+    }
+    else {
+        for (const auto &face : f) {
+            if (face->occlude(r)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 BBox Mesh::getBBox() const {
 	BBox ret = f[0]->getBBox();
 	for (const auto &face : f) {

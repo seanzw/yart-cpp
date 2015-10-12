@@ -16,6 +16,7 @@ public:
 
     static int MAX_LEVEL;
 
+    virtual bool occlude(const Ray &r) const;
     virtual Hit intersect(const Ray &r) const;
     virtual BBox getBBox() const { return box; }
     virtual int intersectBBox(const BBox &b) const;

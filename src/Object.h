@@ -9,6 +9,7 @@ public:
     Object() {}
     virtual ~Object() {}
 
+    virtual bool occlude(const Ray &r) const = 0;
     virtual Hit intersect(const Ray &r) const = 0;
     virtual BBox getBBox() const = 0;
     virtual int intersectBBox(const BBox &box) const = 0;

@@ -29,6 +29,31 @@ Hit BBox::intersect(const Ray &r) const {
     }
 }
 
+bool BBox::occlude(const Ray &r) const {
+
+    vec3 tMin = (m_min - r.o) / r.d;
+    vec3 tMax = (m_max - r.o) / r.d;
+    vec3 t1 = min(tMin, tMax);
+    vec3 t2 = max(tMin, tMax);
+    float tNear = max(t1[0], max(t1[1], t1[2]));
+    float tFar = min(t2[0], min(t2[1], t2[2]));
+
+    if (tNear > tFar) {
+        return false;
+    }
+    else {
+        if (tNear > 0.0f) {
+            return true;
+        }
+        else if (tFar > 0.0f) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
 pair<BBox, BBox> BBox::split(int axis, float ratio) const {
     vec3 min_new(m_min);
     vec3 max_new(m_max);

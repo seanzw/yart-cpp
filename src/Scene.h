@@ -49,6 +49,15 @@ public:
 		return isHit;
 	}
 
+    bool occlude(const Ray &r) const {
+        for (const auto &obj : getObjs()) {
+            if (obj->occlude(r)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 private:
 
 	enum ObjType {

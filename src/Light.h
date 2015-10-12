@@ -8,8 +8,8 @@ public:
     Light(vec3 color): c(color) {}
     virtual ~Light() {}
 
-    virtual Ray genShadowRay(const vec3 &hit, float *t_out) = 0;
-    virtual vec3 getColor(float t) = 0;
+    virtual Ray genShadowRay(const vec3 &hit) const = 0;
+    virtual vec3 getColor(float t) const = 0;
 
 protected:
     vec3 c;

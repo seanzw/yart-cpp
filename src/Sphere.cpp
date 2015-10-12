@@ -71,6 +71,57 @@ Hit Sphere::intersect(const Ray &ray) const {
     }
 }
 
+bool Sphere::occlude(const Ray &ray) const {
+    vec3 o = applyMatrix(inv_t, ray.o);
+    vec3 d = normalize(applyMatrix(inv_t, ray.o + ray.d) - o);
+
+    float r2 = r * r;
+    vec3 toSphere = c - o;
+    float l2 = dot(toSphere, toSphere);
+
+    if (l2 > r2) {
+        float d2 = dot(toSphere, d);
+        if (d2 <= 0.0f) {
+            return false;
+        }
+
+        float thc = r2 - l2 + d2 * d2;
+        if (thc <= 0.0f) {
+            return false;
+        }
+
+        float thc_sqrt = sqrtf(thc);
+        float t_temp = d2 - thc_sqrt;
+        if (t_temp > ray.tmin) {
+            return t_temp < ray.tmax;
+        }
+        else {
+            t_temp = d2 + thc_sqrt;
+            //if (t_temp > CONST_NEAR) {
+            //    return true;
+            //}
+            //else {
+            //    return false;
+            //}
+            return t_temp > ray.tmin && t_temp < ray.tmax;
+        }
+    }
+    else {
+        float d2 = dot(toSphere, d);
+        float thc = r2 - l2 + d2 * d2;
+        float t_temp = sqrtf(thc) + d2;
+        /*if (t_temp > CONST_NEAR) {
+            vec3 hitpoint = o + t_temp * d;
+            vec3 normal = normalize(hitpoint - c);
+            ret.point = applyMatrix(t, hitpoint);
+            ret.t = length(ret.point - ray.o);
+            ret.normal = normalize(normal_mat * normal);
+        }
+        return ret;*/
+        return t_temp > ray.tmin && t_temp < ray.tmax;
+    }
+}
+
 BBox Sphere::getBBox() const {
     return BBox(c - vec3(r), c + vec3(r));
 }

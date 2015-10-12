@@ -80,3 +80,37 @@ Hit OCTree::intersect(const Ray &r) const {
         }
     }
 }
+
+bool OCTree::occlude(const Ray &r) const {
+    if (!box.occlude(r)) {
+        return false;
+    }
+    if (isLeaf) {
+        for (const auto id : idx) {
+            if (objs[id]->occlude(r)) {
+                return true;
+            }
+            //Hit temp = objs[id]->intersect(r);
+            //if (temp.t < ret.t) {
+            //    ret = temp;
+            //}
+        }
+        return false;
+    }
+    else {
+        if (left->occlude(r)) {
+            return true;
+        }
+        else {
+            return right->occlude(r);
+        }
+        //Hit leftHit = left->intersect(r);
+        //Hit rightHit = right->intersect(r);
+        //if (leftHit.t < rightHit.t) {
+        //    return leftHit;
+        //}
+        //else {
+        //    return rightHit;
+        //}
+    }
+}

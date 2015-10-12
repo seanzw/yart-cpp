@@ -140,6 +140,9 @@
     <ClInclude Include="src\PlaneTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">

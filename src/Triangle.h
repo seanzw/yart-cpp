@@ -11,6 +11,7 @@ public:
     virtual ~Triangle() {}
 
     virtual Hit intersect(const Ray &r) const = 0;
+    virtual bool occlude(const Ray &r) const;
     virtual BBox getBBox() const;
     virtual int intersectBBox(const BBox &box) const;
 

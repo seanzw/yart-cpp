@@ -152,6 +152,7 @@
     <ClInclude Include="src\RayTracer.h" />
     <ClInclude Include="src\Sampler.h" />
     <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\Sphere.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\UniformPixelSampler.h" />

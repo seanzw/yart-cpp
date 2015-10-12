@@ -23,20 +23,16 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 	vec3 specular = vec3(0.0f);
 	for (const auto &light : scene->lights) {
 		// Get the shadow ray and the distance to the light.
-		float distanceToLight;
-		Ray shadowRay = light->genShadowRay(hit.point, &distanceToLight);
+		Ray shadowRay = light->genShadowRay(hit.point);
 
 		// Use the shadow ray to find intersect.
 		Hit shadowHit;
-		scene->intersect(shadowRay, shadowHit);
-
-		// Is the light blocked£¿
-		if (shadowHit.t < distanceToLight) {
-			continue;
-		}
+        if (scene->occlude(shadowRay)) {
+            continue;
+        }
 
 		// Get the light color.
-		vec3 lightColor = light->getColor(distanceToLight);
+		vec3 lightColor = light->getColor(shadowRay.tmax);
 
 		// Calculate the diffuse term.
 		diffuse += lightColor * hit.m.diffuse * max(0.0f, dot(hit.normal, shadowRay.d));
