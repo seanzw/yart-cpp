@@ -1,8 +1,10 @@
 #include "PointLight.h"
 
-Ray PointLight::genShadowRay(const vec3 &hit) const {
+void PointLight::genShadowRay(const vec3 &hit, unique_ptr<vector<Ray> > &rays) const {
+    rays->reserve(1);
+    rays->clear();
     vec3 direction = p - hit;
-    return Ray(hit, normalize(direction), CONST_NEAR, length(direction));
+    rays->emplace_back(hit, normalize(direction), CONST_NEAR, length(direction));
 }
 
 vec3 PointLight::getColor(float t) const {

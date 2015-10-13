@@ -1,6 +1,7 @@
 #ifndef SAMPLER_HEADER
 #define SAMPLER_HEADER
 
+#include <random>
 #include "Const.h"
 
 class Sampler {
@@ -9,6 +10,12 @@ public:
 	virtual ~Sampler() {}
 
 	/*virtual void sample(int i, int j, vector<float> &samplers) = 0;*/
+
+    /* Some static utility function. */
+    static pair<float, float> uniformSampleCircle();
+
+protected:
+    static default_random_engine generator;
 };
 
 class PixelSampler : public Sampler {

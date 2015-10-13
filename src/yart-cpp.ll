@@ -144,6 +144,7 @@ pushTransform       { return PUSHTRANSFORM; }
 popTransform        { return POPTRANSFORM;  }
 directional         { return DIRECTIONAL;   }
 point               { return POINT;         }
+areaLight           { return AREALIGHT;     }
 attenuation         { return ATTENUATION;   }
 diffuse             { return DIFFUSE;       }
 ambient             { return AMBIENT;       }

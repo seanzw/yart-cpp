@@ -75,6 +75,12 @@
     <ClCompile Include="src\PlaneTriangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\AreaLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BBox.h">
@@ -143,6 +149,9 @@
     <ClInclude Include="src\Sphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\AreaLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">
@@ -197,6 +206,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\scene-sphere.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="test\scene-area.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>

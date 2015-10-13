@@ -114,6 +114,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AreaLight.cpp" />
     <ClCompile Include="src\BBox.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\DirectLightIntegrator.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="src\PlaneTriangle.cpp" />
     <ClCompile Include="src\PointLight.cpp" />
     <ClCompile Include="src\RayTracer.cpp" />
+    <ClCompile Include="src\Sampler.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
     <ClCompile Include="src\Transform.cpp" />
@@ -134,6 +136,7 @@
     <ClCompile Include="src\yart-cpp.tab.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AreaLight.h" />
     <ClInclude Include="src\BBox.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
@@ -161,6 +164,7 @@
     <None Include="src\Makefile" />
     <None Include="src\yart-cpp.ll" />
     <None Include="src\yart-cpp.yy" />
+    <None Include="test\scene-area.test" />
     <None Include="test\scene-cube.test" />
     <None Include="test\scene-dinosaur.test" />
     <None Include="test\scene-kitten.test" />

@@ -1,0 +1,57 @@
+# Test Scene 1 
+# A simple quad viewed from different camera positions
+
+size 640 480
+output "area-1shadowRay.png"
+
+integrator "DirectLight" 5
+pixelSampler "UniformPixelSampler" 4
+
+# Now specify the camera.  This is what you should implement.
+# This file has 4 camera positions.  Render your scene for all 4.
+
+camera 0 5 10 0 0 0 0 1 0 60
+#camera 0 -3 3 0 0 0 0 1 0 30
+#camera -4 0 1 0 0 1 0 0 1 45
+#camera -4 -4 4 1 0 0 0 1 0 30
+
+worldBegin
+
+areaLight 0 4 0 1 1 1 0 -1 0 0.5 1
+
+objBegin "Mesh"
+diffuse 0.5 0.5 0.5
+ambient 0.0 0.0 0.0
+shininess 20
+specular 0 0 0
+
+pushTransform
+translate 0 0 0
+scale 100 1 100
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+f 0 1 2
+f 2 3 0
+popTransform
+objEnd
+
+objBegin "Mesh"
+diffuse 0.5 0.5 0.5
+ambient 0.0 0.0 0.0
+shininess 20
+specular 0 0 0
+
+pushTransform
+translate 0 2 0
+scale 1 1 1
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+f 0 1 2
+f 2 3 0
+popTransform
+objEnd
+worldEnd

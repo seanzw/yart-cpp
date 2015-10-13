@@ -16,6 +16,7 @@ using namespace glm;
 
 #define CONST_FAR 1000000.0f
 #define CONST_NEAR 0.001f
+#define CONST_EPSILON 0.000001f
 #define PI 3.14159265f
 
 

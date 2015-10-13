@@ -70,13 +70,14 @@ extern int yydebug;
     POPTRANSFORM = 280,
     DIRECTIONAL = 281,
     POINT = 282,
-    ATTENUATION = 283,
-    DIFFUSE = 284,
-    AMBIENT = 285,
-    SPECULAR = 286,
-    EMISSION = 287,
-    SHININESS = 288,
-    BUILDOCTREE = 289
+    AREALIGHT = 283,
+    ATTENUATION = 284,
+    DIFFUSE = 285,
+    AMBIENT = 286,
+    SPECULAR = 287,
+    EMISSION = 288,
+    SHININESS = 289,
+    BUILDOCTREE = 290
   };
 #endif
 
@@ -90,7 +91,7 @@ union YYSTYPE
     char string[1024];
     float num;
 
-#line 94 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 95 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -9,11 +9,11 @@
 #include "Transform.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "AreaLight.h"
 #include "Sphere.h"
 #include "OCTree.h"
 #include "DirectLightIntegrator.h"
 #include "UniformPixelSampler.h"
-
 
 using namespace glm;
 
@@ -249,6 +249,10 @@ void RayTracer::yartDirectional(const vec3 &direction, const vec3 &color) {
 void RayTracer::yartPoint(vec3 &position, const vec3 &color) {
 	position = applyMatrix(transforms.top(), position);
 	scene->lights.push_back(shared_ptr<Light>(new PointLight(color, position, this->attenuation)));
+}
+
+void RayTracer::yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r, int n) {
+    scene->lights.push_back(make_shared<AreaLight>(position, color, normal, r, n));
 }
 
 void RayTracer::yartAttenuation(const vec3 &a) {
