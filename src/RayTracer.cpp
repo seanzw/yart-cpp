@@ -57,11 +57,9 @@ void RayTracer::generate(int threadnum) {
     threadnum = threadnum < 1 ? 1 : (threadnum > 8 ? 8 : threadnum);
     thread **threads = new thread*[threadnum];
     vector<int> progress(threadnum);
-	vector<shared_ptr<vector<float> > > samples_pool;
     for (int i = 0; i < threadnum; ++i) {
-		samples_pool.push_back(shared_ptr<vector<float> >(new vector<float>));
         progress[i] = 0;
-        threads[i] = new thread(&RayTracer::generate_one_thread, this, i, threadnum, samples_pool[i], &progress[i]);
+        threads[i] = new thread(&RayTracer::generate_one_thread, this, i, threadnum, &progress[i]);
     }
 
     while (true) {
@@ -90,22 +88,23 @@ void RayTracer::generate(int threadnum) {
     delete[] threads;
 }
 
-void RayTracer::generate_one_thread(int row_init, int row_step, shared_ptr<vector<float> > samples, int *total) {
+void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
 
     DEBUG("START Thread %d\n", row_init);
+    vector<float> samples;
     for (int row = row_init; row < height; row += row_step) {
         for (int col = 0; col < width; ++col) {
 
 			// Generate samples for each pixel.
-			pixelSampler->sample(row, col, *samples);
+			pixelSampler->sample(row, col, samples);
 
 			vec3 color(0.0f);
-			for (auto iter = samples->begin(); iter != samples->end(); iter += 2) {
+			for (auto iter = samples.begin(); iter != samples.end(); iter += 2) {
 				Ray ray = this->camera->genRay(*iter, *(iter + 1));
 				color += integrator->income(ray, scene);
 			}
 
-			color /= float(samples->size() / 2);
+			color /= float(samples.size() / 2);
             color = clamp(color, 0.0f, 1.0f);
             film->expose(color, row, col);
 

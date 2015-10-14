@@ -65,7 +65,7 @@ private:
     // HELPER FUNCTIONS.
     void showProgress(int total);
 
-    void generate_one_thread(int row_init, int row_step, shared_ptr<vector<float> > samples, int *total);
+    void generate_one_thread(int row_init, int row_step, int *total);
 
     // DATA.
     int width, height;

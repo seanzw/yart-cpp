@@ -15,10 +15,10 @@ AreaLight::AreaLight(vec3 c, vec3 color, vec3 n, float r, int nS)
     yUnit = cross(normal, xUnit);
 }
 
-void AreaLight::genShadowRay(const vec3 &hit, unique_ptr<vector<Ray> > &rays) const {
+void AreaLight::genShadowRay(const vec3 &hit, vector<Ray> &rays) const {
     
-    rays->reserve(nSamples);
-    rays->clear();
+    rays.reserve(nSamples);
+    rays.clear();
     // Randomly sample a point on the disk.
     for (int i = 0; i < nSamples; ++i) {
         pair<float, float> sample = Sampler::uniformSampleCircle();
@@ -34,7 +34,7 @@ void AreaLight::genShadowRay(const vec3 &hit, unique_ptr<vector<Ray> > &rays) co
 
         // Get the direction of the ray.
         vec3 direction = point - hit;
-        rays->emplace_back(hit, normalize(direction), CONST_NEAR, length(direction));
+        rays.emplace_back(hit, normalize(direction), CONST_NEAR, length(direction));
     }
 
 }

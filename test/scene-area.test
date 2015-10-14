@@ -17,7 +17,7 @@ camera 0 5 10 0 0 0 0 1 0 60
 
 worldBegin
 
-areaLight 0 4 0 1 1 1 0 -1 0 0.5 1
+areaLight 0 4 0 1 1 1 0 -1 0 0.5 5
 
 objBegin "Mesh"
 diffuse 0.5 0.5 0.5

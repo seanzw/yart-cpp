@@ -23,9 +23,9 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 	vec3 specular = vec3(0.0f);
 	for (const auto &light : scene->lights) {
 		// Get the shadow ray and the distance to the light.
-        auto rays = make_unique<vector<Ray> >();
+        vector<Ray> rays;
         light->genShadowRay(hit.point, rays);
-        for (const auto &shadowRay : *rays) {
+        for (const auto &shadowRay : rays) {
 
             // Use the shadow ray to find intersect.
             Hit shadowHit;
@@ -43,8 +43,8 @@ vec3 DirectLightIntegrator::income(const Ray &r,
             vec3 half = normalize(shadowRay.d - r.d);
             specular += lightColor * hit.m.specular * powf(max(0.0f, dot(hit.normal, half)), hit.m.shininess);
         }
-        diffuse /= rays->size();
-        specular /= rays->size();
+        diffuse /= rays.size();
+        specular /= rays.size();
 
 	}
 	L += diffuse;
