@@ -10,8 +10,8 @@ public:
 
     virtual ~PointLight() {}
 
-    virtual void genShadowRay(const vec3 &hit, vector<Ray> &rays) const;
-    virtual vec3 getColor(float t) const;
+    virtual void genShadowRay(const Hit &hit, vector<pair<Ray, float> > &rayPDFs) const;
+    virtual vec3 Le(float t) const;
 
 private:
     vec3 p, a;

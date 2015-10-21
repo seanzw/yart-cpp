@@ -10,7 +10,7 @@ public:
 
 	virtual vec3 income(const Ray &r,
 		const shared_ptr<Scene> &scene
-		) = 0;
+		) const = 0;
 
 };
 

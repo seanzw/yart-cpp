@@ -2,7 +2,7 @@
 
 vec3 DirectLightIntegrator::income(const Ray &r,
 	const shared_ptr<Scene> &scene,
-	int level) {
+	int level) const {
 
 	vec3 L(0.0f);
 
@@ -13,19 +13,24 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 		return L;
 	}
 
+    // Total Samples we take.
+    size_t nSamples = 0;
+
 	L += hit.m.ambient;
 
 	// Emission.
 	L += hit.m.emission;
 
 	// Sample for each light.
-	vec3 diffuse = vec3(0.0f);
-	vec3 specular = vec3(0.0f);
 	for (const auto &light : scene->lights) {
 		// Get the shadow ray and the distance to the light.
-        vector<Ray> rays;
-        light->genShadowRay(hit.point, rays);
-        for (const auto &shadowRay : rays) {
+        vector<pair<Ray, float> > rayPDFs;
+        light->genShadowRay(hit, rayPDFs);
+        nSamples += rayPDFs.size();
+        for (const auto &rayPDF : rayPDFs) {
+
+            Ray shadowRay = rayPDF.first;
+            float lightPDF = rayPDF.second;
 
             // Use the shadow ray to find intersect.
             Hit shadowHit;
@@ -34,21 +39,16 @@ vec3 DirectLightIntegrator::income(const Ray &r,
             }
 
             // Get the light color.
-            vec3 lightColor = light->getColor(shadowRay.tmax);
+            vec3 lightColor = light->Le(shadowRay.tmax);
 
             // Calculate the diffuse term.
-            diffuse += lightColor * hit.m.diffuse * max(0.0f, dot(hit.normal, shadowRay.d));
+            L += lightColor * hit.m.diffuse * max(0.0f, dot(hit.normal, shadowRay.d)) / lightPDF;
 
             // Specular.
             vec3 half = normalize(shadowRay.d - r.d);
-            specular += lightColor * hit.m.specular * powf(max(0.0f, dot(hit.normal, half)), hit.m.shininess);
+            L += lightColor * hit.m.specular * powf(max(0.0f, dot(hit.normal, half)), hit.m.shininess) / lightPDF;
         }
-        diffuse /= rays.size();
-        specular /= rays.size();
-
 	}
-	L += diffuse;
-	L += specular;
 
 	// Mirror reflection
 	if (level < maxDepth - 1) {
@@ -60,5 +60,5 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 		L += hit.m.specular * specularColor;
 	}
 
-	return L;
+	return L / float(nSamples);
 }

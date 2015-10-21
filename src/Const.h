@@ -18,6 +18,7 @@ using namespace glm;
 #define CONST_NEAR 0.001f
 #define CONST_EPSILON 0.000001f
 #define PI 3.14159265f
+#define INV_PI 0.318309f
 
 
 struct Material {

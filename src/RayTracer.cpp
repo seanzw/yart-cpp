@@ -18,7 +18,7 @@
 using namespace glm;
 
 RayTracer::RayTracer(const string &fn) {
-	scene = shared_ptr<Scene>(new Scene());
+    scene = make_shared<Scene>();
 
     // Set some default value
     width = 80;
@@ -110,8 +110,6 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
 
             // Show progress only for one thread.
             *total += 1;
-            /*if (row_step == 1)
-                showProgress(row, col);*/
         }
     }
 
@@ -190,15 +188,7 @@ void RayTracer::yartVertex(const vec3 &v) {
 }
 
 void RayTracer::yartTri(int id1, int id2, int id3) {
-
 	scene->objTri(m, id1, id2, id3);
-	/*vec3 v1 = vbuffer[id1];
-	vec3 v2 = vbuffer[id2];
-	vec3 v3 = vbuffer[id3];
-	v1 = applyMatrix(transforms.top(), v1);
-	v2 = applyMatrix(transforms.top(), v2);
-	v3 = applyMatrix(transforms.top(), v3);
-	scene->objs.push_back(shared_ptr<Object>(new Triangle(m, id1, id2, id3, )));*/
 }
 
 void RayTracer::yartSphere(const vec3 &center, float r) {
@@ -279,18 +269,5 @@ void RayTracer::yartShininess(float s) {
 }
 
 void RayTracer::yartBuildOCTree(int level) {
-
 	scene->objOCTree(level);
-
-	//OCTree::MAX_LEVEL = level > 1 ? level : 1;
-	//BBox b;
-	//for (const auto obj : scene->objs) {
-	//	b = b.merge(obj->getBBox());
-	//}
-	//vector<int> idx;
-	//for (unsigned int i = 0; i < scene->objs.size(); ++i) {
-	//	idx.push_back(i);
-	//}
-	//scene->trees.push_back(shared_ptr<Object>(new OCTree(scene->objs, b, idx, 0)));
-	//scene->useTree = true;
 }

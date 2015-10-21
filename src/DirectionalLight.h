@@ -8,13 +8,13 @@ public:
     DirectioalLight(vec3 color, vec3 direction) : Light(color), d(direction) {}
     virtual ~DirectioalLight() {}
 
-    inline virtual void genShadowRay(const vec3 &hit, vector<Ray> &rays) const {
-        rays.reserve(1);
-        rays.clear();
-        rays.emplace_back(hit, d, CONST_NEAR, CONST_FAR);
+    inline virtual void genShadowRay(const Hit &hit, vector<pair<Ray, float> > &rayPDFs) const {
+        rayPDFs.reserve(1);
+        rayPDFs.clear();
+        rayPDFs.emplace_back(Ray(hit.point, d, CONST_NEAR, CONST_FAR), 1.0f);
     }
 
-    virtual vec3 getColor(float t) const { return c; }
+    virtual vec3 Le(float t) const { return c; }
 
 private:
     vec3 d;

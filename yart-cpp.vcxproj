@@ -122,6 +122,7 @@
     <ClCompile Include="src\lex.yy.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MonteCarloIntegrator.cpp" />
     <ClCompile Include="src\NormalTriangle.cpp" />
     <ClCompile Include="src\OCTree.cpp" />
     <ClCompile Include="src\PlaneTriangle.cpp" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="src\AreaLight.h" />
     <ClInclude Include="src\BBox.h" />
+    <ClInclude Include="src\BRDF.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
     <ClInclude Include="src\DirectionalLight.h" />
@@ -146,6 +148,7 @@
     <ClInclude Include="src\Integrator.h" />
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Mesh.h" />
+    <ClInclude Include="src\MonteCarloIntegrator.h" />
     <ClInclude Include="src\NormalTriangle.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\OCTree.h" />
