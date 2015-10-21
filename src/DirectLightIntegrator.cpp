@@ -13,11 +13,6 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 		return L;
 	}
 
-	//L += hit.m.ambient;
-
-	//// Emission.
-	//L += hit.m.emission;
-
 	// Sample for each light.
 	for (const auto &light : scene->lights) {
 		// Get the shadow ray and the distance to the light.
@@ -35,15 +30,9 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 
             // Get the light color.
             vec3 Le = light->Le(shadowRay.tmax);
-            float f = hit.m->brdf->brdf(r.d, shadowRay.d, hit.normal, vec3(0.0f));
+            float f = hit.m->brdf->brdf(hit, shadowRay.d);
             L +=  f * dot(hit.normal, shadowRay.d) * Le / lightPDF;
 
-            // Calculate the diffuse term.
-            // L += lightColor * hit.m.diffuse * max(0.0f, dot(hit.normal, shadowRay.d)) / lightPDF;
-
-            // Specular.
-            //vec3 half = normalize(shadowRay.d - r.d);
-            // L += lightColor * hit.m.specular * powf(max(0.0f, dot(hit.normal, half)), hit.m.shininess) / lightPDF;
         }
         L /= rayPDFs.size();
 	}
@@ -55,7 +44,8 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 		vec3 reflectDirection = reflect(r.d, hit.normal);
 		Ray reflectRay(hit.point, reflectDirection, CONST_NEAR, CONST_FAR);
 		vec3 specularColor = income(reflectRay, scene, level + 1);
-		// L += hit.m.specular * specularColor;
+        float f = hit.m->brdf->brdf(hit, reflectRay.d);
+		L += f * dot(hit.normal, reflectRay.d) * specularColor;
 	}
 
 	return L;

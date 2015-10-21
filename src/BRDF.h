@@ -3,12 +3,14 @@
 
 #include "Const.h"
 
+class Intersection;
+
 class BRDF {
 public:
     BRDF() {}
     virtual ~BRDF() {}
-
-    virtual float brdf(const vec3 &in, const vec3 &out, const vec3 &normal, const vec3 &tangent) = 0;
+    virtual float brdf(const Intersection &hit, const vec3 &out) const = 0;
+    // virtual float brdf(const Intersection &hit, const vec3 &out) = 0;
 
 };
 
@@ -16,7 +18,7 @@ class BRDFLambertian : public BRDF {
 public:
     BRDFLambertian() : BRDF() {}
     virtual ~BRDFLambertian() {}
-    virtual float brdf(const vec3 &in, const vec3 &out, const vec3 &normal, const vec3 &tangent) {
+    virtual float brdf(const Intersection &hit, const vec3 &out) const {
         return INV_PI;
     }
 };

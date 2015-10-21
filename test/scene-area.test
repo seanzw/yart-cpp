@@ -44,8 +44,34 @@ v -1 0 -1
 v -1 0 1
 v  1 0 1
 v  1 0 -1
+v -1 -1 -1
+v -1 -1 1
+v  1 -1 1
+v  1 -1 -1
+# upper
 f 0 1 2
 f 2 3 0
+
+# down
+f 6 5 4
+f 4 6 7
+
+# left
+f 0 4 5
+f 0 5 1
+
+# right
+f 2 6 7
+f 2 7 3
+
+# front
+f 1 5 6
+f 1 6 2
+
+# back
+f 3 7 4
+f 3 4 0
+
 popTransform
 objEnd
 
