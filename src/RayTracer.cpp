@@ -14,6 +14,7 @@
 #include "OCTree.h"
 #include "DirectLightIntegrator.h"
 #include "UniformPixelSampler.h"
+#include "JitteredPixelSampler.h"
 
 using namespace glm;
 
@@ -152,6 +153,9 @@ void RayTracer::yartPixelSampler(const string &type, int num) {
 	if (type == "UniformPixelSampler") {
 		pixelSampler = shared_ptr<PixelSampler>(new UniformPixelSampler(num));
 	}
+    else if (type == "JitteredPixelSampler") {
+        pixelSampler = make_shared<JitteredPixelSampler>(num);
+    }
 	else {
 		cerr << "ERROR: Unsupported pixel sampler: " << type << endl;
 		exit(1);

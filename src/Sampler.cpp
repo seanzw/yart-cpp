@@ -10,3 +10,8 @@ pair<float, float> Sampler::uniformSampleCircle() {
     return make_pair(radius, theta);
 
 }
+
+float Sampler::sample1D(float low, float high) {
+    uniform_real<float> distrituion(low, high);
+    return distrituion(generator);
+}

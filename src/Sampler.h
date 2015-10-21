@@ -13,6 +13,7 @@ public:
 
     /* Some static utility function. */
     static pair<float, float> uniformSampleCircle();
+    static float sample1D(float low, float high);
 
 protected:
     static default_random_engine generator;
