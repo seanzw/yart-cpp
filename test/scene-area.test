@@ -18,14 +18,10 @@ camera 0 5 10 0 0 0 0 1 0 60
 worldBegin
 
 # Center Power Normal Radius NSamples
-areaLight 0 4 0 50 50 50 0 -1 0 0.5 100
+areaLight 0 4 0 100 100 100 0 -1 0 0.5 100
 
 objBegin "Mesh"
-diffuse 0.5 0.5 0.5
-ambient 0.0 0.0 0.0
-shininess 20
-specular 0 0 0
-
+material "Lambertian"
 pushTransform
 translate 0 0 0
 scale 100 1 100
@@ -39,14 +35,11 @@ popTransform
 objEnd
 
 objBegin "Mesh"
-diffuse 0.5 0.5 0.5
-ambient 0.0 0.0 0.0
-shininess 20
-specular 0 0 0
-
+material "Lambertian"
 pushTransform
 translate 0 2 0
 scale 1 1 1
+rotate 0 1 0 45
 v -1 0 -1
 v -1 0 1
 v  1 0 1
@@ -55,4 +48,19 @@ f 0 1 2
 f 2 3 0
 popTransform
 objEnd
+
+objBegin "Sphere"
+material "Lambertian"
+pushTransform
+sphere 2 0.5 2 0.5
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "Lambertian"
+pushTransform
+sphere -2 0.5 2 0.5
+popTransform
+objEnd
+
 worldEnd

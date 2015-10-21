@@ -72,12 +72,8 @@ extern int yydebug;
     POINT = 282,
     AREALIGHT = 283,
     ATTENUATION = 284,
-    DIFFUSE = 285,
-    AMBIENT = 286,
-    SPECULAR = 287,
-    EMISSION = 288,
-    SHININESS = 289,
-    BUILDOCTREE = 290
+    MATERIAL = 285,
+    BUILDOCTREE = 286
   };
 #endif
 
@@ -91,7 +87,7 @@ union YYSTYPE
     char string[1024];
     float num;
 
-#line 95 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 91 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

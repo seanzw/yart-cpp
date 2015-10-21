@@ -1,10 +1,9 @@
 #include "Triangle.h"
 #include "BBox.h"
 
-Triangle::Triangle(const Material &material,
-	int idx1, int idx2, int idx3,
+Triangle::Triangle(int idx1, int idx2, int idx3,
 	const vector<vec3> &vBuffer
-    ) : m(material), v(vBuffer), id1(idx1), id2(idx2), id3(idx3) {
+    ) : v(vBuffer), id1(idx1), id2(idx2), id3(idx3) {
 
 }
 
@@ -24,12 +23,10 @@ int Triangle::intersectBBox(const BBox &box) const {
     }
 
     // edge test.
-    Hit ret;
-
     vec3 e1 = v[id2] - v[id1];
     float t1 = length(e1);
     vec3 d1 = normalize(e1);
-    ret = box.intersect(Ray(v[id1], d1, CONST_NEAR, CONST_FAR));
+    Intersection ret = box.intersect(Ray(v[id1], d1, CONST_NEAR, CONST_FAR));
     if (ret.t < t1) {
         return 1;
     }

@@ -3,21 +3,21 @@
 #include "PlaneTriangle.h"
 #include "NormalTriangle.h"
 
-Hit Mesh::intersect(const Ray &r) const {
-	Hit ret;
-	ret.t = CONST_FAR;
+Intersection Mesh::intersect(const Ray &r) const {
+    Intersection ret(NULL, CONST_FAR);
 	if (useTree) {
 		ret = tree->intersect(r);
 	}
 	else {
 		for (const auto &face : f) {
-			Hit temp = face->intersect(r);
+            Intersection temp = face->intersect(r);
 			if (temp.t < ret.t) {
 				ret = temp;
 			}
 		}
 	}
-	return ret;
+    ret.m = &material;
+    return ret;
 }
 
 bool Mesh::occlude(const Ray &r) const {
@@ -55,9 +55,9 @@ void Mesh::pushVertex(const vec3 &vertex) {
 	v.push_back(vertex);
 }
 
-void Mesh::pushTri(const Material &m, int id1, int id2, int id3) {
+void Mesh::pushTri(int id1, int id2, int id3) {
 
-	f.push_back(move(make_unique<PlaneTriangle>(m, id1, id2, id3, v)));
+	f.push_back(move(make_unique<PlaneTriangle>(id1, id2, id3, v)));
 }
 
 /* Refine the mesh by calculate the normal for each vertex and use NormalTriangle. */
@@ -80,9 +80,7 @@ void Mesh::refine() {
         fN = normalize(fN);
         FNS[i] = make_pair(fN, S);
 
-        f[i] = make_unique<NormalTriangle>(face->m, face->id1, face->id2, face->id3, v, n);
-
-        // f[i].reset(new NormalTriangle(face->m, face->id1, face->id2, face->id3, v, n));
+        f[i] = make_unique<NormalTriangle>(face->id1, face->id2, face->id3, v, n);
     }
 
     // For each vertes calculate the normal weighted by the area of the neighboring face.

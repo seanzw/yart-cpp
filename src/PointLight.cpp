@@ -1,6 +1,6 @@
 #include "PointLight.h"
 
-void PointLight::genShadowRay(const Hit &hit, vector<pair<Ray, float> > &rayPDFs) const {
+void PointLight::genShadowRay(const Intersection &hit, vector<pair<Ray, float> > &rayPDFs) const {
     rayPDFs.reserve(1);
     rayPDFs.clear();
     vec3 direction = p - hit.point;

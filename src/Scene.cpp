@@ -37,15 +37,21 @@ void Scene::objVertex(const vec3 &v) {
 	}
 }
 
-void Scene::objTri(const Material &m, int id1, int id2, int id3) {
+void Scene::objTri(int id1, int id2, int id3) {
 	if (isInObject && objType == SCENE_MESH) {
-		mesh->pushTri(m, id1, id2, id3);
+		mesh->pushTri(id1, id2, id3);
 	}
 }
 
 void Scene::objRefineMesh() {
     if (isInObject && objType == SCENE_MESH) {
         mesh->refine();
+    }
+}
+
+void Scene::objMaterial(const Material &m) {
+    if (isInObject && objType == SCENE_MESH) {
+        mesh->material = m;
     }
 }
 

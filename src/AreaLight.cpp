@@ -17,7 +17,7 @@ AreaLight::AreaLight(vec3 c, vec3 color, vec3 n, float r, int nS)
     yUnit = cross(normal, xUnit);
 }
 
-void AreaLight::genShadowRay(const Hit &hit, vector<pair<Ray, float> > &rayPDFs) const {
+void AreaLight::genShadowRay(const Intersection &hit, vector<pair<Ray, float> > &rayPDFs) const {
     
     rayPDFs.reserve(nSamples);
     rayPDFs.clear();
@@ -50,7 +50,7 @@ vec3 AreaLight::Le(float t) const {
     return c;
 }
 
-inline float AreaLight::calPDF(const Hit &hit, const vec3 &toLight, const vec3 &direction) const {
+inline float AreaLight::calPDF(const Intersection &hit, const vec3 &toLight, const vec3 &direction) const {
     float cosThetaI = dot(hit.normal, direction);
     float cosThetaO = dot(normal, -direction);
     float distanceSquared = dot(toLight, toLight);

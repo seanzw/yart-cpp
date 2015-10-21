@@ -18,8 +18,9 @@ public:
 	void objEnd();
 	void objSphere(const vec3 &center, float r, const mat4 &transform, const Material &m);
 	void objVertex(const vec3 &v);
-	void objTri(const Material &m, int id1, int id2, int id3);
+	void objTri(int id1, int id2, int id3);
     void objRefineMesh();
+    void objMaterial(const Material &m);
 	void objOCTree(int level);
 
 	// Lights.
@@ -33,13 +34,13 @@ public:
 
 	bool useTree;
 
-	bool intersect(const Ray &r, Hit &hit) const {
+	bool intersect(const Ray &r, Intersection &hit) const {
 		bool isHit = false;
 		hit.t = CONST_FAR;
 
 		// Get the intersection.
 		for (const auto &obj : getObjs()) {
-			Hit temp = obj->intersect(r);
+            Intersection temp = obj->intersect(r);
 			if (temp.t < hit.t) {
 				isHit = true;
 				hit = temp;

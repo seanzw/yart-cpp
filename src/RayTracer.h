@@ -47,11 +47,12 @@ public:
 	void yartPoint(vec3 &position, const vec3 &color);
     void yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r, int n);
 	void yartAttenuation(const vec3 &a);
-	void yartDiffuse(const vec3 &d);
+    void yartMaterial(const string &brdf);
+	/*void yartDiffuse(const vec3 &d);
 	void yartAmbient(const vec3 &a);
 	void yartSpecular(const vec3 &s);
 	void yartEmission(const vec3 &e);
-	void yartShininess(float s);
+	void yartShininess(float s);*/
 	void yartBuildOCTree(int level);
 
 
@@ -59,7 +60,7 @@ private:
 
 	// Something used during the parsing.
 	stack<mat4> transforms;
-	Material m;
+	// Material m;
 	vec3 attenuation;
 
     // HELPER FUNCTIONS.
@@ -73,13 +74,10 @@ private:
 
 	shared_ptr<PixelSampler> pixelSampler;
 	shared_ptr<Integrator> integrator;
-
 	shared_ptr<Scene> scene;
-
     shared_ptr<Camera> camera;
-
     vector<vec3> vbuffer;
-
+    vector<Material> materials;
     shared_ptr<Film> film;
 };
 

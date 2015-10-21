@@ -10,15 +10,13 @@ Sphere::Sphere(const Material &material,
     normal_mat = inverseTranspose(mat3(t));
 }
 
-Hit Sphere::intersect(const Ray &ray) const {
+Intersection Sphere::intersect(const Ray &ray) const {
 
     // Inverse transform the ray.
     vec3 o = applyMatrix(inv_t, ray.o);
     vec3 d = normalize(applyMatrix(inv_t, ray.o + ray.d) - o);
 
-    Hit ret;
-    ret.t = CONST_FAR;
-    ret.m = m;
+    Intersection ret(&m, CONST_FAR);
 
     float r2 = r * r;
     vec3 toSphere = c - o;

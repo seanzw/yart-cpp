@@ -1,17 +1,14 @@
 #include "NormalTriangle.h"
 #include "BBox.h"
 
-NormalTriangle::NormalTriangle(const Material &material,
-    int id1, int id2, int id3,
+NormalTriangle::NormalTriangle(int id1, int id2, int id3,
     const vector<vec3> &vBuffer,
     const vector<vec3> &nBuffer
-    ) : Triangle(material, id1, id2, id3, vBuffer), n(nBuffer) {
+    ) : Triangle(id1, id2, id3, vBuffer), n(nBuffer) {
 }
 
-Hit NormalTriangle::intersect(const Ray &r) const {
-    Hit ret;
-
-    ret.t = CONST_FAR;
+Intersection NormalTriangle::intersect(const Ray &r) const {
+    Intersection ret(NULL, CONST_FAR);
 
     vec3 edge1 = v[id2] - v[id1];
     vec3 edge2 = v[id3] - v[id1];
@@ -47,7 +44,6 @@ Hit NormalTriangle::intersect(const Ray &r) const {
         }
 
         ret.t = t;
-        ret.m = m;
         ret.point = r.o + ret.t * r.d;
 
         // Get the normal.

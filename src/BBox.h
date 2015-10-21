@@ -11,7 +11,7 @@ public:
         m_min(vec3(0.0f)), m_max(vec3(0.0f)) {}
     ~BBox() {}
 
-    virtual Hit intersect(const Ray &r) const;
+    virtual Intersection intersect(const Ray &r) const;
     virtual bool occlude(const Ray &r) const;
     virtual BBox getBBox() const { return BBox(m_min, m_max); }
     virtual int intersectBBox(const BBox &other) const;

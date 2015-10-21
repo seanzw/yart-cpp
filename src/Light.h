@@ -2,6 +2,7 @@
 #define LIGHT_HEADER
 
 #include "Ray.h"
+#include "Intersection.h"
 
 class Light {
 public:
@@ -9,7 +10,7 @@ public:
     virtual ~Light() {}
 
     /* Sample the shadow rays along with their pdfs. */
-    virtual void genShadowRay(const Hit &hit, vector<pair<Ray, float> > &rayPDFs) const = 0;
+    virtual void genShadowRay(const Intersection &hit, vector<pair<Ray, float> > &rayPDFs) const = 0;
     virtual vec3 Le(float t) const = 0;
 
 protected:

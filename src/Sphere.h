@@ -10,7 +10,7 @@ public:
         const mat4 &trans);
     virtual ~Sphere() {}
 
-    virtual Hit intersect(const Ray &r) const;
+    virtual Intersection intersect(const Ray &r) const;
     virtual bool occlude(const Ray &r) const;
     virtual BBox getBBox() const;
     virtual int intersectBBox(const BBox &box) const;

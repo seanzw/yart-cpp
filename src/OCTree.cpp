@@ -52,9 +52,8 @@ int OCTree::intersectBBox(const BBox &b) const {
     return box.intersectBBox(b);
 }
 
-Hit OCTree::intersect(const Ray &r) const {
-    Hit ret;
-    ret = box.intersect(r);
+Intersection OCTree::intersect(const Ray &r) const {
+    Intersection ret = box.intersect(r);
     if (ret.t >= CONST_FAR) {
         ret.t = CONST_FAR;
         return ret;
@@ -62,7 +61,7 @@ Hit OCTree::intersect(const Ray &r) const {
     ret.t = CONST_FAR;
     if (isLeaf) {
         for (const auto id : idx) {
-            Hit temp = objs[id]->intersect(r);
+            Intersection temp = objs[id]->intersect(r);
             if (temp.t < ret.t) {
                 ret = temp;
             }
@@ -70,8 +69,8 @@ Hit OCTree::intersect(const Ray &r) const {
         return ret;
     }
     else {
-        Hit leftHit = left->intersect(r);
-        Hit rightHit = right->intersect(r);
+        Intersection leftHit = left->intersect(r);
+        Intersection rightHit = right->intersect(r);
         if (leftHit.t < rightHit.t) {
             return leftHit;
         }
@@ -104,13 +103,5 @@ bool OCTree::occlude(const Ray &r) const {
         else {
             return right->occlude(r);
         }
-        //Hit leftHit = left->intersect(r);
-        //Hit rightHit = right->intersect(r);
-        //if (leftHit.t < rightHit.t) {
-        //    return leftHit;
-        //}
-        //else {
-        //    return rightHit;
-        //}
     }
 }

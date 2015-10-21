@@ -167,6 +167,12 @@
     <ClInclude Include="src\MonteCarloIntegrator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Intersection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">

@@ -52,11 +52,7 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %token POINT
 %token AREALIGHT
 %token ATTENUATION
-%token DIFFUSE
-%token AMBIENT
-%token SPECULAR
-%token EMISSION
-%token SHININESS
+%token MATERIAL
 %token BUILDOCTREE
 
 %%
@@ -240,32 +236,8 @@ obj_stmt: MAXVERTS NUMBER {
 	yart->yartPopTransform();
 }
 
-| DIFFUSE NUMBER NUMBER NUMBER {
-	vec3 a($2, $3, $4);
-	yart->yartDiffuse(a);
-	DEBUG("PARSE DIFFUSE %.2f %.2f %.2f\n", a[0], a[1], a[2]);
-}
-
-| AMBIENT NUMBER NUMBER NUMBER {
-	vec3 a($2, $3, $4);
-	yart->yartAmbient(a);
-	DEBUG("PARSE AMBIENT %.2f %.2f %.2f\n", a[0], a[1], a[2]);
-}
-
-| SPECULAR NUMBER NUMBER NUMBER {
-	vec3 a($2, $3, $4);
-	yart->yartSpecular(a);
-	DEBUG("PARSE SPECULAR %.2f %.2f %.2f\n", a[0], a[1], a[2]);
-}
-
-| EMISSION NUMBER NUMBER NUMBER {
-	vec3 a($2, $3, $4);
-	yart->yartEmission(a);
-	DEBUG("PARSE EMISSION %.2f %.2f %.2f\n", a[0], a[1], a[2]);
-}
-
-| SHININESS NUMBER {
-	yart->yartShininess($2);
+| MATERIAL STR {
+    yart->yartMaterial(string($2));
 }
 
 | BUILDOCTREE NUMBER {

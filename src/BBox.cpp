@@ -1,9 +1,8 @@
 #include "BBox.h"
 
-Hit BBox::intersect(const Ray &r) const {
+Intersection BBox::intersect(const Ray &r) const {
 
-    Hit ret;
-    ret.t = CONST_FAR;
+    Intersection ret(NULL, CONST_FAR);
 
     vec3 tMin = (m_min - r.o) / r.d;
     vec3 tMax = (m_max - r.o) / r.d;

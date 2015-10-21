@@ -27,8 +27,8 @@ RayTracer::RayTracer(const string &fn) {
 
 	transforms.push(mat4(1.0f));
 
-	m.ambient = vec3(0.2f, 0.2f, 0.2f);
-	m.shininess = 20.0f;
+	/*m.ambient = vec3(0.2f, 0.2f, 0.2f);
+	m.shininess = 20.0f;*/
 
 	attenuation = vec3(1.0f, 0.0f, 0.0f);
 }
@@ -188,11 +188,11 @@ void RayTracer::yartVertex(const vec3 &v) {
 }
 
 void RayTracer::yartTri(int id1, int id2, int id3) {
-	scene->objTri(m, id1, id2, id3);
+	scene->objTri(id1, id2, id3);
 }
 
 void RayTracer::yartSphere(const vec3 &center, float r) {
-	scene->objSphere(center, r, transforms.top(), m);
+	scene->objSphere(center, r, transforms.top(), materials[materials.size() - 1]);
 }
 
 void RayTracer::yartRefineMesh() {
@@ -248,24 +248,9 @@ void RayTracer::yartAttenuation(const vec3 &a) {
 	this->attenuation = a;
 }
 
-void RayTracer::yartDiffuse(const vec3 &d) {
-	this->m.diffuse = d;
-}
-
-void RayTracer::yartAmbient(const vec3 &a) {
-	this->m.ambient = a;
-}
-
-void RayTracer::yartSpecular(const vec3 &s) {
-	this->m.specular = s;
-}
-
-void RayTracer::yartEmission(const vec3 &e) {
-	this->m.emission = e;
-}
-
-void RayTracer::yartShininess(float s) {
-	this->m.shininess = s;
+void RayTracer::yartMaterial(const string &brdf) {
+    materials.emplace_back(brdf);
+    scene->objMaterial(materials[materials.size() - 1]);
 }
 
 void RayTracer::yartBuildOCTree(int level) {

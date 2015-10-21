@@ -21,20 +21,13 @@ using namespace glm;
 #define INV_PI 0.318309f
 
 
-struct Material {
-    vec3 emission;
-    vec3 ambient;
-    vec3 diffuse;
-    vec3 specular;
-    float shininess;
-};
-
-struct Hit {
-    float t;
-    vec3 point;
-    vec3 normal;
-    Material m;
-};
+//struct Material {
+//    vec3 emission;
+//    vec3 ambient;
+//    vec3 diffuse;
+//    vec3 specular;
+//    float shininess;
+//};
 
 inline vec3 applyMatrix(const mat4 &trans, const vec3 &v) {
     vec4 temp = vec4(v, 1.0f);

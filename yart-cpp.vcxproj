@@ -146,7 +146,9 @@
     <ClInclude Include="src\DirectLightIntegrator.h" />
     <ClInclude Include="src\Film.h" />
     <ClInclude Include="src\Integrator.h" />
+    <ClInclude Include="src\Intersection.h" />
     <ClInclude Include="src\Light.h" />
+    <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Mesh.h" />
     <ClInclude Include="src\MonteCarloIntegrator.h" />
     <ClInclude Include="src\NormalTriangle.h" />

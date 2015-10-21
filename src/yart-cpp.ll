@@ -146,13 +146,8 @@ directional         { return DIRECTIONAL;   }
 point               { return POINT;         }
 areaLight           { return AREALIGHT;     }
 attenuation         { return ATTENUATION;   }
-diffuse             { return DIFFUSE;       }
-ambient             { return AMBIENT;       }
-specular            { return SPECULAR;      }
-emission            { return EMISSION;      }
-shininess           { return SHININESS;     }
+material            { return MATERIAL;      }
 buildOCTree         { return BUILDOCTREE;   }
-
 
 {WHITESPACE}    /* do nothing */
 

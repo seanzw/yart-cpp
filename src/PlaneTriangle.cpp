@@ -1,9 +1,7 @@
 #include "PlaneTriangle.h"
 
-Hit PlaneTriangle::intersect(const Ray &r) const {
-    Hit ret;
-
-    ret.t = CONST_FAR;
+Intersection PlaneTriangle::intersect(const Ray &r) const {
+    Intersection ret(NULL, CONST_FAR);
 
     vec3 edge1 = v[id2] - v[id1];
     vec3 edge2 = v[id3] - v[id1];
@@ -39,7 +37,6 @@ Hit PlaneTriangle::intersect(const Ray &r) const {
         }
 
         ret.t = t;
-        ret.m = m;
         ret.normal = n;
         ret.point = r.o + ret.t * r.d;
 
