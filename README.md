@@ -18,25 +18,29 @@ To use it, simply type the following command in the terminal. At the end of this
 ```
 > yart-cpp.exe scene.yart
 ```
+####Objects
+All the objects used in yart inherit from the abstract class `Object`, which defines an interface including `intersect`, `occlude` and other API.
 
-####Features
-#####Objects
+Basically the yart system supports only two kinds of objects: sphere and mesh. There are other objects only for inner use such as BBox(bounding box), but you should not define such an object in the scene description file.
 
-#####Pixel Sampler
+The mesh supports only triangle.
+####Lights
+
+####BRDF
+##### Lambertian
+####Pixel Sampler
 Currently yart support the following pixel samplers:
-- Uniform sampler
-
+##### Uniform sampler
 For example, to use a 4 by 4 uniform pixel sampler, type the following line in the script.
 ```
 pixelSampler "UniformPixelSampler" 4
 ```
-
-#####Integrator
+####Integrator
 Currently yart support the following integrators:
 - DirectLight
 
 ####Scene Description File
-Here is a full list of the commands you can use in the scene description file.
+Here is a full list of the commands you can use in the scene description file. You can find more samples in the test folder.
 - `size 640 480` will set the size of the output image to 640x480.
 - `output "area-16shadowRay.png"` will set the output image's name.
 - `integrator "DirectLight" 5` will set the integrator to be used.
@@ -52,3 +56,4 @@ Here is a full list of the commands you can use in the scene description file.
 - `v x y z` defines a vertex
 - `f id1 id2 id3` defines a face with three vertex index.
 - `buildOCTree` build an OC Tree for the current object, usually for a complicate mesh.
+- `include "filename"` will include the file at this postion. This is usually used to include other big `.obj` file.
