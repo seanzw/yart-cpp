@@ -30,11 +30,10 @@ The mesh supports only triangle.
 ##### Lambertian
 ####Pixel Sampler
 Currently yart support the following pixel samplers:
-##### Uniform sampler
-For example, to use a 4 by 4 uniform pixel sampler, type the following line in the script.
-```
-pixelSampler "UniformPixelSampler" 4
-```
+##### Uniform Sampler
+A uniform pixel sampler will break a pixel into some small subpixels and shoot one ray for each subpixels. The mean of the returned color of these rays is the color of this pixel. This reduces the jaggies but cannot elminate them.
+##### Jittered Sampler
+Just like the uniform sampler, the jittered sampler also breaks one pixel into subpixels. However, instead of shooting one ray from the center of the subpixel, the origin of the ray is chosen randomly inside the subpixel. Generally this is better than uniform sampler due to the randomness. 
 ####Integrator
 Currently yart support the following integrators:
 - DirectLight
