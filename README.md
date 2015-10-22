@@ -29,7 +29,6 @@ The mesh supports only triangle.
 ####BRDF
 ##### Lambertian
 ####Pixel Sampler
-Currently yart support the following pixel samplers:
 ##### Uniform Sampler
 A uniform pixel sampler will break a pixel into some small subpixels and shoot one ray for each subpixels. The mean of the returned color of these rays is the color of this pixel. This reduces the jaggies but cannot elminate them.
 ##### Jittered Sampler
