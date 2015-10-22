@@ -86,8 +86,9 @@ union YYSTYPE
 
     char string[1024];
     float num;
+    vector<float> *ps;                  /* Always remember to delete this pointer... */
 
-#line 91 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 92 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -7,7 +7,7 @@
 
 class Mesh : public Object {
 public:
-	Mesh(): material("Lambertian") {
+	Mesh() {
 		useTree = false;
 	}
 	virtual ~Mesh() {}

@@ -30,7 +30,7 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 
             // Get the light color.
             vec3 Le = light->Le(shadowRay.tmax);
-            float f = hit.m->brdf->brdf(hit, shadowRay.d);
+            vec3 f = hit.m->brdf->brdf(hit, shadowRay.d);
             L +=  f * dot(hit.normal, shadowRay.d) * Le / lightPDF;
 
         }
@@ -44,8 +44,9 @@ vec3 DirectLightIntegrator::income(const Ray &r,
 		vec3 reflectDirection = reflect(r.d, hit.normal);
 		Ray reflectRay(hit.point, reflectDirection, CONST_NEAR, CONST_FAR);
 		vec3 specularColor = income(reflectRay, scene, level + 1);
-        float f = hit.m->brdf->brdf(hit, reflectRay.d);
+        vec3 f = hit.m->brdf->brdf(hit, reflectRay.d);
 		L += f * dot(hit.normal, reflectRay.d) * specularColor;
+
 	}
 
 	return L;

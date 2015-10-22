@@ -9,18 +9,17 @@ class BRDF {
 public:
     BRDF() {}
     virtual ~BRDF() {}
-    virtual float brdf(const Intersection &hit, const vec3 &out) const = 0;
-    // virtual float brdf(const Intersection &hit, const vec3 &out) = 0;
-
+    virtual vec3 brdf(const Intersection &hit, const vec3 &out) const = 0;
 };
 
 class BRDFLambertian : public BRDF {
 public:
-    BRDFLambertian() : BRDF() {}
+    BRDFLambertian(const vec3 &d) : BRDF(), diffuse(d) {}
     virtual ~BRDFLambertian() {}
-    virtual float brdf(const Intersection &hit, const vec3 &out) const {
-        return INV_PI;
+    virtual vec3 brdf(const Intersection &hit, const vec3 &out) const {
+        return vec3(INV_PI) * diffuse;
     }
+    const vec3 diffuse;
 };
 
 #endif

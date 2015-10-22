@@ -76,7 +76,7 @@ popTransform
 objEnd
 
 objBegin "Sphere"
-material "Lambertian"
+material "Lambertian" 1.0 0.84 0.0
 pushTransform
 sphere 2 0.5 2 0.5
 popTransform

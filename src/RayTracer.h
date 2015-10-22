@@ -47,7 +47,7 @@ public:
 	void yartPoint(vec3 &position, const vec3 &color);
     void yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r, int n);
 	void yartAttenuation(const vec3 &a);
-    void yartMaterial(const string &brdf);
+    void yartMaterial(const string &brdf, const vector<float> *params);
 	/*void yartDiffuse(const vec3 &d);
 	void yartAmbient(const vec3 &a);
 	void yartSpecular(const vec3 &s);

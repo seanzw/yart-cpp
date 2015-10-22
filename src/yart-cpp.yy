@@ -21,6 +21,7 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %union {
     char string[1024];
     float num;
+    vector<float> *ps;                  /* Always remember to delete this pointer... */
 }
 
 %token NUMBER
@@ -55,6 +56,8 @@ bool faceIndexStartFromOne = false;		/* For obj file. */
 %token MATERIAL
 %token BUILDOCTREE
 
+%type <ps> param_list
+
 %%
 
 start: yart_stmt_list {
@@ -68,6 +71,15 @@ yart_stmt_list: yart_stmt_list yart_stmt {
 | yart_stmt {
 
 };
+
+param_list: {
+    $$ = new vector<float>();
+}
+
+| param_list NUMBER {
+    $$ = $1;
+    $$->push_back($2);
+}
 
 yart_stmt: SIZE NUMBER NUMBER {
     DEBUG("PARSE SIZE %d, %d\n", (int)$2, (int)$3);
@@ -236,8 +248,9 @@ obj_stmt: MAXVERTS NUMBER {
 	yart->yartPopTransform();
 }
 
-| MATERIAL STR {
-    yart->yartMaterial(string($2));
+| MATERIAL STR param_list {
+    yart->yartMaterial(string($2), $3);
+    delete $3;
 }
 
 | BUILDOCTREE NUMBER {

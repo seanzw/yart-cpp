@@ -245,15 +245,18 @@ void RayTracer::yartPoint(vec3 &position, const vec3 &color) {
 }
 
 void RayTracer::yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r, int n) {
-    scene->lights.push_back(make_shared<AreaLight>(position, color, normal, r, n));
+    scene->lights.push_back(make_shared<AreaLight>(position, color, normalize(normal), r, n));
 }
 
 void RayTracer::yartAttenuation(const vec3 &a) {
 	this->attenuation = a;
 }
 
-void RayTracer::yartMaterial(const string &brdf) {
-    materials.emplace_back(brdf);
+void RayTracer::yartMaterial(const string &brdf, const vector<float> *params) {
+    for (const auto &param : *params) {
+        cout << param << endl;
+    }
+    materials.emplace_back(brdf, params);
     scene->objMaterial(materials[materials.size() - 1]);
 }
 
