@@ -12,7 +12,7 @@
 #include "AreaLight.h"
 #include "Sphere.h"
 #include "OCTree.h"
-#include "DirectLightIntegrator.h"
+#include "MultipleImportanceIntegrator.h"
 #include "UniformPixelSampler.h"
 #include "JitteredPixelSampler.h"
 
@@ -139,9 +139,9 @@ void RayTracer::yartSize(int width, int height) {
 	this->film = shared_ptr<Film>(new Film(width, height));
 }
 
-void RayTracer::yartIntegrator(const string &type, int maxDepth) {
-	if (type == "DirectLight") {
-		integrator = shared_ptr<Integrator>(new DirectLightIntegrator(maxDepth));
+void RayTracer::yartIntegrator(const string &type, const vector<float> *params) {
+	if (type == "MultipleImportance") {
+		integrator = shared_ptr<Integrator>(new MultipleImportanceIntegrator(int((*params)[0]), int((*params)[1])));
 	}
 	else {
 		cerr << "ERROR: Unsupported integrator: " << type << endl;

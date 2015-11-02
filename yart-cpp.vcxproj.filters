@@ -34,33 +34,21 @@
     <Filter Include="Header Files\Object">
       <UniqueIdentifier>{ba63f778-1b8e-4082-88f6-2e9ecf3d993a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{fa87c130-6c54-4f32-9e37-ceb493fb4e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object">
+      <UniqueIdentifier>{4d9fcb0d-4d75-4f52-8965-54a0b3438db3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PixelSampler">
+      <UniqueIdentifier>{cefa8eaf-dd9c-4dd7-83b4-7f502592804f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Film.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\OCTree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\RayTracer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sphere.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\lex.yy.cpp">
@@ -69,44 +57,62 @@
     <ClCompile Include="src\yart-cpp.tab.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UniformPixelSampler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\NormalTriangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PlaneTriangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sampler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\AreaLight.cpp">
       <Filter>Source Files\Light</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DirectLightIntegrator.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\PointLight.cpp">
       <Filter>Source Files\Light</Filter>
     </ClCompile>
-    <ClCompile Include="src\MonteCarloIntegrator.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Camera.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Film.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sampler.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Transform.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BBox.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PlaneTriangle.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sphere.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Triangle.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NormalTriangle.cpp">
+      <Filter>Source Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OCTree.cpp">
+      <Filter>Source Files\Object</Filter>
     </ClCompile>
     <ClCompile Include="src\JitteredPixelSampler.cpp">
+      <Filter>Source Files\PixelSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UniformPixelSampler.cpp">
+      <Filter>Source Files\PixelSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MulitpleImportanceSampler.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BRDF.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\DirectLightIntegrator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\AreaLight.h">
       <Filter>Header Files\Light</Filter>
     </ClInclude>
@@ -115,9 +121,6 @@
     </ClInclude>
     <ClInclude Include="src\DirectionalLight.h">
       <Filter>Header Files\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="src\MonteCarloIntegrator.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\BRDF.h">
       <Filter>Header Files\Core</Filter>
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="src\RayTracer.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MultipleImportanceIntegrator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

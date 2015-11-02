@@ -25,7 +25,7 @@ public:
 
 	/* API for yyac parser. */
 	void yartSize(int width, int height);
-	void yartIntegrator(const string &type, int maxDepth);
+	void yartIntegrator(const string &type, const vector<float> *params);
 	void yartPixelSampler(const string &type, int num);
 	void yartOutput(const string &s);
 	void yartObjBegin(const string &s);

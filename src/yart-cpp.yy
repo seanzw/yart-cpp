@@ -86,10 +86,11 @@ yart_stmt: SIZE NUMBER NUMBER {
 	yart->yartSize((int)$2, (int)$3);
 }
 
-| INTEGRATOR STR NUMBER {
-	DEBUG("PARSE INTEGRATOR %s %d\n", $2, (int)$3);
+| INTEGRATOR STR param_list {
+	DEBUG("PARSE INTEGRATOR %s\n", $2);
 	string integrator($2);
-	yart->yartIntegrator(integrator, (int)$3);
+	yart->yartIntegrator(integrator, $3);
+    delete $3;
 }
 
 | PIXELSAMPLER STR NUMBER {

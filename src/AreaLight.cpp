@@ -37,7 +37,6 @@ void AreaLight::genShadowRay(const Intersection &hit, vector<pair<Ray, float> > 
         // Get the direction of the ray.
         vec3 toLight = point - hit.point;
         vec3 direction = normalize(toLight);
-        
 
         // Get the pdf of this ray.
         float pdf = calPDF(hit, toLight, direction);
@@ -50,9 +49,13 @@ vec3 AreaLight::Le(float t) const {
     return c;
 }
 
+/**
+ * The pdf is the probability projected into local coordinate, not light coordinate.
+ * p = (d ^ 2) / (S * cos(thetaI) * cos(thetaO));
+ */
 inline float AreaLight::calPDF(const Intersection &hit, const vec3 &toLight, const vec3 &direction) const {
-    float cosThetaI = dot(hit.normal, direction);
-    float cosThetaO = dot(normal, -direction);
+    float cosThetaI = clamp(dot(hit.normal, direction), 0.01f, 1.0f);
+    float cosThetaO = clamp(dot(normal, -direction), 0.01f, 1.0f);
     float distanceSquared = dot(toLight, toLight);
     return distanceSquared / (area * cosThetaI * cosThetaO);
 }

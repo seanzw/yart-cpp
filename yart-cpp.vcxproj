@@ -116,14 +116,14 @@
   <ItemGroup>
     <ClCompile Include="src\AreaLight.cpp" />
     <ClCompile Include="src\BBox.cpp" />
+    <ClCompile Include="src\BRDF.cpp" />
     <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\DirectLightIntegrator.cpp" />
+    <ClCompile Include="src\MulitpleImportanceSampler.cpp" />
     <ClCompile Include="src\Film.cpp" />
     <ClCompile Include="src\JitteredPixelSampler.cpp" />
     <ClCompile Include="src\lex.yy.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
-    <ClCompile Include="src\MonteCarloIntegrator.cpp" />
     <ClCompile Include="src\NormalTriangle.cpp" />
     <ClCompile Include="src\OCTree.cpp" />
     <ClCompile Include="src\PlaneTriangle.cpp" />
@@ -144,7 +144,7 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
     <ClInclude Include="src\DirectionalLight.h" />
-    <ClInclude Include="src\DirectLightIntegrator.h" />
+    <ClInclude Include="src\MultipleImportanceIntegrator.h" />
     <ClInclude Include="src\Film.h" />
     <ClInclude Include="src\Integrator.h" />
     <ClInclude Include="src\Intersection.h" />
@@ -152,7 +152,6 @@
     <ClInclude Include="src\Light.h" />
     <ClInclude Include="src\Material.h" />
     <ClInclude Include="src\Mesh.h" />
-    <ClInclude Include="src\MonteCarloIntegrator.h" />
     <ClInclude Include="src\NormalTriangle.h" />
     <ClInclude Include="src\Object.h" />
     <ClInclude Include="src\OCTree.h" />
