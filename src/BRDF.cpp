@@ -3,7 +3,7 @@
 #include "Ray.h"
 
 float BRDF::pdf(const Intersection &hit, const vec3 &out) const {
-    return dot(hit.normal, out);
+    return dot(hit.normal, out) * INV_PI;
 }
 
 pair<Ray, float> BRDF::sample(const Intersection &hit) const {
@@ -17,10 +17,11 @@ pair<Ray, float> BRDF::sample(const Intersection &hit) const {
     auto sample = Sampler::uniformSampleCircle();
 
     // Transform it into the hemisphere.
-    float pdf = sqrtf(1.0f - sample.first * sample.first);
-    vec3 direction = (t * cos(sample.second) + s * sin(sample.second)) * sample.first + hit.normal * pdf;
+    float cosTheta = sqrtf(1.0f - sample.first * sample.first);
+    vec3 direction = (t * cos(sample.second) + s * sin(sample.second)) * sample.first + hit.normal * cosTheta;
     direction = normalize(direction);
 
-    return make_pair(Ray(hit.point, direction, CONST_NEAR, CONST_FAR), pdf);
+    // Notice that we have to normalize the pdf to cosTheta / PI.
+    return make_pair(Ray(hit.point, direction, CONST_NEAR, CONST_FAR), cosTheta * INV_PI);
 
 }
