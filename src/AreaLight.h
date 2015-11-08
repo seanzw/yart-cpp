@@ -10,25 +10,25 @@
 
 class AreaLight : public Light {
 public:
-    AreaLight(vec3 center, vec3 color, vec3 normal, float radius, int nSamples);
+    AreaLight(vec3 center, vec3 color, vec3 normal, float radius);
     virtual ~AreaLight() {}
 
-    virtual void genShadowRay(const Intersection &hit, vector<pair<Ray, float> > &rayPDFs) const;
-    virtual vec3 Le(float t) const;
+    virtual pair<Ray, float> genShadowRay(const Intersection &hit) const;
+    virtual tuple<Ray, vec3, float, float> genRay() const;
+    virtual float pdf(const Intersection &hit, const vec3 &direction) const;
+    virtual vec3 Le() const;
 
 private:
     vec3 center;
     vec3 normal;
     float radius;
-    int nSamples;
     float area;
 
     // Local coordinate.
     vec3 xUnit;
     vec3 yUnit;
 
-    // Calcuate the pdf for area light.
-    float calPDF(const Intersection &hit, const vec3 &toLight, const vec3 &direction) const;
+    vec3 samplePoint() const;
 };
 
 #endif

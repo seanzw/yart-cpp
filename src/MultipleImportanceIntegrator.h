@@ -5,20 +5,25 @@
 
 class MultipleImportanceIntegrator : public Integrator {
 public:
-    MultipleImportanceIntegrator(int maxDepth, int nBSDFSamples)
-    : maxDepth(maxDepth), nBSDFSamples(nBSDFSamples) {
+    MultipleImportanceIntegrator(int maxDepth, int nBSDFSamples, int nLightSamples)
+    : maxDepth(maxDepth), nBSDFSamples(nBSDFSamples), nLightSamples(nLightSamples) {
 	}
 	virtual ~MultipleImportanceIntegrator() {}
 
-	virtual vec3 income(const Ray &r, const shared_ptr<Scene> &scene) const {
+	virtual vec3 income(const Ray &r, const shared_ptr<Scene> &scene) {
 		return income(r, scene, 0);
 	}
+
+    virtual shared_ptr<Integrator> copy() const {
+        return make_shared<MultipleImportanceIntegrator>(maxDepth, nBSDFSamples, nLightSamples);
+    }
 
 private:
 	const int maxDepth;
     const int nBSDFSamples;
+    const int nLightSamples;
 
-	vec3 income(const Ray &r, const shared_ptr<Scene> &scene, int level) const;
+	vec3 income(const Ray &r, const shared_ptr<Scene> &scene, int level);
 
     // Utilities.
 

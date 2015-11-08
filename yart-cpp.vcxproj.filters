@@ -43,12 +43,18 @@
     <Filter Include="Source Files\PixelSampler">
       <UniqueIdentifier>{cefa8eaf-dd9c-4dd7-83b4-7f502592804f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Objects">
+      <UniqueIdentifier>{043a89aa-c1dd-4c3f-b389-d76a3899222d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Integrator">
+      <UniqueIdentifier>{a8a2695d-4c59-41f4-8e6a-1c53c7e2cb29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Integrator">
+      <UniqueIdentifier>{8ef33443-7e3c-423c-9bf0-53e854f99f50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RayTracer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\lex.yy.cpp">
@@ -105,10 +111,16 @@
     <ClCompile Include="src\UniformPixelSampler.cpp">
       <Filter>Source Files\PixelSampler</Filter>
     </ClCompile>
-    <ClCompile Include="src\MulitpleImportanceSampler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\BRDF.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BidirectionalPathIntegrator.cpp">
+      <Filter>Source Files\Integrator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MulitpleImportanceSampler.cpp">
+      <Filter>Source Files\Integrator</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RayTracer.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -192,7 +204,10 @@
       <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\MultipleImportanceIntegrator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Integrator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BidirectioalPathIntegrator.h">
+      <Filter>Header Files\Integrator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -256,5 +271,46 @@
     <None Include="README.md">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="test\scene-indirect.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="test\objs\Arma.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\block.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\Buddha.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\bunny.fine.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\cube.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\dinosaur.2k.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\fandisk.18k.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\fixed.perfect.dragon.100K.0.07.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\horse.fine.90k.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\kitten.50k.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\rocker-arm.18k.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\sphere.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
   </ItemGroup>
 </Project>

@@ -1,12 +1,15 @@
 #include "PointLight.h"
 
-void PointLight::genShadowRay(const Intersection &hit, vector<pair<Ray, float> > &rayPDFs) const {
-    rayPDFs.reserve(1);
-    rayPDFs.clear();
+pair<Ray, float> PointLight::genShadowRay(const Intersection &hit) const {
     vec3 direction = p - hit.point;
-    rayPDFs.emplace_back(Ray(hit.point, normalize(direction), CONST_NEAR, length(direction)), 1.0f);
+    return make_pair(Ray(hit.point, normalize(direction), CONST_NEAR, length(direction)), 1.0f);
 }
 
-vec3 PointLight::Le(float t) const {
+vec3 PointLight::Le() const {
     return c;
+}
+
+tuple<Ray, vec3, float, float> PointLight::genRay() const {
+    vec3 direction = Sampler::uniformSampleSphere();
+    return make_tuple(Ray(p, direction, CONST_NEAR, CONST_FAR), direction, 1.0f, INV_PI);
 }

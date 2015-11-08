@@ -13,12 +13,15 @@ public:
     virtual ~BRDF() {}
 
     /**
+     * hit: intersection.
+     * in : income direction.
+     * out: outcome direction.
      * Return the brdf.
      */
     virtual vec3 brdf(const Intersection &hit, const vec3 &in, const vec3 &out) const = 0;
 
     /**
-     * Return the pdf of sampling.
+     * Return the pdf of projected solid angle.
      * Default the cosin pdf.
      */
     virtual float pdf(const Intersection &hit, const vec3 &out) const;
@@ -26,6 +29,8 @@ public:
     /**
      * Return one sample ray along with the pdf.
      * Default sampling with cosin pdf.
+     * Return Ray: the outgoing ray.
+     * Return float: the possibility of the projected solid angle.
      */
     virtual pair<Ray, float> sample(const Intersection &hit) const;
 };

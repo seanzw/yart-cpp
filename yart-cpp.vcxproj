@@ -116,6 +116,7 @@
   <ItemGroup>
     <ClCompile Include="src\AreaLight.cpp" />
     <ClCompile Include="src\BBox.cpp" />
+    <ClCompile Include="src\BidirectionalPathIntegrator.cpp" />
     <ClCompile Include="src\BRDF.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\MulitpleImportanceSampler.cpp" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="src\AreaLight.h" />
     <ClInclude Include="src\BBox.h" />
+    <ClInclude Include="src\BidirectioalPathIntegrator.h" />
     <ClInclude Include="src\BRDF.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
@@ -174,6 +176,7 @@
     <None Include="test\scene-area.test" />
     <None Include="test\scene-cube.test" />
     <None Include="test\scene-dinosaur.test" />
+    <None Include="test\scene-indirect.test" />
     <None Include="test\scene-kitten.test" />
     <None Include="test\scene-sphere.test" />
     <None Include="test\scene1.test" />
@@ -187,6 +190,56 @@
     <None Include="test\scene6.test" />
     <None Include="test\scene7-oc.test" />
     <None Include="test\scene7.test" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="test\objs\Arma.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\block.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\Buddha.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\bunny.fine.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\cube.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\dinosaur.2k.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\fandisk.18k.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\fixed.perfect.dragon.100K.0.07.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\horse.fine.90k.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\kitten.50k.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\rocker-arm.18k.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\sphere.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

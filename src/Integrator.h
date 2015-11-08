@@ -8,9 +8,18 @@ public:
 	Integrator() {}
 	virtual ~Integrator() {}
 
+    // Any pre-computation?
+    virtual void prepare(const shared_ptr<Scene> &scene) {
+
+    }
+
+    // Return a copy of the integrator.
+    // Used for multiple threads.
+    virtual shared_ptr<Integrator> copy() const = 0;
+
 	virtual vec3 income(const Ray &r,
 		const shared_ptr<Scene> &scene
-		) const = 0;
+		) = 0;
 
 };
 

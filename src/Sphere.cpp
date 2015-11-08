@@ -95,12 +95,6 @@ bool Sphere::occlude(const Ray &ray) const {
         }
         else {
             t_temp = d2 + thc_sqrt;
-            //if (t_temp > CONST_NEAR) {
-            //    return true;
-            //}
-            //else {
-            //    return false;
-            //}
             return t_temp > ray.tmin && t_temp < ray.tmax;
         }
     }
@@ -108,14 +102,6 @@ bool Sphere::occlude(const Ray &ray) const {
         float d2 = dot(toSphere, d);
         float thc = r2 - l2 + d2 * d2;
         float t_temp = sqrtf(thc) + d2;
-        /*if (t_temp > CONST_NEAR) {
-            vec3 hitpoint = o + t_temp * d;
-            vec3 normal = normalize(hitpoint - c);
-            ret.point = applyMatrix(t, hitpoint);
-            ret.t = length(ret.point - ray.o);
-            ret.normal = normalize(normal_mat * normal);
-        }
-        return ret;*/
         return t_temp > ray.tmin && t_temp < ray.tmax;
     }
 }

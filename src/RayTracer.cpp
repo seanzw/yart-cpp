@@ -13,6 +13,7 @@
 #include "Sphere.h"
 #include "OCTree.h"
 #include "MultipleImportanceIntegrator.h"
+#include "BidirectioalPathIntegrator.h"
 #include "UniformPixelSampler.h"
 #include "JitteredPixelSampler.h"
 
@@ -93,6 +94,8 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
 
     DEBUG("START Thread %d\n", row_init);
     vector<float> samples;
+    shared_ptr<Integrator> integrator = this->integrator->copy();
+    integrator->prepare(scene);
     for (int row = row_init; row < height; row += row_step) {
         for (int col = 0; col < width; ++col) {
 
@@ -141,8 +144,11 @@ void RayTracer::yartSize(int width, int height) {
 
 void RayTracer::yartIntegrator(const string &type, const vector<float> *params) {
 	if (type == "MultipleImportance") {
-		integrator = shared_ptr<Integrator>(new MultipleImportanceIntegrator(int((*params)[0]), int((*params)[1])));
+		integrator = make_shared<MultipleImportanceIntegrator>(int((*params)[0]), int((*params)[1]), int((*params)[2]));
 	}
+    else if (type == "BidirectionalPath") {
+        integrator = make_shared<BidirectionalPathIntegrator>(int((*params)[0]), int((*params)[1]));
+    }
 	else {
 		cerr << "ERROR: Unsupported integrator: " << type << endl;
 		exit(1);
@@ -244,8 +250,8 @@ void RayTracer::yartPoint(vec3 &position, const vec3 &color) {
 	scene->lights.push_back(shared_ptr<Light>(new PointLight(color, position, this->attenuation)));
 }
 
-void RayTracer::yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r, int n) {
-    scene->lights.push_back(make_shared<AreaLight>(position, color, normalize(normal), r, n));
+void RayTracer::yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r) {
+    scene->lights.push_back(make_shared<AreaLight>(position, color, normalize(normal), r));
 }
 
 void RayTracer::yartAttenuation(const vec3 &a) {

@@ -1,0 +1,102 @@
+# Test Scene 1 
+# A simple quad viewed from different camera positions
+
+size 640 480
+#size 120 80
+output "area-indirect.png"
+
+#integrator "MultipleImportance" 2 16 16
+integrator "BidirectionalPath" 2 2
+pixelSampler "JitteredPixelSampler" 10
+
+camera 0 2 10 0 2 0 0 1 0 60
+
+worldBegin
+
+# Center Power Normal Radius NSamples
+areaLight 0 1 0 100 100 100 0 1 0 0.5
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 0 0
+scale 100 1 100
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+f 0 1 2
+f 2 3 0
+popTransform
+objEnd
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 4 0
+scale 100 1 100
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+f 0 2 1
+f 2 0 3
+popTransform
+objEnd
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 2 0
+scale 1 1 1
+rotate 0 1 0 45
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+v -1 -1 -1
+v -1 -1 1
+v  1 -1 1
+v  1 -1 -1
+# upper
+# f 0 1 2
+# f 2 3 0
+
+# down
+f 6 5 4
+f 4 6 7
+
+# left
+f 0 4 5
+f 0 5 1
+
+# right
+f 2 6 7
+f 2 7 3
+
+# front
+f 1 5 6
+f 1 6 2
+
+# back
+f 3 7 4
+f 3 4 0
+
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "Lambertian" 1.0 0.84 0.0
+pushTransform
+sphere 2 0.5 2 0.5
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "Lambertian"
+pushTransform
+sphere -2 0.5 2 0.5
+popTransform
+objEnd
+
+worldEnd

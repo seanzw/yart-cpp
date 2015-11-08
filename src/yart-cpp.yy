@@ -155,16 +155,15 @@ world_stmt: DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 		color[0], color[1], color[2]);
 }
 
-| AREALIGHT NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
+| AREALIGHT NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
     vec3 center($2, $3, $4);
 	vec3 color($5, $6, $7);
     vec3 normal($8, $9, $10);
     float radius($11);
-    int nSample($12);
     DEBUG("PARSE AREALIGHT d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
 		center[0], center[1], center[2],
 		color[0], color[1], color[2]);
-    yart->yartAreaLight(center, color, normal, radius, nSample);
+    yart->yartAreaLight(center, color, normal, radius);
 }
 
 | ATTENUATION NUMBER NUMBER NUMBER {

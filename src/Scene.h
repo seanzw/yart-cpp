@@ -50,6 +50,7 @@ public:
 		return isHit;
 	}
 
+    // Return true if the ray is occluded.
     bool occlude(const Ray &r) const {
         for (const auto &obj : getObjs()) {
             if (obj->occlude(r)) {

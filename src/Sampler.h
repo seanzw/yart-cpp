@@ -13,6 +13,8 @@ public:
 
     /* Some static utility function. */
     static pair<float, float> uniformSampleCircle();
+    static vec3 cosinSampleHemisphere(const vec3 &normal, const vec3 &tangent, const vec3 &cotangent);
+    static vec3 uniformSampleSphere();
     static float sample1D(float low, float high);
 
 protected:

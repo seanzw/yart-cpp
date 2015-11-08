@@ -425,7 +425,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  37
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  112
+#define YYNSTATES  111
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -476,8 +476,8 @@ static const yytype_uint16 yyrline[] =
 {
        0,    63,    63,    67,    71,    75,    79,    84,    89,    96,
      102,   108,   112,   124,   128,   132,   136,   140,   149,   158,
-     170,   175,   179,   184,   188,   192,   196,   200,   206,   218,
-     225,   230,   234,   238,   243,   248,   252,   257
+     169,   174,   178,   183,   187,   191,   195,   199,   205,   217,
+     224,   229,   233,   237,   242,   247,   251,   256
 };
 #endif
 
@@ -534,7 +534,7 @@ static const yytype_int8 yypact[] =
       95,    96,    97,    58,    98,    99,   100,   101,   -43,   -43,
      102,   -43,   -43,   103,   104,   105,   106,   107,   -43,   -43,
      -43,   -43,   108,   109,   110,   111,   112,   113,   114,   -43,
-     115,   -43
+     -43
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -553,7 +553,7 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,    36,     0,     0,     0,     0,    27,    28,
        0,    31,    32,     0,     0,     0,     0,     0,    29,    33,
       17,    18,     0,     0,     0,     0,     0,     0,     0,    12,
-       0,    19
+      19
 };
 
   /* YYPGOTO[NTERM-NUM].  */
@@ -586,7 +586,7 @@ static const yytype_uint8 yytable[] =
       72,    73,    74,    75,    76,    77,    78,    79,    80,    81,
       82,    84,    85,    86,    87,    88,    89,    90,    91,    92,
       93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
-     103,   104,   105,   106,   107,   108,   109,   110,   111,     0,
+     103,   104,   105,   106,   107,   108,   109,   110,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,    71
 };
 
@@ -603,7 +603,7 @@ static const yytype_int8 yycheck[] =
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,    -1,
+       3,     3,     3,     3,     3,     3,     3,     3,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    53
 };
 
@@ -622,7 +622,7 @@ static const yytype_uint8 yystos[] =
        3,     3,     3,    35,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3
+       3
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
@@ -638,7 +638,7 @@ static const yytype_uint8 yyr1[] =
 static const yytype_uint8 yyr2[] =
 {
        0,     2,     1,     2,     1,     0,     2,     3,     3,     3,
-       2,     2,    11,     1,     3,     2,     1,     7,     7,    12,
+       2,     2,    11,     1,     3,     2,     1,     7,     7,    11,
        4,     4,     1,     2,     1,     2,     2,     4,     4,     5,
        1,     4,     4,     5,     1,     1,     3,     2
 };
@@ -1482,89 +1482,88 @@ yyreduce:
   case 19:
 #line 158 "yart-cpp.yy" /* yacc.c:1646  */
     {
-    vec3 center((yyvsp[-10].num), (yyvsp[-9].num), (yyvsp[-8].num));
-	vec3 color((yyvsp[-7].num), (yyvsp[-6].num), (yyvsp[-5].num));
-    vec3 normal((yyvsp[-4].num), (yyvsp[-3].num), (yyvsp[-2].num));
-    float radius((yyvsp[-1].num));
-    int nSample((yyvsp[0].num));
+    vec3 center((yyvsp[-9].num), (yyvsp[-8].num), (yyvsp[-7].num));
+	vec3 color((yyvsp[-6].num), (yyvsp[-5].num), (yyvsp[-4].num));
+    vec3 normal((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
+    float radius((yyvsp[0].num));
     DEBUG("PARSE AREALIGHT d %.2f %.2f %.2f | c %.2f %.2f %.2f\n",
 		center[0], center[1], center[2],
 		color[0], color[1], color[2]);
-    yart->yartAreaLight(center, color, normal, radius, nSample);
+    yart->yartAreaLight(center, color, normal, radius);
 }
-#line 1496 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1495 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 170 "yart-cpp.yy" /* yacc.c:1646  */
+#line 169 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 	yart->yartAttenuation(a);
 }
-#line 1505 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1504 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 175 "yart-cpp.yy" /* yacc.c:1646  */
+#line 174 "yart-cpp.yy" /* yacc.c:1646  */
     {
     yart->yartObjEnd();
 }
-#line 1513 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1512 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 179 "yart-cpp.yy" /* yacc.c:1646  */
+#line 178 "yart-cpp.yy" /* yacc.c:1646  */
     {
     string type((yyvsp[0].string));
 	yart->yartObjBegin(type);
 }
-#line 1522 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1521 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 184 "yart-cpp.yy" /* yacc.c:1646  */
+#line 183 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1530 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1529 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 188 "yart-cpp.yy" /* yacc.c:1646  */
+#line 187 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1538 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1537 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 192 "yart-cpp.yy" /* yacc.c:1646  */
+#line 191 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1546 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1545 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 196 "yart-cpp.yy" /* yacc.c:1646  */
+#line 195 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1554 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1553 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 200 "yart-cpp.yy" /* yacc.c:1646  */
+#line 199 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 v((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 	yart->yartVertex(v);
 	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
-#line 1564 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1563 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 206 "yart-cpp.yy" /* yacc.c:1646  */
+#line 205 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	
 	int id1 = (int)(yyvsp[-2].num);
@@ -1576,90 +1575,90 @@ yyreduce:
 	yart->yartTri(id1, id2, id3);
 	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
-#line 1580 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1579 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 218 "yart-cpp.yy" /* yacc.c:1646  */
+#line 217 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 center((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
 	yart->yartSphere(center, (yyvsp[0].num));
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], (yyvsp[0].num));
 }
-#line 1591 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1590 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 225 "yart-cpp.yy" /* yacc.c:1646  */
+#line 224 "yart-cpp.yy" /* yacc.c:1646  */
     {
     DEBUG("PARSE REFINE MESH\n");
     yart->yartRefineMesh();
 }
-#line 1600 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1599 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 230 "yart-cpp.yy" /* yacc.c:1646  */
+#line 229 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartTranslate((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
-#line 1608 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1607 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 234 "yart-cpp.yy" /* yacc.c:1646  */
+#line 233 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartScale((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
-#line 1616 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1615 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 238 "yart-cpp.yy" /* yacc.c:1646  */
+#line 237 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 axis((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
 	yart->yartRotate(axis, (yyvsp[0].num));
 }
-#line 1625 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1624 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 243 "yart-cpp.yy" /* yacc.c:1646  */
+#line 242 "yart-cpp.yy" /* yacc.c:1646  */
     {
     DEBUG("PARSE PUSHTRANSFORM\n");
 	yart->yartPushTransform();
 }
-#line 1634 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1633 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 248 "yart-cpp.yy" /* yacc.c:1646  */
+#line 247 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartPopTransform();
 }
-#line 1642 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1641 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 252 "yart-cpp.yy" /* yacc.c:1646  */
+#line 251 "yart-cpp.yy" /* yacc.c:1646  */
     {
     yart->yartMaterial(string((yyvsp[-1].string)), (yyvsp[0].ps));
     delete (yyvsp[0].ps);
 }
-#line 1651 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1650 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 257 "yart-cpp.yy" /* yacc.c:1646  */
+#line 256 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartBuildOCTree((int)(yyvsp[0].num));
 }
-#line 1659 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1658 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1663 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1662 "yart-cpp.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1887,7 +1886,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 262 "yart-cpp.yy" /* yacc.c:1906  */
+#line 261 "yart-cpp.yy" /* yacc.c:1906  */
 
 
 void yyerror(const std::string &s) {

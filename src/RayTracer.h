@@ -45,14 +45,9 @@ public:
 	void yartPopTransform();
 	void yartDirectional(const vec3 &direction, const vec3 &color);
 	void yartPoint(vec3 &position, const vec3 &color);
-    void yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r, int n);
+    void yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r);
 	void yartAttenuation(const vec3 &a);
     void yartMaterial(const string &brdf, const vector<float> *params);
-	/*void yartDiffuse(const vec3 &d);
-	void yartAmbient(const vec3 &a);
-	void yartSpecular(const vec3 &s);
-	void yartEmission(const vec3 &e);
-	void yartShininess(float s);*/
 	void yartBuildOCTree(int level);
 
 

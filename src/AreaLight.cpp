@@ -1,8 +1,8 @@
 #include "AreaLight.h"
 #include "Sampler.h"
 
-AreaLight::AreaLight(vec3 c, vec3 color, vec3 n, float r, int nS)
-    : Light(color), center(c), normal(n), radius(r), nSamples(nS) {
+AreaLight::AreaLight(vec3 c, vec3 color, vec3 n, float r)
+    : Light(color), center(c), normal(n), radius(r) {
 
     area = PI * radius * radius;
 
@@ -17,45 +17,70 @@ AreaLight::AreaLight(vec3 c, vec3 color, vec3 n, float r, int nS)
     yUnit = cross(normal, xUnit);
 }
 
-void AreaLight::genShadowRay(const Intersection &hit, vector<pair<Ray, float> > &rayPDFs) const {
+pair<Ray, float> AreaLight::genShadowRay(const Intersection &hit) const {
     
-    rayPDFs.reserve(nSamples);
-    rayPDFs.clear();
-    // Randomly sample a point on the disk.
-    for (int i = 0; i < nSamples; ++i) {
-        pair<float, float> sample = Sampler::uniformSampleCircle();
-        float r = sample.first * radius;
-        float theta = sample.second;
+    vec3 point = samplePoint();
 
-        // Get the point on the circle.
-        float x = r * cosf(theta);
-        float y = r * sinf(theta);
+    // Get the direction of the ray.
+    vec3 toLight = point - hit.point;
+    vec3 direction = normalize(toLight);
 
-        // Project it into world coordinate.
-        vec3 point = center + x * xUnit + y * yUnit;
-
-        // Get the direction of the ray.
-        vec3 toLight = point - hit.point;
-        vec3 direction = normalize(toLight);
-
-        // Get the pdf of this ray.
-        float pdf = calPDF(hit, toLight, direction);
-        rayPDFs.emplace_back(Ray(hit.point, direction, CONST_NEAR, length(toLight)), pdf);
-    }
-
+    // Get the pdf of this ray.
+    float p = pdf(hit, direction);
+    return make_pair(Ray(hit.point, direction, CONST_NEAR, length(toLight)), p);
 }
 
-vec3 AreaLight::Le(float t) const {
+tuple<Ray, vec3, float, float> AreaLight::genRay() const {
+
+    // Randomly sample a point on the disk.
+    vec3 point = samplePoint();
+
+    // Randomly sample the direction.
+    vec3 direction = Sampler::cosinSampleHemisphere(normal, xUnit, yUnit);
+
+    return make_tuple(Ray(point, direction, CONST_NEAR, CONST_FAR), normal, 1.0f / area, INV_PI);
+}
+
+vec3 AreaLight::Le() const {
     return c;
 }
 
 /**
- * The pdf is the probability projected into local coordinate, not light coordinate.
+ * The pdf is the probability of projected solid angle.
  * p = (d ^ 2) / (S * cos(thetaI) * cos(thetaO));
  */
-inline float AreaLight::calPDF(const Intersection &hit, const vec3 &toLight, const vec3 &direction) const {
+float AreaLight::pdf(const Intersection &hit, const vec3 &direction) const {
+
+    Ray r(hit.point, direction, CONST_NEAR, CONST_FAR);
+
+    // Intersection test with the circle.
+    float dotDN = dot(normal, r.d);
+    if (abs(dotDN) < CONST_NEAR) {
+        return 0.0f;
+    }
+
+    float t = dot(center - r.o, normal) / dotDN;
+
+    if (t <= CONST_NEAR) {
+        return 0.0f;
+    }
+
     float cosThetaI = clamp(dot(hit.normal, direction), 0.01f, 1.0f);
     float cosThetaO = clamp(dot(normal, -direction), 0.01f, 1.0f);
-    float distanceSquared = dot(toLight, toLight);
-    return distanceSquared / (area * cosThetaI * cosThetaO);
+    return t * t / (area * cosThetaI * cosThetaO);
+}
+
+inline vec3 AreaLight::samplePoint() const {
+    // Randomly sample a point on the disk.
+    auto sample = Sampler::uniformSampleCircle();
+    float r = sample.first * radius;
+    float theta = sample.second;
+
+    // Get the point on the circle.
+    float x = r * cosf(theta);
+    float y = r * sinf(theta);
+
+    // Project it into world coordinate.
+    vec3 point = center + x * xUnit + y * yUnit;
+    return point;
 }
