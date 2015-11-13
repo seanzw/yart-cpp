@@ -2,7 +2,7 @@
 
 Intersection BBox::intersect(const Ray &r) const {
 
-    Intersection ret(NULL, CONST_FAR);
+    Intersection ret(NULL, this, CONST_FAR, INTERSECTION_NONE);
 
     vec3 tMin = (m_min - r.o) / r.d;
     vec3 tMax = (m_max - r.o) / r.d;
@@ -17,9 +17,11 @@ Intersection BBox::intersect(const Ray &r) const {
     else {
         if (tNear > 0.0f) {
             ret.t = tNear;
+            ret.type = INTERSECTION_OBJ;
         }
         else if (tFar > 0.0f) {
             ret.t = tFar;
+            ret.type = INTERSECTION_OBJ;
         }
         else {
             ret.t = CONST_FAR;

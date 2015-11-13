@@ -1,11 +1,10 @@
 #ifndef OBJECT_HEADER
 #define OBJECT_HEADER
 
-#include "Ray.h"
-#include "Intersection.h"
+#include "Intersectable.h"
 
 class BBox;
-class Object {
+class Object : public Intersectable {
 public:
     Object() {}
     virtual ~Object() {}

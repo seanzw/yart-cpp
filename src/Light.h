@@ -2,31 +2,44 @@
 #define LIGHT_HEADER
 
 #include <tuple>
-#include "Ray.h"
-#include "Intersection.h"
+#include "Intersectable.h"
 
-class Light {
+/**
+ * Light is moduled as a special object.
+ */
+class Light : public Intersectable {
 public:
     Light(vec3 color): c(color) {}
     virtual ~Light() {}
+
+    /* Interface from Ojbect. */
+    virtual Intersection intersect(const Ray &r) const = 0;
 
     /* Sample the shadow rays along with their pdfs. */
     virtual pair<Ray, float> genShadowRay(const Intersection &hit) const = 0;
 
     /**
-     * Sample a ray from the lignt.
-     * Return Ray: the ray left the light.
-     * Return vec3: the normal at this point.
-     * Return float: the possibility of choosing the origin.
-     * Return float: the possibility of choosing the direction, projected solid angle.
+     * Sample a point on the lignt.
+     *
+     * @retrun vec3: the point on the light
+     * @retrun vec3: the normal at this point.
+     * @retrun float: the possibility of sampling this point.
      */
-    virtual tuple<Ray, vec3, float, float> genRay() const {
-        cerr << "Light::genRay() unimplemented.\n";
+    virtual tuple<vec3, vec3, float> samplePoint() const {
+        cerr << "Light::samplePoint() unimplemented.\n";
         exit(1);
     }
 
-    virtual float pdf(const Intersection &hit, const vec3 &direction) const {
-        cerr << "light::pdf() unimplemented.\n";
+    /**
+     * The probability that this point is sampled.
+     */
+    virtual float pdfPoint(const vec3 &point) const {
+        cerr << "light::pdfPoint() unimplemented.\n";
+        exit(1);
+    }
+
+    virtual float pdfRay(const Intersection &hit, const vec3 &direction) const {
+        cerr << "light::pdfRay() unimplemented.\n";
         exit(1);
     }
     virtual vec3 Le() const = 0;

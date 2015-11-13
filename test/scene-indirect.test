@@ -7,14 +7,14 @@ output "area-indirect.png"
 
 #integrator "MultipleImportance" 2 16 16
 integrator "BidirectionalPath" 2 2
-pixelSampler "JitteredPixelSampler" 10
+pixelSampler "JitteredPixelSampler" 32
 
 camera 0 2 10 0 2 0 0 1 0 60
 
 worldBegin
 
-# Center Power Normal Radius NSamples
-areaLight 0 1 0 100 100 100 0 1 0 0.5
+# Center Power Normal Radius
+areaLight 0 2 0 100 100 100 0 1 0 0.5
 
 objBegin "Mesh"
 material "Lambertian"

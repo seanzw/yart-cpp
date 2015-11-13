@@ -16,7 +16,7 @@ Intersection Sphere::intersect(const Ray &ray) const {
     vec3 o = applyMatrix(inv_t, ray.o);
     vec3 d = normalize(applyMatrix(inv_t, ray.o + ray.d) - o);
 
-    Intersection ret(&m, CONST_FAR);
+    Intersection ret(&m, this, CONST_FAR);
 
     float r2 = r * r;
     vec3 toSphere = c - o;
@@ -41,6 +41,7 @@ Intersection Sphere::intersect(const Ray &ray) const {
             ret.point = applyMatrix(t, hitpoint);
             ret.t = length(ret.point - ray.o);
             ret.normal = normalize(normal_mat * normal);
+            ret.type = INTERSECTION_OBJ;
         }
         else {
             t_temp = d2 + thc_sqrt;
@@ -50,6 +51,7 @@ Intersection Sphere::intersect(const Ray &ray) const {
                 ret.point = applyMatrix(t, hitpoint);
                 ret.t = length(ret.point - ray.o);
                 ret.normal = normalize(normal_mat * normal);
+                ret.type = INTERSECTION_OBJ;
             }
         }
         return ret;
@@ -64,6 +66,7 @@ Intersection Sphere::intersect(const Ray &ray) const {
             ret.point = applyMatrix(t, hitpoint);
             ret.t = length(ret.point - ray.o);
             ret.normal = normalize(normal_mat * normal);
+            ret.type = INTERSECTION_OBJ;
         }
         return ret;
     }

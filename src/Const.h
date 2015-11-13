@@ -27,4 +27,10 @@ inline vec3 applyMatrix(const mat4 &trans, const vec3 &v) {
     return vec3(temp);
 }
 
+inline pair<vec3, vec3> buildLocalCoordinate(const vec3 &normal) {
+    vec3 tangent = normalize(normal.x > 0.5f ? vec3(normal.y, -normal.x, 0.0f) : vec3(0.0f, -normal.z, normal.y));
+    vec3 cotangent = cross(normal, tangent);
+    return make_pair(tangent, cotangent);
+}
+
 #endif

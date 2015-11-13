@@ -209,6 +209,9 @@
     <ClInclude Include="src\BidirectioalPathIntegrator.h">
       <Filter>Header Files\Integrator</Filter>
     </ClInclude>
+    <ClInclude Include="src\Intersectable.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">

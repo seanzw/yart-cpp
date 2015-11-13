@@ -9,7 +9,7 @@ vec3 PointLight::Le() const {
     return c;
 }
 
-tuple<Ray, vec3, float, float> PointLight::genRay() const {
+tuple<vec3, vec3, float> PointLight::samplePoint() const {
     vec3 direction = Sampler::uniformSampleSphere();
-    return make_tuple(Ray(p, direction, CONST_NEAR, CONST_FAR), direction, 1.0f, INV_PI);
+    return make_tuple(p, direction, 1.0f);
 }

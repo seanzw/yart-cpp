@@ -2,14 +2,14 @@
 size 640 480
 camera 0 0 1 0 0 -1 0 1 0 45
 output "scene6-16eye.png"
-integrator "MultipleImportance" 2 4 8
-#integrator "BidirectionalPath" 2 2
-pixelSampler "UniformPixelSampler" 4
+#integrator "MultipleImportance" 2 4 8
+integrator "BidirectionalPath" 3 2
+pixelSampler "UniformPixelSampler" 32
 
 worldBegin
 #attenuation 1 0.1 0.05
 #point 0 0.44 -1.5 10 10 10
-areaLight 0 0.44 -1.5 200 200 200 0 -1 0 0.1
+areaLight 0 0.44 -1.5 20 20 20 0 -1 0 0.3
 #directional 0 1 -1 0.2 0.2 0.2
 
 #red
@@ -144,7 +144,7 @@ objEnd
 objBegin "Sphere"
 #diffuse 0.7 0.5 0.2
 #specular 0.2 0.2 0.2
-material "Lambertian" 0.7 0.5 0.2
+material "Specular" 
 pushTransform
 translate 0.5 -0.5 -2
 scale 0.3 0.6 0.3
@@ -156,10 +156,10 @@ objEnd
 objBegin "Mesh"
 #diffuse 0.5 0.7 0.2
 #specular 0.2 0.2 0.2
-material "Lambertian" 1 1 1
+material "Specular" 1 1 1
 pushTransform
 translate -0.25 -0.4 -1.8
-rotate 0 1 0 15
+rotate 0 1 0 30
 scale 0.25 0.4 0.2
 #diffuse 1 1 1
 

@@ -146,6 +146,7 @@
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
     <ClInclude Include="src\DirectionalLight.h" />
+    <ClInclude Include="src\Intersectable.h" />
     <ClInclude Include="src\MultipleImportanceIntegrator.h" />
     <ClInclude Include="src\Film.h" />
     <ClInclude Include="src\Integrator.h" />

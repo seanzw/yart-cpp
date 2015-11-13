@@ -96,6 +96,7 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
     vector<float> samples;
     shared_ptr<Integrator> integrator = this->integrator->copy();
     integrator->prepare(scene);
+    bool debug = false;
     for (int row = row_init; row < height; row += row_step) {
         for (int col = 0; col < width; ++col) {
 
@@ -105,14 +106,13 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
 			vec3 color(0.0f);
 			for (auto iter = samples.begin(); iter != samples.end(); iter += 2) {
 				Ray ray = this->camera->genRay(*iter, *(iter + 1));
-				color += integrator->income(ray, scene);
+				color += clamp(integrator->income(ray, scene), 0.0f, 1.0f);
 			}
 
 			color /= float(samples.size() / 2);
-            color = clamp(color, 0.0f, 1.0f);
+            //color = clamp(color, 0.0f, 1.0f);
             film->expose(color, row, col);
 
-            // Show progress only for one thread.
             *total += 1;
         }
     }
@@ -259,9 +259,6 @@ void RayTracer::yartAttenuation(const vec3 &a) {
 }
 
 void RayTracer::yartMaterial(const string &brdf, const vector<float> *params) {
-    for (const auto &param : *params) {
-        cout << param << endl;
-    }
     materials.emplace_back(brdf, params);
     scene->objMaterial(materials[materials.size() - 1]);
 }

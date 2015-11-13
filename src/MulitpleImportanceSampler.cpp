@@ -6,7 +6,7 @@ vec3 MultipleImportanceIntegrator::income(const Ray &r,
 
 	vec3 L(0.0f);
 
-	Intersection hit(NULL, CONST_FAR);
+	Intersection hit(NULL, NULL, CONST_FAR);
 
 	// Is there intersection?
 	if (!scene->intersect(r, hit)) {
@@ -31,7 +31,7 @@ vec3 MultipleImportanceIntegrator::income(const Ray &r,
             // Get the light color.
             vec3 Le = light->Le();
             vec3 f = hit.m->brdf->brdf(hit, r.d, shadowRay.d);
-            float w = powerHeuristec(lightPDF, nLightSamples, hit.m->brdf->pdf(hit, shadowRay.d), nBSDFSamples);
+            float w = powerHeuristec(lightPDF, nLightSamples, hit.m->brdf->pdf(hit, r.d, shadowRay.d), nBSDFSamples);
 
             // Here the geometry term is inside the pdf.
             // Use power heuristic.
@@ -47,7 +47,7 @@ vec3 MultipleImportanceIntegrator::income(const Ray &r,
         vec3 LBSDF(0.0f);
         for (int i = 0; i < nBSDFSamples; ++i) {
             while (true) {
-                auto sample = hit.m->brdf->sample(hit);
+                auto sample = hit.m->brdf->sample(hit, r.d);
                 if (sample.second > 0.1f) {
                     auto Li = income(sample.first, scene, level + 1);
                     vec3 f = hit.m->brdf->brdf(hit, r.d, sample.first.d);

@@ -4,7 +4,7 @@
 #include "NormalTriangle.h"
 
 Intersection Mesh::intersect(const Ray &r) const {
-    Intersection ret(NULL, CONST_FAR);
+    Intersection ret(NULL, this, CONST_FAR);
 	if (useTree) {
 		ret = tree->intersect(r);
 	}

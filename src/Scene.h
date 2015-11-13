@@ -38,7 +38,16 @@ public:
 		bool isHit = false;
 		hit.t = CONST_FAR;
 
-		// Get the intersection.
+        // Intersection test with the light.
+        for (const auto &light : lights) {
+            Intersection temp = light->intersect(r);
+            if (temp.type != INTERSECTION_NONE && temp.t < hit.t) {
+                isHit = true;
+                hit = temp;
+            }
+        }
+
+		// Get the intersection with the objects.
 		for (const auto &obj : getObjs()) {
             Intersection temp = obj->intersect(r);
 			if (temp.t < hit.t) {
