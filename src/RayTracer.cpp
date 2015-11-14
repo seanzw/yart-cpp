@@ -110,7 +110,6 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
 			}
 
 			color /= float(samples.size() / 2);
-            //color = clamp(color, 0.0f, 1.0f);
             film->expose(color, row, col);
 
             *total += 1;

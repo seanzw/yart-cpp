@@ -40,7 +40,14 @@ refineMesh
 This will refine the mesh and calculate a normal for each vertex. When a ray hits the mesh, 
 the normals is calculated by weighting the normals of the three vertex. This usually smooth the mesh.
 ####Lights
-
+All the lights offer an interface to do intersection test, to return the emission radiance, to sample a point on the light and return the pdf of sampling a specific point. 
+#####Point light
+A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray. The command is:
+```
+point x y z r g b
+```
+#####Directional light
+#####Area light
 ####BRDF
 The BRDF offers the following interface:
 - brdf(intersection, in, out) -> the brdf function value
@@ -50,6 +57,8 @@ The BRDF offers the following interface:
 Notice that BRDF base class provides a default implementation of `sample` and `pdf` fuctions, which samples according to a cosin-like pdf.
 ##### Lambertian
 The lambertian BRDF reflects the incoming light in all direction uniformly. It's value is always one over pi. The normalized pdf is `cos(theta)/PI`. It uses the default sampling strategy.
+##### Specular
+
 ####Pixel Sampler
 Pixel sampler is used to generate rays for a pixel. It is important because without it there would be jaggies.
 ##### Uniform Sampler
@@ -63,6 +72,8 @@ This integrator use multiple importance sampling to sovle the integral. It has t
 integrator "MultipleImportance" maxDepth nBSDFSamples
 ```
 It samples the light and the BSDF to get a lower variance. For the weight function, it uses power heuristics. Compare with the simple ray tracing which samples the BSDF only at mirror reflection, this integrator may introduce more noise. But it is a general unbiased integrator.
+
+#####Bidirectional Path Integrator
 
 ####Scene Description File
 Here is a full list of the commands you can use in the scene description file. You can find more samples in the test folder.
