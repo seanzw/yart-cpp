@@ -7,7 +7,7 @@ output "area-16shadowRay.png"
 
 #integrator "MultipleImportance" 2 16 16
 integrator "BidirectionalPath" 3 2
-pixelSampler "JitteredPixelSampler" 32
+pixelSampler "JitteredPixelSampler" 4
 
 camera 0 3 10 0 0 0 0 1 0 60
 #camera 0 3 1 0 4 0 0 0 1 60
@@ -81,7 +81,7 @@ popTransform
 objEnd
 
 objBegin "Sphere"
-material "Specular"
+material "Refraction"
 pushTransform
 sphere -2 0.5 2 0.5
 popTransform

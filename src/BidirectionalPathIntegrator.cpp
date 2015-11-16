@@ -15,7 +15,7 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
     // Generate eye subpath.
     // Find the first vertex.
     Intersection hit(NULL, NULL, CONST_FAR);
-    if (!scene->intersect(r, hit) || dot(hit.normal, r.d) >= 0.0f) {
+    if (!scene->intersect(r, hit)) {
         // If there is no intersection, simply return.
         return L;
     }
@@ -23,12 +23,12 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
         // If this is an intersection with the light.
         // simply return the color from the light.
         const Light *light = static_cast<const Light *>(hit.intersectable);
-        return light->Le() * dot(hit.normal, -r.d);
+        return light->Le() * clamp(dot(hit.normal, -r.d), 0.0f, 1.0f);
     }
     else {
         // Initialize the first vertex in eye subpath.
-        float geometry = dot(hit.normal, -r.d) / (hit.t * hit.t);
-        pushVertexObj(eyePath, eyePathBuf, vec3(1.0f), hit, r.d, 1.0f, 1.0f, hit.m->brdf->isDelta());
+        float geometry = abs(dot(hit.normal, -r.d)) / (hit.t * hit.t);
+        pushVertexObj(eyePath, eyePathBuf, vec3(1.0f), hit, r.d, 1.0f, 1.0f, hit.m->bsdf->isDelta());
     }
 
     // Generate the rest of the subpath.
@@ -40,7 +40,7 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
         float probFWD = sample.second;
 
         // Find the intersection.
-        if (!scene->intersect(ray, hit) || dot(hit.normal, ray.d) >= 0.0f) {
+        if (!scene->intersect(ray, hit)) {
             // If there is no intersection, break out.
             break;
         }
@@ -58,9 +58,9 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
         }
         
         // Find a vertex on the object.
-        vec3 alpha = eyePath[i - 1]->alpha * eyePath[i - 1]->brdf(ray.d) / probFWD;
-        float geometry = dot(hit.normal, -ray.d) * dot(eyePath[i - 1]->normal, ray.d) / (hit.t * hit.t);
-        pushVertexObj(eyePath, eyePathBuf, alpha, hit, ray.d, geometry, probFWD, hit.m->brdf->isDelta());
+        vec3 alpha = eyePath[i - 1]->alpha * eyePath[i - 1]->bsdf(ray.d) / probFWD;
+        float geometry = abs(dot(hit.normal, -ray.d) * dot(eyePath[i - 1]->normal, ray.d)) / (hit.t * hit.t);
+        pushVertexObj(eyePath, eyePathBuf, alpha, hit, ray.d, geometry, probFWD, hit.m->bsdf->isDelta());
 
     }
 
@@ -89,7 +89,6 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
 
             // Find the intersection.
             if (!scene->intersect(ray, hit) ||
-                dot(hit.normal, ray.d) >= 0.0f ||
                 hit.type == INTERSECTION_LIGHT) {
                 // If there is no intersection, or we intersect a light,
                 // break out.
@@ -97,9 +96,9 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
             }
 
             // Find a vertex.
-            vec3 alpha = lightPath[i]->alpha * lightPath[i]->brdf(ray.d) / p;
-            float geometry = dot(hit.normal, -ray.d) * dot(lightPath[i]->normal, ray.d) / (hit.t * hit.t);
-            pushVertexObj(lightPath, lightPathBuf, alpha, hit, ray.d, geometry, p, hit.m->brdf->isDelta());
+            vec3 alpha = lightPath[i]->alpha * lightPath[i]->bsdf(ray.d) / p;
+            float geometry = abs(dot(hit.normal, -ray.d) * dot(lightPath[i]->normal, ray.d)) / (hit.t * hit.t);
+            pushVertexObj(lightPath, lightPathBuf, alpha, hit, ray.d, geometry, p, hit.m->bsdf->isDelta());
         }
 
 
@@ -116,21 +115,18 @@ vec3 BidirectionalPathIntegrator::connect(const shared_ptr<Scene> &scene,
     // Connect them.
     vec3 o = v1->point;
     vec3 d = v2->point - o;
-    if (dot(v1->normal, d) <= 0.0f || dot(v2->normal, -d) <= 0.0f) {
-        return vec3(0.0f);
-    }
     float dSquared = dot(d, d);
-    Ray connectRay(o, normalize(d), CONST_NEAR, sqrtf(dSquared));
 
+    Ray connectRay(o, normalize(d), CONST_NEAR, sqrtf(dSquared));
     if (scene->occlude(connectRay)) {
         // If this connect ray is blocked.
         return vec3(0.0f);
     }
 
     // Get the contribution of the connecting edge.
-    float cosTheta1 = dot(v1->normal, connectRay.d);
-    float cosTheta2 = dot(v2->normal, -connectRay.d);
-    return v1->brdf(connectRay.d) * cosTheta1 * cosTheta2 / dSquared * v2->brdf(-connectRay.d);
+    float cosTheta1 = abs(dot(v1->normal, connectRay.d));
+    float cosTheta2 = abs(dot(v2->normal, -connectRay.d));
+    return v1->bsdf(connectRay.d) * cosTheta1 * cosTheta2 / dSquared * v2->bsdf(-connectRay.d);
 }
 
 /**
@@ -139,9 +135,9 @@ vec3 BidirectionalPathIntegrator::connect(const shared_ptr<Scene> &scene,
 vec3 BidirectionalPathIntegrator::computeRadianceZeroLightVertex(const VertexLight &vertexLight,
     const vec3 &toLight, float t, float probFWD) const {
     const Vertex *last = eyePath[eyePath.size() - 1];
-    float g = dot(last->normal, toLight) * dot(vertexLight.normal, -toLight) / (t * t);
+    float g = abs(dot(last->normal, toLight) * dot(vertexLight.normal, -toLight)) / (t * t);
     float weight = computeWeightZeroLightVertex(vertexLight, toLight, t, probFWD, g);
-    return weight * last->alpha * last->brdf(toLight) * vertexLight.alpha / probFWD;
+    return weight * last->alpha * last->bsdf(toLight) * vertexLight.alpha / probFWD;
 }
 
 /**
@@ -214,7 +210,7 @@ float BidirectionalPathIntegrator::computeWeightGeneral(int iEye, int iLight) co
     vec3 edgeUnit = normalize(edge);
     float iEyeProbBWD = eyePath[iEye]->pdfInv(edgeUnit);
     float iLightProbBWD = lightPath[iLight]->pdfInv(-edgeUnit);
-    float g = dot(eyePath[iEye]->normal, edgeUnit) * dot(lightPath[iLight]->normal, -edgeUnit) / dot(edge, edge);
+    float g = abs(dot(eyePath[iEye]->normal, edgeUnit) * dot(lightPath[iLight]->normal, -edgeUnit)) / dot(edge, edge);
 
     /*************************************************************************************
      * Extend the eye subpath.

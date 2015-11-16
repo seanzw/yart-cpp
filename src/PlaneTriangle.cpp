@@ -41,6 +41,9 @@ Intersection PlaneTriangle::intersect(const Ray &r) const {
         ret.normal = n;
         ret.point = r.o + ret.t * r.d;
 
+        // Is the intersection inside or outside.
+        ret.pos = dot(ret.normal, r.d) < 0.0f ? INTERSECTION_OUT : INTERSECTION_IN;
+
         return ret;
     }
 }

@@ -30,8 +30,8 @@ vec3 MultipleImportanceIntegrator::income(const Ray &r,
 
             // Get the light color.
             vec3 Le = light->Le();
-            vec3 f = hit.m->brdf->brdf(hit, r.d, shadowRay.d);
-            float w = powerHeuristec(lightPDF, nLightSamples, hit.m->brdf->pdf(hit, r.d, shadowRay.d), nBSDFSamples);
+            vec3 f = hit.m->bsdf->bsdf(hit, r.d, shadowRay.d);
+            float w = powerHeuristec(lightPDF, nLightSamples, hit.m->bsdf->pdf(hit, r.d, shadowRay.d), nBSDFSamples);
 
             // Here the geometry term is inside the pdf.
             // Use power heuristic.
@@ -47,10 +47,10 @@ vec3 MultipleImportanceIntegrator::income(const Ray &r,
         vec3 LBSDF(0.0f);
         for (int i = 0; i < nBSDFSamples; ++i) {
             while (true) {
-                auto sample = hit.m->brdf->sample(hit, r.d);
+                auto sample = hit.m->bsdf->sample(hit, r.d);
                 if (sample.second > 0.1f) {
                     auto Li = income(sample.first, scene, level + 1);
-                    vec3 f = hit.m->brdf->brdf(hit, r.d, sample.first.d);
+                    vec3 f = hit.m->bsdf->bsdf(hit, r.d, sample.first.d);
                     //float w = powerHeuristec(sample.second, nBSDFSamples, scene->lights[0]->pdf(hit, sample.first.d), nLightSamples);
                     float w = 1.0f;
                     LBSDF += w * f * Li / sample.second;

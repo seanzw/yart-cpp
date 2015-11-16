@@ -111,9 +111,6 @@
     <ClCompile Include="src\UniformPixelSampler.cpp">
       <Filter>Source Files\PixelSampler</Filter>
     </ClCompile>
-    <ClCompile Include="src\BRDF.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\BidirectionalPathIntegrator.cpp">
       <Filter>Source Files\Integrator</Filter>
     </ClCompile>
@@ -121,6 +118,9 @@
       <Filter>Source Files\Integrator</Filter>
     </ClCompile>
     <ClCompile Include="src\RayTracer.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BSDF.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,9 +133,6 @@
     </ClInclude>
     <ClInclude Include="src\DirectionalLight.h">
       <Filter>Header Files\Light</Filter>
-    </ClInclude>
-    <ClInclude Include="src\BRDF.h">
-      <Filter>Header Files\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Const.h">
       <Filter>Header Files\Core</Filter>
@@ -210,6 +207,9 @@
       <Filter>Header Files\Integrator</Filter>
     </ClInclude>
     <ClInclude Include="src\Intersectable.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BSDF.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>

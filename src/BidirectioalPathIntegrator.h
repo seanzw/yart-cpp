@@ -32,7 +32,7 @@ private:
     class Vertex {
     public:
         const vec3 alpha;       // Cumulative subpath contribution.
-        const bool isDelta;     // True if this vertex's brdf contains a delta function.
+        const bool isDelta;     // True if this vertex's bsdf contains a delta function.
         const vec3 point;       // The position of the vertex.
         const vec3 normal;      // The normal at the vertex.
         const float geometry;   // The geometry term with the previous vertex.
@@ -58,7 +58,7 @@ private:
          * @return pair of sampled Ray and its PSA probability.
          */
         virtual pair<Ray, float> sample() = 0;
-        virtual vec3 brdf(const vec3 &out) const = 0;       /* Get the BRDF value. */
+        virtual vec3 bsdf(const vec3 &out) const = 0;       /* Get the BRDF value. */
         virtual float pdf(const vec3 &out) const = 0;       /* Get the PSA possibility, in to out. */
         virtual float pdfInv(const vec3 &out) const = 0;    /* Get the inverse PSA probability, out to in*/
     };
@@ -80,15 +80,15 @@ private:
         VertexObj() : hit(NULL, NULL, CONST_FAR), in(0.0f) {}
 
         virtual pair<Ray, float> sample() {
-            auto ret = hit.m->brdf->sample(hit, in);
+            auto ret = hit.m->bsdf->sample(hit, in);
             out = ret.first.d;         // Updates outgoing direction.
             probBWD = pdfInv(out);     // Updates backward probability.
             return ret;
         }
 
-        virtual vec3 brdf(const vec3 &out) const { return hit.m->brdf->brdf(hit, in, out); }
-        virtual float pdf(const vec3 &out) const { return hit.m->brdf->pdf(hit, in, out); }
-        virtual float pdfInv(const vec3 &out) const { return hit.m->brdf->pdf(hit, -out, -in); }
+        virtual vec3 bsdf(const vec3 &out) const { return hit.m->bsdf->bsdf(hit, in, out); }
+        virtual float pdf(const vec3 &out) const { return hit.m->bsdf->pdf(hit, in, out); }
+        virtual float pdfInv(const vec3 &out) const { return hit.m->bsdf->pdf(hit, -out, -in); }
     };
 
     // Struct to represent the point on the light.
@@ -110,7 +110,7 @@ private:
             return make_pair(Ray(point, d, CONST_NEAR, CONST_FAR), INV_PI);
         }
         
-        virtual vec3 brdf(const vec3 &out) const {
+        virtual vec3 bsdf(const vec3 &out) const {
             return vec3(clamp(dot(out, normal), CONST_EPSILON, 1.0f));
         }
 

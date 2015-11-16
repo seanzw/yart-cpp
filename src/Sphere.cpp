@@ -42,6 +42,8 @@ Intersection Sphere::intersect(const Ray &ray) const {
             ret.t = length(ret.point - ray.o);
             ret.normal = normalize(normal_mat * normal);
             ret.type = INTERSECTION_OBJ;
+            // Is the intersection inside or outside.
+            ret.pos = dot(ret.normal, ray.d) < 0.0f ? INTERSECTION_OUT : INTERSECTION_IN;
         }
         else {
             t_temp = d2 + thc_sqrt;
@@ -52,6 +54,8 @@ Intersection Sphere::intersect(const Ray &ray) const {
                 ret.t = length(ret.point - ray.o);
                 ret.normal = normalize(normal_mat * normal);
                 ret.type = INTERSECTION_OBJ;
+                // Is the intersection inside or outside.
+                ret.pos = dot(ret.normal, ray.d) < 0.0f ? INTERSECTION_OUT : INTERSECTION_IN;
             }
         }
         return ret;
@@ -67,6 +71,8 @@ Intersection Sphere::intersect(const Ray &ray) const {
             ret.t = length(ret.point - ray.o);
             ret.normal = normalize(normal_mat * normal);
             ret.type = INTERSECTION_OBJ;
+            // Is the intersection inside or outside.
+            ret.pos = dot(ret.normal, ray.d) < 0.0f ? INTERSECTION_OUT : INTERSECTION_IN;
         }
         return ret;
     }

@@ -117,7 +117,7 @@
     <ClCompile Include="src\AreaLight.cpp" />
     <ClCompile Include="src\BBox.cpp" />
     <ClCompile Include="src\BidirectionalPathIntegrator.cpp" />
-    <ClCompile Include="src\BRDF.cpp" />
+    <ClCompile Include="src\BSDF.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\MulitpleImportanceSampler.cpp" />
     <ClCompile Include="src\Film.cpp" />
@@ -142,7 +142,7 @@
     <ClInclude Include="src\AreaLight.h" />
     <ClInclude Include="src\BBox.h" />
     <ClInclude Include="src\BidirectioalPathIntegrator.h" />
-    <ClInclude Include="src\BRDF.h" />
+    <ClInclude Include="src\BSDF.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
     <ClInclude Include="src\DirectionalLight.h" />

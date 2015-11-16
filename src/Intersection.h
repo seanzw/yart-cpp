@@ -9,6 +9,11 @@ enum IntersectionType {
     INTERSECTION_NONE
 };
 
+enum IntersectionPos {
+    INTERSECTION_IN,
+    INTERSECTION_OUT
+};
+
 class Intersectable;
 class Intersection {
 public:
@@ -27,7 +32,7 @@ public:
     const Intersectable *intersectable;
     
     IntersectionType type;
-
+    IntersectionPos pos;
 };
 
 

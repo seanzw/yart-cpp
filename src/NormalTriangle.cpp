@@ -51,6 +51,9 @@ Intersection NormalTriangle::intersect(const Ray &r) const {
         ret.normal = (1.0f - u - v) * n[id1] + u * n[id2] + v * n[id3];
         ret.normal = normalize(ret.normal);
 
+        // Is the intersection inside or outside.
+        ret.pos = dot(ret.normal, r.d) < 0.0f ? INTERSECTION_OUT : INTERSECTION_IN;
+
         return ret;
     }
 }
