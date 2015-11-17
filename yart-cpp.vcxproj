@@ -180,16 +180,8 @@
     <None Include="test\scene-indirect.test" />
     <None Include="test\scene-kitten.test" />
     <None Include="test\scene-sphere.test" />
-    <None Include="test\scene1.test" />
-    <None Include="test\scene2.test" />
-    <None Include="test\scene3.test" />
-    <None Include="test\scene4-ambient.test" />
-    <None Include="test\scene4-diffuse.test" />
-    <None Include="test\scene4-emission.test" />
-    <None Include="test\scene4-specular.test" />
-    <None Include="test\scene5.test" />
-    <None Include="test\scene6.test" />
-    <None Include="test\scene7-oc.test" />
+    <None Include="test\cornell-box.test" />
+    <None Include="test\stanford-dragon.test" />
     <None Include="test\scene7.test" />
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +206,10 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>
     <Object Include="test\objs\dinosaur.2k.obj">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Object>
+    <Object Include="test\objs\dragon.obj">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Object>

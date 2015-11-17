@@ -220,37 +220,7 @@
     <None Include="src\yart-cpp.yy">
       <Filter>Resource Files\parser</Filter>
     </None>
-    <None Include="test\scene1.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene2.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene3.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene4-ambient.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene4-diffuse.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene4-emission.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene4-specular.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene5.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene6.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
     <None Include="test\scene7.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene7-oc.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="src\Makefile">
@@ -275,6 +245,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="test\scene-indirect.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="test\cornell-box.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="test\stanford-dragon.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>
@@ -313,6 +289,9 @@
       <Filter>Resource Files\Objects</Filter>
     </Object>
     <Object Include="test\objs\sphere.obj">
+      <Filter>Resource Files\Objects</Filter>
+    </Object>
+    <Object Include="test\objs\dragon.obj">
       <Filter>Resource Files\Objects</Filter>
     </Object>
   </ItemGroup>

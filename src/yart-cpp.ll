@@ -20,7 +20,6 @@ using namespace std;
 void yyerror(const std::string &s);
 
 extern int line_num;
-extern bool faceIndexStartFromOne;
 int str_pos;
 
 void add_string_char(char c) {
@@ -31,7 +30,6 @@ void add_string_char(char c) {
 struct IncludeInfo {
     std::string filename;
     YY_BUFFER_STATE bufState;
-    bool faceIndexType;
     int lineNum;
 };
 
@@ -69,14 +67,9 @@ void include_push(char *filename) {
         ii.filename = current_file;
         ii.bufState = YY_CURRENT_BUFFER;
         ii.lineNum = line_num;
-        ii.faceIndexType = faceIndexStartFromOne;
         includeStack.push_back(ii);
 
         pos = new_file.find_last_of('.');
-        if (pos != string::npos && new_file.substr(pos + 1, string::npos) == "obj") {
-            faceIndexStartFromOne = true;
-        }
-
         
         yyin = f;
         current_file = new_file;
@@ -94,7 +87,6 @@ void include_pop() {
     yy_switch_to_buffer(includeStack.back().bufState);
     current_file = includeStack.back().filename;
     line_num = includeStack.back().lineNum;
-    faceIndexStartFromOne = includeStack.back().faceIndexType;
     includeStack.pop_back();
 }
 

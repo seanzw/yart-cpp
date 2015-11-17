@@ -82,7 +82,7 @@ extern int yydebug;
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 21 "yart-cpp.yy" /* yacc.c:1909  */
+#line 19 "yart-cpp.yy" /* yacc.c:1909  */
 
     char string[1024];
     float num;

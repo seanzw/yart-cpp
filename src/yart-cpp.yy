@@ -14,8 +14,6 @@ extern void include_push(char *filename);
 int line_num = 0;
 string current_file;
 
-bool faceIndexStartFromOne = false;		/* For obj file. */
-
 %}
 
 %union {
@@ -105,10 +103,6 @@ yart_stmt: SIZE NUMBER NUMBER {
 	yart->yartOutput(outfn);
 }
 
-| INCLUDE STR {
-	include_push($2);
-}
-
 | CAMERA NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 	vec3 eye($2, $3, $4);
 	vec3 center($5, $6, $7);
@@ -178,6 +172,7 @@ world_stmt: DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 obj_type: STR {
     string type($1);
 	yart->yartObjBegin(type);
+    DEBUG("PARSER OBJBEGIN %s\n", type.c_str());
 }
 
 obj_stmt_list: obj_stmt_list obj_stmt {
@@ -204,12 +199,9 @@ obj_stmt: MAXVERTS NUMBER {
 
 | TRI NUMBER NUMBER NUMBER {
 	
-	int id1 = (int)$2;
-	int id2 = (int)$3;
-	int id3 = (int)$4;
-	if (faceIndexStartFromOne) {
-		id1--; id2--; id3--;
-	}
+	int id1 = (int)$2 - 1;
+	int id2 = (int)$3 - 1;
+	int id3 = (int)$4 - 1;
 	yart->yartTri(id1, id2, id3);
 	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
@@ -219,6 +211,10 @@ obj_stmt: MAXVERTS NUMBER {
 	yart->yartSphere(center, $5);
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], $5);
+}
+
+| INCLUDE STR {
+	include_push($2);
 }
 
 | REFINEMESH {

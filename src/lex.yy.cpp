@@ -609,7 +609,6 @@ using namespace std;
 void yyerror(const std::string &s);
 
 extern int line_num;
-extern bool faceIndexStartFromOne;
 int str_pos;
 
 void add_string_char(char c) {
@@ -620,7 +619,6 @@ void add_string_char(char c) {
 struct IncludeInfo {
     std::string filename;
     YY_BUFFER_STATE bufState;
-    bool faceIndexType;
     int lineNum;
 };
 
@@ -658,14 +656,9 @@ void include_push(char *filename) {
         ii.filename = current_file;
         ii.bufState = YY_CURRENT_BUFFER;
         ii.lineNum = line_num;
-        ii.faceIndexType = faceIndexStartFromOne;
         includeStack.push_back(ii);
 
         pos = new_file.find_last_of('.');
-        if (pos != string::npos && new_file.substr(pos + 1, string::npos) == "obj") {
-            faceIndexStartFromOne = true;
-        }
-
         
         yyin = f;
         current_file = new_file;
@@ -683,7 +676,6 @@ void include_pop() {
     yy_switch_to_buffer(includeStack.back().bufState);
     current_file = includeStack.back().filename;
     line_num = includeStack.back().lineNum;
-    faceIndexStartFromOne = includeStack.back().faceIndexType;
     includeStack.pop_back();
 }
 
@@ -692,7 +684,7 @@ void include_pop() {
 #define YY_NO_UNISTD_H 1
 /* STRING, COMMAND */
 
-#line 696 "lex.yy.c"
+#line 688 "lex.yy.c"
 
 #define INITIAL 0
 #define STRING 1
@@ -903,10 +895,10 @@ YY_DECL
 		}
 
 	{
-#line 115 "yart-cpp.ll"
+#line 107 "yart-cpp.ll"
 
 
-#line 910 "lex.yy.c"
+#line 902 "lex.yy.c"
 
 	while ( 1 )		/* loops until end-of-file is reached */
 		{
@@ -961,18 +953,18 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 117 "yart-cpp.ll"
+#line 109 "yart-cpp.ll"
 { BEGIN COMMENT; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 118 "yart-cpp.ll"
+#line 110 "yart-cpp.ll"
 
 	YY_BREAK
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 119 "yart-cpp.ll"
+#line 111 "yart-cpp.ll"
 {
     line_num++;
     BEGIN INITIAL;
@@ -980,147 +972,147 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 124 "yart-cpp.ll"
+#line 116 "yart-cpp.ll"
 { return SIZE;          }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 125 "yart-cpp.ll"
+#line 117 "yart-cpp.ll"
 { return INTEGRATOR;    }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 126 "yart-cpp.ll"
+#line 118 "yart-cpp.ll"
 { return PIXELSAMPLER;  }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 127 "yart-cpp.ll"
+#line 119 "yart-cpp.ll"
 { return OUTPUT;        }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 128 "yart-cpp.ll"
+#line 120 "yart-cpp.ll"
 { return WORLDBEGIN;    }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 129 "yart-cpp.ll"
+#line 121 "yart-cpp.ll"
 { return WORLDEND;      }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 130 "yart-cpp.ll"
+#line 122 "yart-cpp.ll"
 { return OBJBEGIN;      }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 131 "yart-cpp.ll"
+#line 123 "yart-cpp.ll"
 { return OBJEND;        }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 132 "yart-cpp.ll"
+#line 124 "yart-cpp.ll"
 { return INCLUDE;       }    
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 133 "yart-cpp.ll"
+#line 125 "yart-cpp.ll"
 { return CAMERA;        }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 134 "yart-cpp.ll"
+#line 126 "yart-cpp.ll"
 { return MAXVERTS;      }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 135 "yart-cpp.ll"
+#line 127 "yart-cpp.ll"
 { return MAXVERTNORMS;  }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 136 "yart-cpp.ll"
+#line 128 "yart-cpp.ll"
 { return VERTEX;        }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 137 "yart-cpp.ll"
+#line 129 "yart-cpp.ll"
 { return TRI;           }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 138 "yart-cpp.ll"
+#line 130 "yart-cpp.ll"
 { return SPHERE;        }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 139 "yart-cpp.ll"
+#line 131 "yart-cpp.ll"
 { return REFINEMESH;    }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 140 "yart-cpp.ll"
+#line 132 "yart-cpp.ll"
 { return TRANSLATE;     }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 141 "yart-cpp.ll"
+#line 133 "yart-cpp.ll"
 { return SCALE;         }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 142 "yart-cpp.ll"
+#line 134 "yart-cpp.ll"
 { return ROTATE;        }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 143 "yart-cpp.ll"
+#line 135 "yart-cpp.ll"
 { return PUSHTRANSFORM; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 144 "yart-cpp.ll"
+#line 136 "yart-cpp.ll"
 { return POPTRANSFORM;  }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 145 "yart-cpp.ll"
+#line 137 "yart-cpp.ll"
 { return DIRECTIONAL;   }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 146 "yart-cpp.ll"
+#line 138 "yart-cpp.ll"
 { return POINT;         }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 147 "yart-cpp.ll"
+#line 139 "yart-cpp.ll"
 { return AREALIGHT;     }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 148 "yart-cpp.ll"
+#line 140 "yart-cpp.ll"
 { return ATTENUATION;   }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 149 "yart-cpp.ll"
+#line 141 "yart-cpp.ll"
 { return MATERIAL;      }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 150 "yart-cpp.ll"
+#line 142 "yart-cpp.ll"
 { return BUILDOCTREE;   }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 152 "yart-cpp.ll"
+#line 144 "yart-cpp.ll"
 /* do nothing */
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 154 "yart-cpp.ll"
+#line 146 "yart-cpp.ll"
 {
     yylval.num = atof(yytext);
     return NUMBER;
@@ -1128,7 +1120,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 159 "yart-cpp.ll"
+#line 151 "yart-cpp.ll"
 {
     BEGIN STRING;
     str_pos = 0;
@@ -1137,56 +1129,56 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 165 "yart-cpp.ll"
+#line 157 "yart-cpp.ll"
 {
     add_string_char('\n');
 }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 168 "yart-cpp.ll"
+#line 160 "yart-cpp.ll"
 {
     add_string_char('\t');
 }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 171 "yart-cpp.ll"
+#line 163 "yart-cpp.ll"
 {
     add_string_char('\r');
 }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 174 "yart-cpp.ll"
+#line 166 "yart-cpp.ll"
 {
     add_string_char('\b');
 }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 177 "yart-cpp.ll"
+#line 169 "yart-cpp.ll"
 {
     add_string_char('\f');
 }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 180 "yart-cpp.ll"
+#line 172 "yart-cpp.ll"
 {
     add_string_char('\"');
 }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 183 "yart-cpp.ll"
+#line 175 "yart-cpp.ll"
 {
     add_string_char('\\');
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 186 "yart-cpp.ll"
+#line 178 "yart-cpp.ll"
 {
   int val = atoi(yytext+1);
   while (val > 256)
@@ -1196,7 +1188,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 192 "yart-cpp.ll"
+#line 184 "yart-cpp.ll"
 {
     BEGIN INITIAL;
     return STR;
@@ -1204,7 +1196,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 196 "yart-cpp.ll"
+#line 188 "yart-cpp.ll"
 {
     add_string_char(yytext[0]);
 }
@@ -1212,14 +1204,14 @@ YY_RULE_SETUP
 case 44:
 /* rule 44 can match eol */
 YY_RULE_SETUP
-#line 200 "yart-cpp.ll"
+#line 192 "yart-cpp.ll"
 {
     line_num++;
 }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 204 "yart-cpp.ll"
+#line 196 "yart-cpp.ll"
 {
     std::string msg("ILLEGAL CHARACTER: ");
     msg.append(yytext);
@@ -1228,10 +1220,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 210 "yart-cpp.ll"
+#line 202 "yart-cpp.ll"
 ECHO;
 	YY_BREAK
-#line 1235 "lex.yy.c"
+#line 1227 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(STRING):
 case YY_STATE_EOF(COMMENT):
@@ -2229,7 +2221,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 210 "yart-cpp.ll"
+#line 202 "yart-cpp.ll"
 
 
 
