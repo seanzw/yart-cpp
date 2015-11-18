@@ -30,66 +30,140 @@ Then the result is transformed back into world coordinate.
 ##### Mesh
 Mesh is the object you should use to represent any object that can't be represented by sphere 
 (since the system supports only two kinds of objects). A mesh is composed of many triangles. 
-You can use plan triangles whose normal is uniform everwhere, or you can refine the mesh by the 
-following command after the definition of the mesh:
-```
-# Some mesh definition.
-...
-refineMesh
-```
-This will refine the mesh and calculate a normal for each vertex. When a ray hits the mesh, 
-the normals is calculated by weighting the normals of the three vertex. This usually smooth the mesh.
+You can use plan triangles whose normal is uniform everwhere, or you can refine the mesh and calculate a normal for each vertex. When a ray hits the mesh, the normals is calculated by weighting the normals of the three vertex. This usually smooth the mesh.
 ####Lights
 All the lights offer an interface to do intersection test, to return the emission radiance, to sample a point on the light and return the pdf of sampling a specific point. 
 #####Point light
-A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray. The command is:
-```
-point x y z r g b
-```
+A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray.
 #####Directional light
 #####Area light
-####BRDF
-The BRDF offers the following interface:
-- brdf(intersection, in, out) -> the brdf function value
+####BSDF
+The BSDF offers the following interface:
+- bsdf(intersection, in, out) -> the bsdf function value
 - sample(intersection)        -> samples an outgoing ray according to a pdf
 - pdf(intersection, out)      -> the probability of the outgoing ray.
 
-Notice that BRDF base class provides a default implementation of `sample` and `pdf` fuctions, which samples according to a cosin-like pdf.
+Notice that BSDF base class provides a default implementation of `sample` and `pdf` fuctions, which samples according to a cosin-like pdf.
+
 ##### Lambertian
-The lambertian BRDF reflects the incoming light in all direction uniformly. It's value is always one over pi. The normalized pdf is `cos(theta)/PI`. It uses the default sampling strategy.
+The lambertian BSDF reflects the incoming light in all direction uniformly. It's value is always one over pi. The normalized pdf is `cos(theta)/PI`. It uses the default sampling strategy.
+
 ##### Specular
+The specular BSDF represents perfect reflection. Notice that there is a delta function in the pdf and bsdf value, which leads to problem when calculating the weight of this path in bidirectional path tracing. Here we use idea from veach's [thesis](https://graphics.stanford.edu/papers/veach_thesis/) that return values of pdf and bsdf methods are the coefficients of a delta fuction. The probability of a path should be set to zero if there is a delta function in the denominator.
+
+##### Refraction
+The refraction BSDF represents the perfect refraction module. Just like the specular BSDF, there is a delfa function in pdf and bsdf, which need to be handled carefully.
 
 ####Pixel Sampler
 Pixel sampler is used to generate rays for a pixel. It is important because without it there would be jaggies.
+
 ##### Uniform Sampler
 A uniform pixel sampler will break a pixel into some small subpixels and shoot one ray for each subpixels. The mean of the returned color of these rays is the color of this pixel. This reduces the jaggies but cannot elminate them.
+
 ##### Jittered Sampler
-Just like the uniform sampler, the jittered sampler also breaks one pixel into subpixels. However, instead of shooting one ray from the center of the subpixel, the origin of the ray is chosen randomly inside the subpixel. Generally this is better than uniform sampler due to the randomness. 
+Just like the uniform sampler, the jittered sampler also breaks one pixel into subpixels. However, instead of shooting one ray from the center of the subpixel, the origin of the ray is chosen randomly inside the subpixel. Generally this is better than uniform sampler due to the randomness.
+
 ####Integrator
+The integrator is used to solve the lighting equation, which is actually an integral.
+
 #####Multiple Importance Integrator
 This integrator use multiple importance sampling to sovle the integral. It has two parameters: maxDepth for the recursion depth, nBSDFSamples for the number of samples taken for BSDF.
-```
-integrator "MultipleImportance" maxDepth nBSDFSamples
-```
 It samples the light and the BSDF to get a lower variance. For the weight function, it uses power heuristics. Compare with the simple ray tracing which samples the BSDF only at mirror reflection, this integrator may introduce more noise. But it is a general unbiased integrator.
 
 #####Bidirectional Path Integrator
+The bidirectional path tracer in [veach's thesis](https://graphics.stanford.edu/papers/veach_thesis/) is implemented. This tracer samples the path by connecting two subpaths, one starting from the light and one from the camera. It performs much better than unidirectional path tracer when the scene is illuminated by indirect light, which are unlikely to be sampled by unidirectional path tracer. Just as mentioned in specular BSDF, special attention is needed to handle the delta function in pdf and bsdf.
 
 ####Scene Description File
-Here is a full list of the commands you can use in the scene description file. You can find more samples in the test folder.
-- `size 640 480` will set the size of the output image to 640x480.
-- `output "area-16shadowRay.png"` will set the output image's name.
-- `integrator "MultipleImportance" 5 4` will use a multiple importance sampler with 5 level recursion and 4 samples for the BSDF.
-- `pixelSampler "UniformPixelSampler" 4` will set the pixel sampler to be used.
-- `camera center lookAt up fov(degrees)` defines a camera at `center` looking at `lookAt`. Fov is defined in degrees.
-- `worldBegin` starts the definition of the world, including lights, objects, materials.
-- `worldEnd` ends the world definition stage, as you can image.
-- `objBegin "Type"` starts to define a new object.
-- `objEnd` means we are done with the previous object.
-- `material "Type"` defines the material for an object.
-- `translate`, `scale`, `rotate` will mulitply a transform matrix on the top of the transform stack.
-- `pushTransform`, `popTransform` manipulate the transform stack.
-- `v x y z` defines a vertex
-- `f id1 id2 id3` defines a face with three vertex index.
-- `buildOCTree` build an OC Tree for the current object, usually for a complicate mesh.
-- `include "filename"` will include the file at this postion. This is usually used to include other big `.obj` file.
+Here is a real scene description file with comments. You can find more examples in the `/test` folder.
+```
+# Test Scene 1 
+# A simple quad viewed from different camera positions
+
+size 640 480
+#size 120 80
+output "area.png"
+
+#integrator "MultipleImportance" 2 16 16
+integrator "BidirectionalPath" 4 4
+pixelSampler "JitteredPixelSampler" 4
+
+camera 0 3 10 0 0 0 0 1 0 60
+#camera 0 3 1 0 4 0 0 0 1 60
+
+worldBegin
+
+# Center Power Normal Radius NSamples
+areaLight -2 4 2 70 70 70 0 -1 0 0.5
+# areaLight -4 2 0 100 100 100 0 -1 0 0.5
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 0 0
+scale 100 1 100
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+f 1 2 3
+f 3 4 1
+popTransform
+objEnd
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 2 0
+scale 1 1 1
+rotate 0 1 0 45
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+v -1 -1 -1
+v -1 -1 1
+v  1 -1 1
+v  1 -1 -1
+# upper
+f 1 2 3
+f 3 4 1
+
+# down
+f 7 6 5
+f 5 7 8
+
+# left
+f 1 5 6
+f 1 6 2
+
+# right
+f 3 7 8
+f 3 8 4
+
+# front
+f 2 6 7
+f 2 7 3
+
+# back
+f 4 8 5
+f 4 5 1
+
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "Specular" 1.0 0.84 0.0
+pushTransform
+sphere 2 0.5 2 0.5
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "CookTorrance" 1.0 1.0 1.0 1.0 1.5
+pushTransform
+sphere -2 0.5 2 0.5
+popTransform
+objEnd
+
+worldEnd
+```

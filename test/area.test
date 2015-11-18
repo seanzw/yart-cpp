@@ -1,0 +1,90 @@
+# Test Scene 1 
+# A simple quad viewed from different camera positions
+
+size 640 480
+#size 120 80
+output "area.png"
+
+#integrator "MultipleImportance" 2 16 16
+integrator "BidirectionalPath" 4 4
+pixelSampler "JitteredPixelSampler" 4
+
+camera 0 3 10 0 0 0 0 1 0 60
+#camera 0 3 1 0 4 0 0 0 1 60
+
+worldBegin
+
+# Center Power Normal Radius NSamples
+areaLight -2 4 2 70 70 70 0 -1 0 0.5
+# areaLight -4 2 0 100 100 100 0 -1 0 0.5
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 0 0
+scale 100 1 100
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+f 1 2 3
+f 3 4 1
+popTransform
+objEnd
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 0 2 0
+scale 1 1 1
+rotate 0 1 0 45
+v -1 0 -1
+v -1 0 1
+v  1 0 1
+v  1 0 -1
+v -1 -1 -1
+v -1 -1 1
+v  1 -1 1
+v  1 -1 -1
+# upper
+f 1 2 3
+f 3 4 1
+
+# down
+f 7 6 5
+f 5 7 8
+
+# left
+f 1 5 6
+f 1 6 2
+
+# right
+f 3 7 8
+f 3 8 4
+
+# front
+f 2 6 7
+f 2 7 3
+
+# back
+f 4 8 5
+f 4 5 1
+
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "Specular" 1.0 0.84 0.0
+pushTransform
+sphere 2 0.5 2 0.5
+popTransform
+objEnd
+
+objBegin "Sphere"
+material "CookTorrance" 1.0 1.0 1.0 1.0 1.5
+pushTransform
+sphere -2 0.5 2 0.5
+popTransform
+objEnd
+
+worldEnd

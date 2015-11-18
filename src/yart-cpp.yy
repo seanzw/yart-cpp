@@ -172,7 +172,7 @@ world_stmt: DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 obj_type: STR {
     string type($1);
 	yart->yartObjBegin(type);
-    DEBUG("PARSER OBJBEGIN %s\n", type.c_str());
+    DEBUG("PARSE OBJBEGIN %s\n", type.c_str());
 }
 
 obj_stmt_list: obj_stmt_list obj_stmt {

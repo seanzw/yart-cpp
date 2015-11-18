@@ -1504,7 +1504,7 @@ yyreduce:
     {
     string type((yyvsp[0].string));
 	yart->yartObjBegin(type);
-    DEBUG("PARSER OBJBEGIN %s\n", type.c_str());
+    DEBUG("PARSE OBJBEGIN %s\n", type.c_str());
 }
 #line 1510 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;

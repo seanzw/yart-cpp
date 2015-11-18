@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Integrator">
       <UniqueIdentifier>{8ef33443-7e3c-423c-9bf0-53e854f99f50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\BSDF">
+      <UniqueIdentifier>{485155eb-2302-4bb6-a8c4-20a52d45235d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BSDF">
+      <UniqueIdentifier>{0f9cbfe1-d600-4853-89e3-409671b90d2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -121,6 +127,12 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\BSDF.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BSDFCookTorrance.cpp">
+      <Filter>Source Files\BSDF</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -212,6 +224,9 @@
     <ClInclude Include="src\BSDF.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\BSDFCookTorrance.h">
+      <Filter>Header Files\BSDF</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">
@@ -219,9 +234,6 @@
     </None>
     <None Include="src\yart-cpp.yy">
       <Filter>Resource Files\parser</Filter>
-    </None>
-    <None Include="test\scene7.test">
-      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="src\Makefile">
       <Filter>Resource Files\parser</Filter>
@@ -238,9 +250,6 @@
     <None Include="test\scene-sphere.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
-    <None Include="test\scene-area.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
     <None Include="README.md">
       <Filter>Resource Files</Filter>
     </None>
@@ -251,6 +260,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\stanford-dragon.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="test\area.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>
