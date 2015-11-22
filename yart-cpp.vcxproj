@@ -178,7 +178,7 @@
     <None Include="src\yart-cpp.ll" />
     <None Include="src\yart-cpp.yy" />
     <None Include="test\area.test" />
-    <None Include="test\scene-cube.test" />
+    <None Include="test\sphere.test" />
     <None Include="test\scene-dinosaur.test" />
     <None Include="test\scene-indirect.test" />
     <None Include="test\scene-kitten.test" />

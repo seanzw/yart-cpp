@@ -27,11 +27,12 @@ Material::Material(const string &bsdfType, const vector<float> *params) {
         }
     }
     else if (bsdfType == "CookTorrance") {
-        if (params->size() >= 5) {
-            bsdf = make_shared<BSDFCookTorrance>(vec3((*params)[0], (*params)[1], (*params)[2]), (*params)[3], (*params)[4]);
+        if (params->size() >= 7) {
+            bsdf = make_shared<BSDFCookTorrance>(vec3((*params)[0], (*params)[1], (*params)[2]),
+                (*params)[3], (*params)[4], (*params)[5], (*params)[6]);
         }
         else {
-            bsdf = make_shared<BSDFCookTorrance>(vec3(1.0f), 10.0f, 1.5f);
+            bsdf = make_shared<BSDFCookTorrance>(vec3(1.0f), 0.2f, 0.8f, 1.0f, 1.5f);
         }
     }
     else {

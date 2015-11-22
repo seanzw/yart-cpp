@@ -238,9 +238,6 @@
     <None Include="src\Makefile">
       <Filter>Resource Files\parser</Filter>
     </None>
-    <None Include="test\scene-cube.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
     <None Include="test\scene-dinosaur.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
@@ -263,6 +260,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\area.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="test\sphere.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>

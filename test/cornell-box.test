@@ -4,7 +4,7 @@ camera 0 0 1 0 0 -1 0 1 0 45
 output "conell-box.png"
 #integrator "MultipleImportance" 2 4 8
 integrator "BidirectionalPath" 4 4
-pixelSampler "UniformPixelSampler" 4
+pixelSampler "UniformPixelSampler" 32
 
 worldBegin
 #point 0 0.44 -1.5 10 10 10
@@ -125,7 +125,7 @@ objEnd
 objBegin "Sphere"
 #diffuse 0.7 0.5 0.2
 #specular 0.2 0.2 0.2
-material "Lambertian" 0.7 0.5 0.2
+material "CookTorrance" 1.0 1.0 1.0 0.2 0.8 0.2 1.5
 pushTransform
 translate -0.5 -0.7 -1.5
 scale 0.1 0.1 0.1

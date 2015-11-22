@@ -16,27 +16,41 @@ vec3 BSDFCookTorrance::bsdf(const Intersection &hit, const vec3 &in, const vec3 
     float G = Smith(in, out, wm);
     float F = SchlickFresnel(in, wm);
 
-    return color * D * F * G / (4 * dot(normal, -in) * dot(normal, out));
+    return color * (kd * INV_PI + ks * D * F * G / (4 * dot(normal, -in) * dot(normal, out)));
 }
 
 float BSDFCookTorrance::pdf(const Intersection &hit, const vec3 &in, const vec3 &out) const {
-    // return INV_PI;
-    return BSDF::pdf(hit, in, out);
+    vec3 normal = hit.pos == INTERSECTION_OUT ? hit.normal : -hit.normal;
+    vec3 wm = normalize(out - in);
+    return GGX(normal, wm) / dot(wm, normal);
+
 }
 
 pair<Ray, float> BSDFCookTorrance::sample(const Intersection &hit, const vec3 &in) const {
-    // vec3 normal = hit.pos == INTERSECTION_OUT ? hit.normal : -hit.normal;
-    // vec3 mirror = reflect(in, normal);
-    // return make_pair(Ray(hit.point, mirror, CONST_NEAR, CONST_FAR), 1.0f);
-    return BSDF::sample(hit, in);
+    vec3 normal = hit.pos == INTERSECTION_OUT ? hit.normal : -hit.normal;
+
+    // Sample the outgoing direction.
+    float r1 = Sampler::sample1D(0.0f, 1.0f);
+    float theta = atanf(roughness * sqrtf(r1 / (1.0f - r1)));
+    float varphi = Sampler::sample1D(0.0f, 2.0f * PI);
+
+    // Build the local coordinate.
+    auto locals = buildLocalCoordinate(normal);
+
+    // Transform to global coordinate.
+    vec3 wm = cosf(theta) * normal +
+        sinf(theta) * (locals.first * cosf(varphi) + locals.second * sinf(varphi));
+    wm = normalize(wm);
+
+    vec3 out = reflect(in, wm);
+
+    return make_pair(Ray(hit.point, out, CONST_NEAR, CONST_FAR), pdf(hit, in, out));
 }
 
 float BSDFCookTorrance::GGX(const vec3 &n, const vec3 &wm) const {
     float cosTheta = dot(wm, n);
     float cosTheat2 = cosTheta * cosTheta;
-    vec3 sinEdge = wm - n * cosTheta;
-    float sinTheta2 = dot(sinEdge, sinEdge);
-    float tanTheat2 = sinTheta2 / cosTheat2;
+    float tanTheat2 = (1.0f - cosTheat2) / cosTheat2;
 
     float root = roughness / (cosTheat2 * (roughness * roughness + tanTheat2));
     return INV_PI * (root * root);
@@ -48,17 +62,16 @@ float BSDFCookTorrance::Smith(const vec3 &wi, const vec3 &wo, const vec3 &wm) co
 
 inline float BSDFCookTorrance::SmithAux(const vec3 &v, const vec3 &wm) const {
     float cosTheta = dot(wm, v);
-    float sinTheta = length(v - wm * cosTheta);
-    float tanTheta = abs(sinTheta / cosTheta);
-    if (tanTheta == 0.0f) {
+    float cosTheat2 = cosTheta * cosTheta;
+    float tanTheta2 = (1.0f - cosTheat2) / cosTheat2;
+    if (tanTheta2 == 0.0f) {
         return 1.0f;
     }
     else if (cosTheta < 0.0f) {
         return 0.0f;
     }
     else {
-        float root = roughness * tanTheta;
-        return 2.0f / (1.0f + sqrtf(1.0f + root * root));
+        return 2.0f / (1.0f + sqrtf(1.0f + roughness * roughness * tanTheta2));
     }
 }
 

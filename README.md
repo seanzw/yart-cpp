@@ -41,12 +41,12 @@ A point light is defined with its position and radiance. It's a uniform light an
 The BSDF offers the following interface:
 - bsdf(intersection, in, out) -> the bsdf function value
 - sample(intersection)        -> samples an outgoing ray according to a pdf
-- pdf(intersection, out)      -> the probability of the outgoing ray.
+- pdf(intersection, out)      -> the probability in projected solid angle of the outgoing ray.
 
 Notice that BSDF base class provides a default implementation of `sample` and `pdf` fuctions, which samples according to a cosin-like pdf.
 
 ##### Lambertian
-The lambertian BSDF reflects the incoming light in all direction uniformly. It's value is always one over pi. The normalized pdf is `cos(theta)/PI`. It uses the default sampling strategy.
+The lambertian BSDF reflects the incoming light in all direction uniformly. It's value is always one over pi. The normalized pdf is `1/PI`. It uses the default sampling strategy.
 
 ##### Specular
 The specular BSDF represents perfect reflection. Notice that there is a delta function in the pdf and bsdf value, which leads to problem when calculating the weight of this path in bidirectional path tracing. Here we use idea from veach's [thesis](https://graphics.stanford.edu/papers/veach_thesis/) that return values of pdf and bsdf methods are the coefficients of a delta fuction. The probability of a path should be set to zero if there is a delta function in the denominator.

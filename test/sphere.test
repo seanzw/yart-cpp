@@ -1,0 +1,110 @@
+# Test
+size 640 480
+camera 0 0 1 0 0 -1 0 1 0 45
+output "sphere.png"
+#integrator "MultipleImportance" 2 4 8
+integrator "BidirectionalPath" 4 4
+pixelSampler "UniformPixelSampler" 32
+
+worldBegin
+#point 0 0.44 -1.5 10 10 10
+areaLight 0 0.44 -1.5 20 20 20 0 -1 0 0.3
+
+#red
+objBegin "Mesh"
+material "Lambertian" 1 0 0
+
+pushTransform
+translate 0 0 -3
+rotate 0 1 0 60
+scale 10 10 1
+
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+f 1 2 3
+f 1 3 4
+popTransform
+objEnd
+
+#green
+objBegin "Mesh"
+pushTransform
+translate 0 0 -3
+rotate 0 1 0 -60
+scale 10 10 1
+#diffuse 0 1 0
+material "Lambertian" 0 1 0
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+f 1 2 3
+f 1 3 4
+popTransform
+objEnd
+
+#back
+objBegin "Mesh"
+pushTransform
+scale 10 10 1
+translate 0 0 -2
+#diffuse 1 1 1
+material "Lambertian" 1 1 1
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+f 1 2 3
+f 1 3 4
+popTransform
+objEnd
+
+#top
+objBegin "Mesh"
+pushTransform
+translate 0 0.5 0
+rotate 1 0 0 60
+translate 0 0 -1
+scale 10 10 1
+#diffuse 1 1 1
+material "Lambertian" 1 1 1
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+f 1 2 3
+f 1 3 4
+popTransform
+objEnd
+
+#bottom
+objBegin "Mesh"
+pushTransform
+translate 0 -0.5 0
+rotate 1 0 0 -60
+translate 0 0 -1
+scale 10 10 1
+#diffuse 1 1 1
+material "Lambertian" 1 1 1
+v -1 +1 0
+v -1 -1 0
+v +1 -1 0
+v +1 +1 0
+f 1 2 3
+f 1 3 4
+popTransform
+objEnd
+
+#sphere
+objBegin "Sphere"
+material "CookTorrance" 1 1 1 0.2 0.8 0.1 1.5
+pushTransform
+translate 0 -0.7 -1.5
+scale 0.1 0.1 0.1
+sphere 0 0 0 2
+popTransform
+objEnd
+
+worldEnd

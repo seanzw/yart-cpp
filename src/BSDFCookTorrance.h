@@ -12,8 +12,9 @@
  */
 class BSDFCookTorrance : public BSDF {
 public:
-    BSDFCookTorrance(const vec3 &color, float rough, float n)
-        : BSDF(), color(color), roughness(rough), r0(((n - 1)*(n - 1)) / ((n  + 1)*(n + 1))) {}
+    BSDFCookTorrance(const vec3 &color, float kd, float ks, float rough, float n)
+        : BSDF(), color(color), kd(kd), ks(ks),
+        roughness(rough), r0(((n - 1)*(n - 1)) / ((n  + 1)*(n + 1))) {}
     ~BSDFCookTorrance() {}
 
     virtual bool isDelta() const { return false; }
@@ -23,6 +24,8 @@ public:
 
 private:
     const vec3 color;
+    const float kd;
+    const float ks;
     const float roughness;
     const float r0;             /* Fresnel term when theta equals 0. */
 
