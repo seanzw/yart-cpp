@@ -1,7 +1,7 @@
 #Cornell Box
 size 80 60
 camera 0 0 1 0 0 -1 0 1 0 45
-output "conell-box.png"
+output "cornell-box.png"
 integrator "DirectLight" 5 4 1
 #integrator "BidirectionalPath" 4 4
 pixelSampler "UniformPixelSampler" 4
