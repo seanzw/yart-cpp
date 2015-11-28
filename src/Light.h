@@ -38,6 +38,9 @@ public:
         exit(1);
     }
 
+    /**
+     * The probability that this ray is sampled.
+     */
     virtual float pdfRay(const Intersection &hit, const vec3 &direction) const {
         cerr << "light::pdfRay() unimplemented.\n";
         exit(1);

@@ -5,8 +5,8 @@ size 640 480
 #size 120 80
 output "area.png"
 
-#integrator "MultipleImportance" 2 16 16
-integrator "BidirectionalPath" 4 4
+integrator "DirectLight" 2 16 16
+#integrator "BidirectionalPath" 4 4
 pixelSampler "JitteredPixelSampler" 4
 
 camera 0 3 10 0 0 0 0 1 0 60

@@ -100,5 +100,5 @@ float AreaLight::pdfRay(const Intersection &hit, const vec3 &direction) const {
 
     float cosThetaI = clamp(dot(hit.normal, direction), 0.01f, 1.0f);
     float cosThetaO = clamp(dot(normal, -direction), 0.01f, 1.0f);
-    return temp.t * temp.t / (area * cosThetaI * cosThetaO);
+    return temp.t * temp.t * 1.0f / (area * cosThetaI * cosThetaO);
 }

@@ -20,7 +20,7 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
         return L;
     }
     else if (hit.type == INTERSECTION_LIGHT) {
-        // If this is an intersection with the light.
+        // If this is an intersection with the light,
         // simply return the color from the light.
         const Light *light = static_cast<const Light *>(hit.intersectable);
         return light->Le() * clamp(dot(hit.normal, -r.d), 0.0f, 1.0f);

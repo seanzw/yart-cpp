@@ -12,7 +12,7 @@
 #include "AreaLight.h"
 #include "Sphere.h"
 #include "OCTree.h"
-#include "MultipleImportanceIntegrator.h"
+#include "DirectLightIntegrator.h"
 #include "BidirectioalPathIntegrator.h"
 #include "UniformPixelSampler.h"
 #include "JitteredPixelSampler.h"
@@ -142,8 +142,8 @@ void RayTracer::yartSize(int width, int height) {
 }
 
 void RayTracer::yartIntegrator(const string &type, const vector<float> *params) {
-	if (type == "MultipleImportance") {
-		integrator = make_shared<MultipleImportanceIntegrator>(int((*params)[0]), int((*params)[1]), int((*params)[2]));
+	if (type == "DirectLight") {
+		integrator = make_shared<DirectLightIntegrator>(int((*params)[0]), int((*params)[1]), int((*params)[2]));
 	}
     else if (type == "BidirectionalPath") {
         integrator = make_shared<BidirectionalPathIntegrator>(int((*params)[0]), int((*params)[1]));

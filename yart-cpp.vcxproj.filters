@@ -120,9 +120,6 @@
     <ClCompile Include="src\BidirectionalPathIntegrator.cpp">
       <Filter>Source Files\Integrator</Filter>
     </ClCompile>
-    <ClCompile Include="src\MulitpleImportanceSampler.cpp">
-      <Filter>Source Files\Integrator</Filter>
-    </ClCompile>
     <ClCompile Include="src\RayTracer.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -134,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="src\Material.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DirectLightIntegrator.cpp">
+      <Filter>Source Files\Integrator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +212,6 @@
     <ClInclude Include="src\RayTracer.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\MultipleImportanceIntegrator.h">
-      <Filter>Header Files\Integrator</Filter>
-    </ClInclude>
     <ClInclude Include="src\BidirectioalPathIntegrator.h">
       <Filter>Header Files\Integrator</Filter>
     </ClInclude>
@@ -226,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="src\BSDFCookTorrance.h">
       <Filter>Header Files\BSDF</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DirectLightIntegrator.h">
+      <Filter>Header Files\Integrator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,10 @@
 #Cornell Box
-size 640 480
+size 80 60
 camera 0 0 1 0 0 -1 0 1 0 45
 output "conell-box.png"
-#integrator "MultipleImportance" 2 4 8
-integrator "BidirectionalPath" 4 4
-pixelSampler "UniformPixelSampler" 32
+integrator "DirectLight" 5 4 1
+#integrator "BidirectionalPath" 4 4
+pixelSampler "UniformPixelSampler" 4
 
 worldBegin
 #point 0 0.44 -1.5 10 10 10

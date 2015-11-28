@@ -66,7 +66,7 @@ Just like the uniform sampler, the jittered sampler also breaks one pixel into s
 ####Integrator
 The integrator is used to solve the lighting equation, which is actually an integral.
 
-#####Multiple Importance Integrator
+#####Direct Light Integrator
 This integrator use multiple importance sampling to sovle the integral. It has two parameters: maxDepth for the recursion depth, nBSDFSamples for the number of samples taken for BSDF.
 It samples the light and the BSDF to get a lower variance. For the weight function, it uses power heuristics. Compare with the simple ray tracing which samples the BSDF only at mirror reflection, this integrator may introduce more noise. But it is a general unbiased integrator.
 

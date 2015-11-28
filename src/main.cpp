@@ -26,7 +26,11 @@ int main(int argc, char *argv[]) {
 	yyin = fopen(argv[1], "r");
 	yyparse();
 
+#ifdef _DEBUG
+    rt.generate(1);
+#else
     rt.generate(8);
+#endif
     rt.rinse();
 
     return 0;
