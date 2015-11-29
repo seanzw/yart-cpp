@@ -91,10 +91,11 @@ yart_stmt: SIZE NUMBER NUMBER {
     delete $3;
 }
 
-| PIXELSAMPLER STR NUMBER {
-	DEBUG("PARSE PIXELSAMPLER %s %d\n", $2, (int)$3);
+| PIXELSAMPLER STR param_list {
+	DEBUG("PARSE PIXELSAMPLER %s %f\n", $2, (*$3)[0]);
 	string pixelSampler($2);
-	yart->yartPixelSampler(pixelSampler, (int)$3);
+	yart->yartPixelSampler(pixelSampler, $3);
+    delete $3;
 }
 	
 | OUTPUT STR {

@@ -135,6 +135,12 @@
     <ClCompile Include="src\DirectLightIntegrator.cpp">
       <Filter>Source Files\Integrator</Filter>
     </ClCompile>
+    <ClCompile Include="src\AdaptivePixelSampler.cpp">
+      <Filter>Source Files\PixelSampler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DEBUG.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AreaLight.h">
@@ -226,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="src\DirectLightIntegrator.h">
       <Filter>Header Files\Integrator</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AdaptivePixelSampler.h">
+      <Filter>Header Files\PixelSamplers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

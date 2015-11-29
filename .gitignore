@@ -30,6 +30,7 @@
 
 # Debug files
 *.dSYM/
+spp.dat
 
 # VS
 *.opensdf

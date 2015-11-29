@@ -27,6 +27,7 @@ public:
 	virtual ~PixelSampler() {}
 
 	virtual void sample(int x, int y, vector<float> &samples) = 0;
+    virtual bool done(const vec3 &prevL, const vec3 &L, size_t totalSamples) const = 0;
 };
 
 #endif

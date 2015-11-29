@@ -16,8 +16,9 @@
 #include "BidirectioalPathIntegrator.h"
 #include "UniformPixelSampler.h"
 #include "JitteredPixelSampler.h"
+#include "AdaptivePixelSampler.h"
 
-using namespace glm;
+#include "DEBUG.cpp"
 
 RayTracer::RayTracer(const string &fn) {
     scene = make_shared<Scene>();
@@ -55,6 +56,15 @@ void RayTracer::generate(int threadnum) {
 
     DEBUG("START RAY TRACING\n");
     clock_t start = clock();
+
+#ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
+
+    sppMap.resize(height);
+    for (auto &row : sppMap) {
+        row.resize(width, 0);
+    }
+
+#endif
     
     threadnum = threadnum < 1 ? 1 : (threadnum > 8 ? 8 : threadnum);
     thread **threads = new thread*[threadnum];
@@ -84,6 +94,12 @@ void RayTracer::generate(int threadnum) {
         DEBUG(" DONE!\n");
     }
 
+#ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
+
+    DEBUG_DumpSPP();
+
+#endif
+
     double duration = (clock() - start) / CLOCKS_PER_SEC;
     cout << "TOTAL TIME: " << duration << endl;
 
@@ -100,17 +116,33 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
     for (int row = row_init; row < height; row += row_step) {
         for (int col = 0; col < width; ++col) {
 
-			// Generate samples for each pixel.
-			pixelSampler->sample(row, col, samples);
+            size_t totalSamples = 0;
+            vec3 L(0.0f);
+            vec3 sum(0.0f);
 
-			vec3 color(0.0f);
-			for (auto iter = samples.begin(); iter != samples.end(); iter += 2) {
-				Ray ray = this->camera->genRay(*iter, *(iter + 1));
-				color += clamp(integrator->income(ray, scene), 0.0f, 1.0f);
-			}
+            while (true) {
 
-			color /= float(samples.size() / 2);
-            film->expose(color, row, col);
+                // Generate samples for each pixel.
+                pixelSampler->sample(row, col, samples);
+                totalSamples += (samples.size() >> 1);
+                vec3 prevL = L;
+
+                for (auto iter = samples.begin(); iter != samples.end(); iter += 2) {
+                    Ray ray = this->camera->genRay(*iter, *(iter + 1));
+                    sum += clamp(integrator->income(ray, scene), 0.0f, 1.0f);
+                }
+
+                L = sum / (float)totalSamples;
+                if (pixelSampler->done(prevL, L, totalSamples)) {
+                    break;
+                }
+            }
+
+#ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
+            sppMap[height - row - 1][col] = totalSamples;
+#endif
+
+            film->expose(L, row, col);
 
             *total += 1;
         }
@@ -154,12 +186,15 @@ void RayTracer::yartIntegrator(const string &type, const vector<float> *params) 
 	}
 }
 
-void RayTracer::yartPixelSampler(const string &type, int num) {
+void RayTracer::yartPixelSampler(const string &type, const vector<float> *params) {
 	if (type == "UniformPixelSampler") {
-		pixelSampler = shared_ptr<PixelSampler>(new UniformPixelSampler(num));
+		pixelSampler = shared_ptr<PixelSampler>(new UniformPixelSampler(int((*params)[0])));
 	}
     else if (type == "JitteredPixelSampler") {
-        pixelSampler = make_shared<JitteredPixelSampler>(num);
+        pixelSampler = make_shared<JitteredPixelSampler>(int((*params)[0]));
+    }
+    else if (type == "AdaptivePixelSampler") {
+        pixelSampler = make_shared<AdaptivePixelSampler>(int((*params)[0]), int((*params)[1]), int((*params)[2]), (*params)[3]);
     }
 	else {
 		cerr << "ERROR: Unsupported pixel sampler: " << type << endl;

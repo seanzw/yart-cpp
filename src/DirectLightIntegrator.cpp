@@ -24,7 +24,7 @@ vec3 DirectLightIntegrator::income(const Ray &r,
     if (!hit.m->bsdf->isDelta()) {
 
         // This is not a delta brdf. Randomly pick one light.
-        int lightId = floor(Sampler::sample1D(0.0f, (float)scene->lights.size()));
+        int lightId = floor(Sampler::sample1D(0.0f, (float)scene->lights.size() - 0.1f));
         const shared_ptr<Light> &light = scene->lights[lightId];
 
         // Get the shadow ray and the distance to the light.
