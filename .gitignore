@@ -39,3 +39,6 @@ Thumbs.db
 .vs/
 Debug/
 x64/
+
+# Makepp
+*/.makepp/*
