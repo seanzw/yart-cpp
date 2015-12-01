@@ -236,6 +236,9 @@
     <ClInclude Include="src\AdaptivePixelSampler.h">
       <Filter>Header Files\PixelSamplers</Filter>
     </ClInclude>
+    <ClInclude Include="src\DEBUG.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">

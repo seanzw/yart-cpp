@@ -122,8 +122,8 @@
     <ClCompile Include="src\BSDFCookTorrance.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\DEBUG.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="src\Material.cpp" />
     <ClCompile Include="src\DirectLightIntegrator.cpp" />
@@ -154,6 +154,7 @@
     <ClInclude Include="src\BSDFCookTorrance.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Const.h" />
+    <ClInclude Include="src\DEBUG.h" />
     <ClInclude Include="src\DirectionalLight.h" />
     <ClInclude Include="src\Intersectable.h" />
     <ClInclude Include="src\DirectLightIntegrator.h" />

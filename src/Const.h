@@ -26,6 +26,8 @@ using namespace std;
 
 using glm::clamp;
 using glm::radians;
+using glm::min;
+using glm::max;
 
 inline vec3 applyMatrix(const mat4 &trans, const vec3 &v) {
     vec4 temp = vec4(v, 1.0f);
