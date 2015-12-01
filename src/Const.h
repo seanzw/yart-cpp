@@ -26,8 +26,12 @@ using namespace std;
 
 using glm::clamp;
 using glm::radians;
+
+/* Fix the ambiguous min/max bug on different platform. */
+#ifdef _MSC_VER
 using glm::min;
 using glm::max;
+#endif
 
 inline vec3 applyMatrix(const mat4 &trans, const vec3 &v) {
     vec4 temp = vec4(v, 1.0f);
