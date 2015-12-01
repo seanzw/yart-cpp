@@ -2,7 +2,7 @@
 #define FILM_HEADER
 
 #include "Const.h"
-#include "FreeImage\FreeImage.h"
+#include "FreeImage/FreeImage.h"
 
 typedef unsigned char uchar;
 

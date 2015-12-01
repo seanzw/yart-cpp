@@ -1,3 +1,4 @@
+#include <cstring>      /* For memcpy. */
 #include "Film.h"
 
 Film::Film(int width, int height) : w(width), h(height) {

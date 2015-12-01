@@ -13,9 +13,7 @@ public:
     virtual ~JitteredPixelSampler() {}
 
     virtual void sample(int x, int y, vector<float> &samples);
-    virtual bool done(const vec3 &prevL, const vec3 &L, size_t totalSamples) const {
-        return totalSamples == total;
-    }
+    virtual bool done(const vec3 &prevL, const vec3 &L, size_t totalSamples) const;
 
 protected:
     size_t total;

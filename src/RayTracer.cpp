@@ -18,7 +18,7 @@
 #include "JitteredPixelSampler.h"
 #include "AdaptivePixelSampler.h"
 
-#include "DEBUG.cpp"
+#include "DEBUG.h"
 
 RayTracer::RayTracer(const string &fn) {
     scene = make_shared<Scene>();
@@ -59,8 +59,8 @@ void RayTracer::generate(int threadnum) {
 
 #ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
 
-    sppMap.resize(height);
-    for (auto &row : sppMap) {
+    SPPDebuger::sppMap.resize(height);
+    for (auto &row : SPPDebuger::sppMap) {
         row.resize(width, 0);
     }
 
@@ -96,7 +96,7 @@ void RayTracer::generate(int threadnum) {
 
 #ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
 
-    DEBUG_DumpSPP();
+    SPPDebuger::DEBUG_DumpSPP();
 
 #endif
 
@@ -139,7 +139,7 @@ void RayTracer::generate_one_thread(int row_init, int row_step, int *total) {
             }
 
 #ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
-            sppMap[height - row - 1][col] = totalSamples;
+            SPPDebuger::sppMap[height - row - 1][col] = totalSamples;
 #endif
 
             film->expose(L, row, col);

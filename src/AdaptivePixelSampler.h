@@ -10,7 +10,6 @@ public:
     }
 
     virtual ~AdaptivePixelSampler() {}
-
     virtual bool done(const vec3 &prevL, const vec3 &L, size_t totalSamples) const;
 
 private:

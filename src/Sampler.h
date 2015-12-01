@@ -4,6 +4,8 @@
 #include <random>
 #include "Const.h"
 
+using std::default_random_engine;
+
 class Sampler {
 public:
 	Sampler() {}

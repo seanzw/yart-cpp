@@ -10,3 +10,7 @@ void JitteredPixelSampler::sample(int x, int y, vector<float> &samples) {
         }
     }
 }
+
+bool JitteredPixelSampler::done(const vec3 &prevL, const vec3 &L, size_t totalSamples) const {
+    return totalSamples == total;
+}

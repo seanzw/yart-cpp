@@ -1,11 +1,17 @@
-#define DEBUG_SAMPLES_PER_PIXEL_MAP
+#include <iostream>
+#include <fstream>
+#include "DEBUG.h"
+
+using std::ofstream;
+using std::cout;
+using std::endl;
 
 #ifdef DEBUG_SAMPLES_PER_PIXEL_MAP
 
-vector< vector<size_t> > sppMap;
-string sppFN("spp.dat");
+const string SPPDebuger::sppFN("spp.dat");
+vector< vector<size_t> > SPPDebuger::sppMap;
 
-void DEBUG_DumpSPP() {
+void SPPDebuger::DEBUG_DumpSPP() {
     ofstream spp(sppFN);
     if (!spp.is_open()) {
         cout << "Failed open " << sppFN << endl;

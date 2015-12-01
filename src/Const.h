@@ -6,19 +6,26 @@
 //#define DEBUG(...)
 
 #include <iostream>
-
 #include <vector>
 #include <memory>
-using namespace std;
-
-#include "glm\glm.hpp"
-using namespace glm;
+#include "glm/glm.hpp"
 
 #define CONST_FAR 1000000.0f
 #define CONST_NEAR 0.001f
 #define CONST_EPSILON 0.000001f
 #define PI 3.14159265f
 #define INV_PI 0.318309f
+
+typedef glm::vec3 vec3;
+typedef glm::vec4 vec4;
+typedef glm::mat3 mat3;
+typedef glm::mat4 mat4;
+
+/* Namespace selector. */
+using namespace std;
+
+using glm::clamp;
+using glm::radians;
 
 inline vec3 applyMatrix(const mat4 &trans, const vec3 &v) {
     vec4 temp = vec4(v, 1.0f);

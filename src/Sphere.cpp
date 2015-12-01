@@ -1,7 +1,7 @@
 #include "Sphere.h"
 #include "BBox.h"
 
-#include "glm\gtc\matrix_inverse.hpp"
+#include "glm/gtc/matrix_inverse.hpp"
 
 Sphere::Sphere(const Material &material,
     const vec3 &center, float radius,
