@@ -42,3 +42,6 @@ x64/
 
 # Makepp
 .makepp/
+
+# Unix
+/unix/bin/
