@@ -41,4 +41,4 @@ Debug/
 x64/
 
 # Makepp
-*/.makepp/*
+.makepp/
