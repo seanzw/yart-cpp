@@ -3,12 +3,41 @@ size 1000 480
 #size 100 48
 camera -10 0 20 0 0 -1 0 1 0 45
 output "stanford-dragon.png"
-integrator "BidirectionalPath" 2 2
-pixelSampler "JitteredPixelSampler" 4
+integrator "BidirectionalPath" 5 5
+pixelSampler "AdaptivePixelSampler" 4 16 1024
 
 worldBegin
 #point 10 10 20 1 1 1
 areaLight 10 10 10 50 50 50 -10 -10 -10 2
+areaLight -10 10 -10 50 50 50 10 -10 10 2
+
+objBegin "Mesh"
+material "Lambertian" 1 0.8 0.7
+pushTransform
+translate 0 0 -15
+scale 100 100 1
+v -1 -1 0
+v -1 1 0
+v  1 1 0
+v  1 -1 0
+f 2 1 3
+f 4 3 1
+popTransform
+objEnd
+
+objBegin "Mesh"
+material "Lambertian" 0.8 0.7 1
+pushTransform
+translate 15 0 0
+scale 1 100 100
+v 0 -1 -1
+v 0 -1 1
+v 0 1 1
+v 0 1 -1
+f 1 2 3
+f 3 4 1
+popTransform
+objEnd
 
 objBegin "Mesh"
 material "Lambertian"
@@ -25,12 +54,23 @@ popTransform
 objEnd
 
 objBegin "Mesh"
-material "Lambertian"
+material "Refraction"
 pushTransform
-translate 0 -5 0
+translate -5 -5 -5
 include "objs/dragon.obj"
 popTransform
 refineMesh
-buildOCTree 8
+buildOCTree 14
 objEnd
+
+objBegin "Mesh"
+material "Lambertian"
+pushTransform
+translate 5 -5 5
+include "objs/dragon.obj"
+popTransform
+refineMesh
+buildOCTree 14
+objEnd
+
 worldEnd

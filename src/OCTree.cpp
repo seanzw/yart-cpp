@@ -28,11 +28,17 @@ OCTree::OCTree(const vector<unique_ptr<Object> > &objects,
         BBox left_box = childboxes.first;
         BBox right_box = childboxes.second;
         for (const auto id : index) {
+            bool included = false;
             if (objs[id]->intersectBBox(left_box) >= 0) {
+                included = true;
                 left_idx.push_back(id);
             }
             if (objs[id]->intersectBBox(right_box) >= 0) {
+                included = true;
                 right_idx.push_back(id);
+            }
+            if (!included) {
+                left_idx.push_back(id);
             }
         }
         left = new OCTree(objs, left_box, left_idx, level + 1);
