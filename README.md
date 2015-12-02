@@ -52,8 +52,8 @@ You can use plan triangles whose normal is uniform everwhere, or you can refine 
 All the lights offer an interface to do intersection test, to return the emission radiance, to sample a point on the light and return the pdf of sampling a specific point. 
 #####Point light
 A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray.
-#####Directional light
 #####Area light
+Area light is a circle light. It takes four parameters: center, radius, normal direction and power.
 ###BSDF
 The BSDF offers the following interface:
 - bsdf(intersection, in, out) -> the bsdf function value
@@ -79,6 +79,9 @@ A uniform pixel sampler will break a pixel into some small subpixels and shoot o
 
 #####Jittered Sampler
 Just like the uniform sampler, the jittered sampler also breaks one pixel into subpixels. However, instead of shooting one ray from the center of the subpixel, the origin of the ray is chosen randomly inside the subpixel. Generally this is better than uniform sampler due to the randomness.
+
+#####Adaptive Sampler
+The Adaptive Sampler uses a Jittered Sampler to generate some samples first and evaluates the result. The result is compared with the previous one and if the difference is trivial, it terminates. This helps the ray tracer generates more samples for the pixel which converges slower. It can also dump the samples per pixel matrix to `spp.dat`.
 
 ###Integrator
 The integrator is used to solve the lighting equation, which is actually an integral.
