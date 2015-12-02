@@ -3,7 +3,8 @@ Yart stands for "yet another ray tracer". This is a simple ray tracer implemente
 
 Just for fun.
 
-####Build
+###Build
+####Windows
 #####Flex/Bison
 Make sure you have cgywin and installed flex, bison and make. Then you can generate the lexer and parser simply by typing the following command in terminal:
 ```
@@ -11,33 +12,49 @@ Make sure you have cgywin and installed flex, bison and make. Then you can gener
 > make
 ```
 #####Main
-This program depends on FreeImage to store the image amd glm for linear algebra. Make sure you have these. Simply build it in VS. This should give you no warning.
-
-####Usage
+This program depends on FreeImage to store the image amd glm for linear algebra. Make sure you have these. Simply build it in VS 2015. This should give you no warning.
+####Ubuntu
+#####Flex/Bision
+Just the same as in Windows. Type `make` in the terminal of `src` and it will build the parser.
+```
+> cd src
+> make
+```
+#####FreeImage
+You have to download FreeImage [here](http://freeimage.sourceforge.net/) and compile it.
+#####Main
+I use [makepp](http://makepp.sourceforge.net/) to build it on Ubuntu (sorry I am very new to make and makepp seems to be much easier). To build it:
+```
+> sudo apt-get install makepp clang
+> cd unix
+> makepp
+```
+And that's it!
+###Usage
 To use it, simply type the following command in the terminal. At the end of this file you can find a full list of the commands to build the scene description file.
 ```
 > yart-cpp.exe scene.yart
 ```
-####Objects
+###Objects
 All the objects used in yart inherit from the abstract class `Object`, which defines an interface including `intersect`, `occlude` and other APIs.
 
 Basically the yart system supports only two kinds of objects: sphere and mesh. There are other objects only for inner use such as BBox(bounding box), but you should not define such an object in the scene description file.
 
-##### Sphere
+#####Sphere
 Spere is defined with a radius and a center. Notice that it will be transformed by the transform matrix currently in the stack. So you can define ellipse by applying a scale transform on a sphere. For intersection test, the ray is first transformed into the sphere coordinate and do intersection test.
 Then the result is transformed back into world coordinate.
 
-##### Mesh
+#####Mesh
 Mesh is the object you should use to represent any object that can't be represented by sphere 
 (since the system supports only two kinds of objects). A mesh is composed of many triangles. 
 You can use plan triangles whose normal is uniform everwhere, or you can refine the mesh and calculate a normal for each vertex. When a ray hits the mesh, the normals is calculated by weighting the normals of the three vertex. This usually smooth the mesh.
-####Lights
+###Lights
 All the lights offer an interface to do intersection test, to return the emission radiance, to sample a point on the light and return the pdf of sampling a specific point. 
 #####Point light
 A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray.
 #####Directional light
 #####Area light
-####BSDF
+###BSDF
 The BSDF offers the following interface:
 - bsdf(intersection, in, out) -> the bsdf function value
 - sample(intersection)        -> samples an outgoing ray according to a pdf
@@ -45,25 +62,25 @@ The BSDF offers the following interface:
 
 Notice that BSDF base class provides a default implementation of `sample` and `pdf` fuctions, which samples according to a cosin-like pdf.
 
-##### Lambertian
+#####Lambertian
 The lambertian BSDF reflects the incoming light in all direction uniformly. It's value is always one over pi. The normalized pdf is `1/PI`. It uses the default sampling strategy.
 
-##### Specular
+#####Specular
 The specular BSDF represents perfect reflection. Notice that there is a delta function in the pdf and bsdf value, which leads to problem when calculating the weight of this path in bidirectional path tracing. Here we use idea from veach's [thesis](https://graphics.stanford.edu/papers/veach_thesis/) that return values of pdf and bsdf methods are the coefficients of a delta fuction. The probability of a path should be set to zero if there is a delta function in the denominator.
 
-##### Refraction
+#####Refraction
 The refraction BSDF represents the perfect refraction module. Just like the specular BSDF, there is a delfa function in pdf and bsdf, which need to be handled carefully.
 
-####Pixel Sampler
+###Pixel Sampler
 Pixel sampler is used to generate rays for a pixel. It is important because without it there would be jaggies.
 
-##### Uniform Sampler
+#####Uniform Sampler
 A uniform pixel sampler will break a pixel into some small subpixels and shoot one ray for each subpixels. The mean of the returned color of these rays is the color of this pixel. This reduces the jaggies but cannot elminate them.
 
-##### Jittered Sampler
+#####Jittered Sampler
 Just like the uniform sampler, the jittered sampler also breaks one pixel into subpixels. However, instead of shooting one ray from the center of the subpixel, the origin of the ray is chosen randomly inside the subpixel. Generally this is better than uniform sampler due to the randomness.
 
-####Integrator
+###Integrator
 The integrator is used to solve the lighting equation, which is actually an integral.
 
 #####Direct Light Integrator
@@ -73,7 +90,7 @@ It samples the light and the BSDF to get a lower variance. For the weight functi
 #####Bidirectional Path Integrator
 The bidirectional path tracer in [veach's thesis](https://graphics.stanford.edu/papers/veach_thesis/) is implemented. This tracer samples the path by connecting two subpaths, one starting from the light and one from the camera. It performs much better than unidirectional path tracer when the scene is illuminated by indirect light, which are unlikely to be sampled by unidirectional path tracer. Just as mentioned in specular BSDF, special attention is needed to handle the delta function in pdf and bsdf.
 
-####Scene Description File
+###Scene Description File
 Here is a real scene description file with comments. You can find more examples in the `/test` folder.
 ```
 # Test Scene 1 
