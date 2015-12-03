@@ -2,40 +2,51 @@
 Yart stands for "yet another ray tracer". This is a simple ray tracer implemented in `C++`.
 
 Just for fun.
-
-###Build
+Build it!
+-----------------------------------------------
 ####Windows
-#####Flex/Bison
-Make sure you have cgywin and installed flex, bison and make. Then you can generate the lexer and parser simply by typing the following command in terminal:
+#####Prerequisites
+- Visual Studio 2015 (for some `C++14` features).
+- Cgywin with flex, bison and make installed.
+- Download [FreeImage](http://freeimage.sourceforge.net/) and make sure VS can find it.
+#####Parser
+Open Cgywin terminal and change to the repo directory.
 ```
 > cd src
 > make
 ```
 #####Main
-This program depends on FreeImage to store the image amd glm for linear algebra. Make sure you have these. Simply build it in VS 2015. This should give you no warning.
+Simply open the VS solution and build it. This should give you no warning.
 ####Ubuntu
-#####Flex/Bision
-Just the same as in Windows. Type `make` in the terminal of `src` and it will build the parser.
+#####Prerequisites
+- Clang++ (for some `C++14` features).
+- Flex, bison for the parser.
+- Makepp as the build system.
+- Download [FreeImage](http://freeimage.sourceforge.net/) source code, compile it and make install.
+
+#####Parser
+Exactly the same as in Windows.
 ```
 > cd src
 > make
 ```
-#####FreeImage
-You have to download FreeImage [here](http://freeimage.sourceforge.net/) and compile it.
 #####Main
-I use [makepp](http://makepp.sourceforge.net/) to build it on Ubuntu (sorry I am very new to make and makepp seems to be much easier). To build it:
+I use [makepp](http://makepp.sourceforge.net/) to build it on Ubuntu ,as it seems to be much handy than make. To build it:
 ```
-> sudo apt-get install makepp clang
 > cd unix
 > makepp
 ```
+
 And that's it!
-###Usage
+
+Usage
+----------------------------------------------
 To use it, simply type the following command in the terminal. At the end of this file you can find a full list of the commands to build the scene description file.
 ```
 > yart-cpp.exe scene.yart
 ```
-###Objects
+Objects
+----------------------------------------------
 All the objects used in yart inherit from the abstract class `Object`, which defines an interface including `intersect`, `occlude` and other APIs.
 
 Basically the yart system supports only two kinds of objects: sphere and mesh. There are other objects only for inner use such as BBox(bounding box), but you should not define such an object in the scene description file.
@@ -48,13 +59,17 @@ Then the result is transformed back into world coordinate.
 Mesh is the object you should use to represent any object that can't be represented by sphere 
 (since the system supports only two kinds of objects). A mesh is composed of many triangles. 
 You can use plan triangles whose normal is uniform everwhere, or you can refine the mesh and calculate a normal for each vertex. When a ray hits the mesh, the normals is calculated by weighting the normals of the three vertex. This usually smooth the mesh.
-###Lights
+
+Lights
+----------------------------------------------
 All the lights offer an interface to do intersection test, to return the emission radiance, to sample a point on the light and return the pdf of sampling a specific point. 
 #####Point light
 A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray.
 #####Area light
 Area light is a circle light. It takes four parameters: center, radius, normal direction and power.
-###BSDF
+
+BSDF
+----------------------------------------------
 The BSDF offers the following interface:
 - bsdf(intersection, in, out) -> the bsdf function value
 - sample(intersection)        -> samples an outgoing ray according to a pdf
@@ -71,7 +86,14 @@ The specular BSDF represents perfect reflection. Notice that there is a delta fu
 #####Refraction
 The refraction BSDF represents the perfect refraction module. Just like the specular BSDF, there is a delfa function in pdf and bsdf, which need to be handled carefully.
 
-###Pixel Sampler
+#####Cook-Torrance
+Cook-Torrance BSDF is used to model the glossy material.
+
+This Cornell box image shows an example for different materials.
+<img src="outputs/cornell-box-dl.png">
+
+Pixel Sampler
+----------------------------------------------
 Pixel sampler is used to generate rays for a pixel. It is important because without it there would be jaggies.
 
 #####Uniform Sampler
@@ -83,7 +105,8 @@ Just like the uniform sampler, the jittered sampler also breaks one pixel into s
 #####Adaptive Sampler
 The Adaptive Sampler uses a Jittered Sampler to generate some samples first and evaluates the result. The result is compared with the previous one and if the difference is trivial, it terminates. This helps the ray tracer generates more samples for the pixel which converges slower. It can also dump the samples per pixel matrix to `spp.dat`.
 
-###Integrator
+Integrator
+----------------------------------------------
 The integrator is used to solve the lighting equation, which is actually an integral.
 
 #####Direct Light Integrator
@@ -93,7 +116,8 @@ It samples the light and the BSDF to get a lower variance. For the weight functi
 #####Bidirectional Path Integrator
 The bidirectional path tracer in [veach's thesis](https://graphics.stanford.edu/papers/veach_thesis/) is implemented. This tracer samples the path by connecting two subpaths, one starting from the light and one from the camera. It performs much better than unidirectional path tracer when the scene is illuminated by indirect light, which are unlikely to be sampled by unidirectional path tracer. Just as mentioned in specular BSDF, special attention is needed to handle the delta function in pdf and bsdf.
 
-###Scene Description File
+Scene Description File
+----------------------------------------------
 Here is a real scene description file with comments. You can find more examples in the `/test` folder.
 ```
 # Test Scene 1 
