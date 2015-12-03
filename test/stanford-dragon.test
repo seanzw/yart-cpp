@@ -1,18 +1,20 @@
 #Stanford Dragon
 size 1000 480
 #size 100 48
-camera -10 0 20 0 0 -1 0 1 0 45
+camera -10 0 20 0 -1 0 0 1 0 45
 output "stanford-dragon.png"
 integrator "BidirectionalPath" 5 5
-pixelSampler "AdaptivePixelSampler" 4 16 1024
+pixelSampler "AdaptivePixelSampler" 4 16 1024 0.01
 
 worldBegin
 #point 10 10 20 1 1 1
-areaLight 10 10 10 50 50 50 -10 -10 -10 2
-areaLight -10 10 -10 50 50 50 10 -10 10 2
+areaLight 10 10 10 500 500 500 -10 -10 -10 2
+areaLight -10 7 -10 500 500 500 10 -7 10 2
 
+# Back face.
 objBegin "Mesh"
-material "Lambertian" 1 0.8 0.7
+# Set the color to gold.
+material "Lambertian" 1 0.843 0
 pushTransform
 translate 0 0 -15
 scale 100 100 1
@@ -25,8 +27,9 @@ f 4 3 1
 popTransform
 objEnd
 
+# Right face.
 objBegin "Mesh"
-material "Lambertian" 0.8 0.7 1
+material "Lambertian" 1 0.843 0
 pushTransform
 translate 15 0 0
 scale 1 100 100
@@ -39,8 +42,10 @@ f 3 4 1
 popTransform
 objEnd
 
+# Ground face.
 objBegin "Mesh"
-material "Lambertian"
+# Set the material to Cook-Torrance with color [1, 1, 1], kd 0.2, ks 0.8, rough 0.3, n 1.5
+material "CookTorrance" 1 1 1 0.2 0.8 0.3 1.5
 pushTransform
 translate 0 -5 0
 scale 100 1 100
@@ -53,24 +58,28 @@ f 3 4 1
 popTransform
 objEnd
 
+# The first glass dragon.
 objBegin "Mesh"
-material "Refraction"
+# Set the refraction index to 1.5
+material "Refraction" 1.5
 pushTransform
-translate -5 -5 -5
-include "objs/dragon.obj"
+translate -7 -2 1
+scale 5 5 5
+include "objs/dragon-simplified.obj"
 popTransform
 refineMesh
-buildOCTree 14
+buildOCTree 12
 objEnd
 
 objBegin "Mesh"
 material "Lambertian"
 pushTransform
-translate 5 -5 5
-include "objs/dragon.obj"
+translate 0 -2 8
+scale 5 5 5
+include "objs/dragon-simplified.obj"
 popTransform
-refineMesh
-buildOCTree 14
+#refineMesh
+buildOCTree 12
 objEnd
 
 worldEnd
