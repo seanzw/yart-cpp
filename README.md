@@ -90,7 +90,7 @@ The refraction BSDF represents the perfect refraction module. Just like the spec
 Cook-Torrance BSDF is used to model the glossy material.
 
 This Cornell box image shows an example for different materials.
-<img src="outputs/cornell-box-dl.png">
+<img src="outputs/cornell-box-dl.png" style="text-align:center">
 
 Pixel Sampler
 ----------------------------------------------
