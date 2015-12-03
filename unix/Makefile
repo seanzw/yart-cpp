@@ -1,5 +1,5 @@
-CXX			:= g++
-CXXFLAGS	:= -O -std=c++1y
+CXX		:= clang++
+CXXFLAGS	:= -O3 -std=c++1y
 LNKFLAGS	:= -Wl,-allow-multiple-definition
 
 INCLUDES	:= -I../include
@@ -47,6 +47,6 @@ $(OBJPATH)/%.o: $(SRCPATH)/%.cpp
 
 clean:
 	rm $(OBJPATH)/*
-	rm yart
+	rm $(BINPATH)/*
 
 
