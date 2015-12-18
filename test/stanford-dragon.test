@@ -1,85 +1,169 @@
-#Stanford Dragon
+# Stanford Dragon
 size 1000 480
-#size 100 48
-camera -10 0 20 0 -1 0 0 1 0 45
+
+# Set the camera at (-10, 5, 20), look at (0, -1, 0), up vector (0, 1, 0), fovy is 45 degree.
+camera -10 5 20 0 -1 0 0 1 0 45
+
+# Set the output file name.
 output "stanford-dragon.png"
-integrator "BidirectionalPath" 5 5
-pixelSampler "AdaptivePixelSampler" 4 16 1024 0.01
 
+# Use bidirectional path integrator,
+# with 6 bounces on eye subpath and 6 bounces on light subpath.
+integrator "BidirectionalPath" 6 6
+
+# Use adaptive pixel sampler.
+# Split one pixel into  a 4x4 grid and takes 16 samples each time.
+# Minimum samples: 16
+# Maximum samples: 1024
+# Terminate threshold: 0.0005
+pixelSampler "AdaptivePixelSampler" 4 16 1024 0.0005
+
+# Start to define the world.
 worldBegin
-#point 10 10 20 1 1 1
-areaLight 10 10 10 500 500 500 -10 -10 -10 2
-areaLight -10 7 -10 500 500 500 10 -7 10 2
 
-# Back face.
-objBegin "Mesh"
-# Set the color to gold.
-material "Lambertian" 1 0.843 0
-pushTransform
-translate 0 0 -15
-scale 100 100 1
-v -1 -1 0
-v -1 1 0
-v  1 1 0
-v  1 -1 0
-f 2 1 3
-f 4 3 1
-popTransform
-objEnd
+    # One area light at (10, 10, 10), with power (100, 100, 100),
+    # normal vector (-15, -10, -10), radius 2
+    areaLight 10 10 10 100 100 100 -15 -10 -10 2
 
-# Right face.
-objBegin "Mesh"
-material "Lambertian" 1 0.843 0
-pushTransform
-translate 15 0 0
-scale 1 100 100
-v 0 -1 -1
-v 0 -1 1
-v 0 1 1
-v 0 1 -1
-f 1 2 3
-f 3 4 1
-popTransform
-objEnd
+    # Another area light.
+    areaLight -10 7 -10 100 100 100 5 -7 10 2
 
-# Ground face.
-objBegin "Mesh"
-# Set the material to Cook-Torrance with color [1, 1, 1], kd 0.2, ks 0.8, rough 0.3, n 1.5
-material "CookTorrance" 1 1 1 0.2 0.8 0.3 1.5
-pushTransform
-translate 0 -5 0
-scale 100 1 100
-v -1 0 -1
-v -1 0 1
-v  1 0 1
-v  1 0 -1
-f 1 2 3
-f 3 4 1
-popTransform
-objEnd
+    # Start to define the back wall.
+    objBegin "Mesh"
 
-# The first glass dragon.
-objBegin "Mesh"
-# Set the refraction index to 1.5
-material "Refraction" 1.5
-pushTransform
-translate -7 -2 1
-scale 5 5 5
-include "objs/dragon-simplified.obj"
-popTransform
-refineMesh
-buildOCTree 12
-objEnd
+        # Set the material to specular.
+        material "Specular"
 
-objBegin "Mesh"
-material "Lambertian"
-pushTransform
-translate 0 -2 8
-scale 5 5 5
-include "objs/dragon-simplified.obj"
-popTransform
-#refineMesh
-buildOCTree 12
-objEnd
+        # Save the current transform stack.
+        pushTransform
 
+        # Translate to z - 15 and scale it.
+        translate 0 0 -15
+        scale 100 100 1
+
+        # Define the four corner of the wall.
+        v -1 -1 0
+        v -1 1 0
+        v  1 1 0
+        v  1 -1 0
+
+        # Define the face of the wall in counter clockwise order.
+        f 2 1 3
+        f 4 3 1
+
+        # Restore the transform stack.
+        popTransform
+
+    # Finish defining the back wall.
+    objEnd
+
+    # Front wall.
+    objBegin "Mesh"
+        # Set the color to gold.
+        material "Lambertian" 1 0.843 0
+        pushTransform
+        translate 0 0 25
+        scale 100 100 1
+        v -1 -1 0
+        v -1 1 0
+        v  1 1 0
+        v  1 -1 0
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
+
+    # Right wall.
+    objBegin "Mesh"
+        material "Specular"
+        pushTransform
+        translate 15 0 0
+        scale 1 100 100
+        v 0 -1 -1
+        v 0 -1 1
+        v 0 1 1
+        v 0 1 -1
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
+
+    # Left wall.
+    objBegin "Mesh"
+        material "Lambertian" 1 0.843 0
+        pushTransform
+        translate -15 0 0
+        scale 1 100 100
+        v 0 -1 -1
+        v 0 -1 1
+        v 0 1 1
+        v 0 1 -1
+        f 2 1 3
+        f 4 3 1
+        popTransform
+    objEnd
+
+    # Ceil.
+    objBegin "Mesh"
+        material "Lambertian" 1 1 1
+        pushTransform
+        translate 0 20 0
+        scale 100 1 100
+        v -1 0 -1
+        v -1 0 1
+        v  1 0 1
+        v  1 0 -1
+        f 2 1 3
+        f 4 3 1
+        popTransform
+    objEnd
+
+    # Ground.
+    objBegin "Mesh"
+        material "Lambertian" 1 1 1
+        pushTransform
+        translate 0 -5 0
+        scale 100 1 100
+        v -1 0 -1
+        v -1 0 1
+        v  1 0 1
+        v  1 0 -1
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
+
+    # The first glass dragon.
+    objBegin "Mesh"
+        # Set the refraction index to 1.5
+        material "Refraction" 1.5
+        pushTransform
+        translate -7 -1.9 1
+        scale 5 5 5
+
+        # Include the simplified dragon obj file.
+        include "objs/dragon-simplified.obj"
+        popTransform
+
+        # Refine the mesh with normal interpolation.
+        refineMesh
+
+        # Build a 12 level OCTree to accelerate the intersection test with this mesh.
+        buildOCTree 12
+    objEnd
+
+    objBegin "Mesh"
+        # Set the material to Cook-Torrance with
+        # color (5, 5, 5), kd 0.2, ks 0.8, rough 0.3, n 1.5
+        material "CookTorrance" 5 5 5 0.2 0.8 0.3 1.5
+        pushTransform
+        translate 3 -1.9 8
+        scale 5 5 5
+        include "objs/dragon-simplified.obj"
+        popTransform
+        #refineMesh
+        buildOCTree 12
+    objEnd
+
+# Finish defining the world.
 worldEnd

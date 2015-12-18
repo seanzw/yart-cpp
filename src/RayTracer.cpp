@@ -6,10 +6,12 @@
 
 #include "RayTracer.h"
 
+#include "Texture.h"
 #include "Transform.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
 #include "AreaLight.h"
+#include "SphericalEnvironmentLight.h"
 #include "Sphere.h"
 #include "OCTree.h"
 #include "DirectLightIntegrator.h"
@@ -286,6 +288,11 @@ void RayTracer::yartPoint(vec3 &position, const vec3 &color) {
 
 void RayTracer::yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r) {
     scene->lights.push_back(make_shared<AreaLight>(position, color, normalize(normal), r));
+}
+
+void RayTracer::yartEnvLight(const string &fn) {
+    shared_ptr<Texture> texture = make_shared<Texture>(fn);
+    scene->lights.push_back(make_shared<SphericalEnvironmentLight>(texture, 2.5f));
 }
 
 void RayTracer::yartAttenuation(const vec3 &a) {

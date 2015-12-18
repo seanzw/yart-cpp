@@ -140,6 +140,8 @@
     <ClCompile Include="src\Sampler.cpp" />
     <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Sphere.cpp" />
+    <ClCompile Include="src\SphericalEnvironmentLight.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
     <ClCompile Include="src\UniformPixelSampler.cpp" />
@@ -175,6 +177,8 @@
     <ClInclude Include="src\Sampler.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\Sphere.h" />
+    <ClInclude Include="src\SphericalEnvironmentLight.h" />
+    <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\Transform.h" />
     <ClInclude Include="src\Triangle.h" />
     <ClInclude Include="src\UniformPixelSampler.h" />
@@ -185,6 +189,7 @@
     <None Include="src\yart-cpp.ll" />
     <None Include="src\yart-cpp.yy" />
     <None Include="test\area.test" />
+    <None Include="test\env.test" />
     <None Include="test\sphere.test" />
     <None Include="test\scene-dinosaur.test" />
     <None Include="test\scene-indirect.test" />

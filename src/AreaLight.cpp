@@ -2,7 +2,7 @@
 #include "Sampler.h"
 
 AreaLight::AreaLight(vec3 c, vec3 color, vec3 n, float r)
-    : Light(color), center(c), normal(n), radius(r) {
+    : Light(), c(color), center(c), normal(n), radius(r) {
 
     area = PI * radius * radius;
 
@@ -65,7 +65,6 @@ pair<Ray, float> AreaLight::genShadowRay(const Intersection &hit) const {
 tuple<vec3, vec3, float> AreaLight::samplePoint() const {
 
     // Randomly sample a point on the disk.
-    // Randomly sample a point on the disk.
     auto sample = Sampler::uniformSampleCircle();
     float r = sample.first * radius;
     float theta = sample.second;
@@ -80,7 +79,7 @@ tuple<vec3, vec3, float> AreaLight::samplePoint() const {
     return make_tuple(point, normal, 1.0f / area);
 }
 
-vec3 AreaLight::Le() const {
+vec3 AreaLight::Le(const vec3 &point) const {
     return c;
 }
 
@@ -99,6 +98,6 @@ float AreaLight::pdfRay(const Intersection &hit, const vec3 &direction) const {
     }
 
     float cosThetaI = clamp(dot(hit.normal, direction), 0.01f, 1.0f);
-    float cosThetaO = clamp(dot(normal, -direction), 0.01f, 1.0f);
-    return temp.t * temp.t * 1.0f / (area * cosThetaI * cosThetaO);
+    float cosThetaO = clamp(dot(temp.normal, -direction), 0.01f, 1.0f);
+    return temp.t * temp.t / (area * cosThetaI * cosThetaO);
 }

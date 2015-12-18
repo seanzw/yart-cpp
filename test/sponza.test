@@ -1,0 +1,46 @@
+# Sponza.
+size 1000 480
+
+camera -10 6 -1 0 4 0 0 1 0 45
+
+# Set the output file name.
+output "sponza.png"
+
+# Use bidirectional path integrator,
+# with 6 bounces on eye subpath and 6 bounces on light subpath.
+integrator "BidirectionalPath" 4 4
+
+# Use adaptive pixel sampler.
+# Split one pixel into  a 4x4 grid and takes 16 samples each time.
+# Minimum samples: 16
+# Maximum samples: 1024
+# Terminate threshold: 0.0005
+#pixelSampler "UniformPixelSampler" 4
+pixelSampler "AdaptivePixelSampler" 4 16 1024 0.0005
+
+# Start to define the world.
+worldBegin
+
+    # One area light at (10, 10, 10), with power (100, 100, 100),
+    # normal vector (-15, -10, -10), radius 2
+    # point 0 0 1 100000 100000 100000
+    areaLight -10 8 -1 1000 1000 1000 10 -4 1 2
+
+    # Another area light.
+    # areaLight -10 7 -10 100 100 100 5 -7 10 2
+
+    objBegin "Mesh"
+        # Set the material to Cook-Torrance with
+        # color (5, 5, 5), kd 0.2, ks 0.8, rough 0.3, n 1.5
+        material "CookTorrance" 5 5 5 0 0.8 0.3 1.5
+        #material "Lambertian"
+        pushTransform
+        scale 0.01 0.01 0.01
+        include "objs/sponza.obj"
+        popTransform
+        #refineMesh
+        buildOCTree 18
+    objEnd
+
+# Finish defining the world.
+worldEnd

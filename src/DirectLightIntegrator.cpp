@@ -17,7 +17,7 @@ vec3 DirectLightIntegrator::income(const Ray &r,
     if (hit.type == INTERSECTION_LIGHT) {
         // Simply return the color from the light.
         const Light *light = static_cast<const Light *>(hit.intersectable);
-        return light->Le() * clamp(dot(hit.normal, -r.d), 0.0f, 1.0f);
+        return light->Le(hit.point) * clamp(dot(hit.normal, -r.d), 0.0f, 1.0f);
     }
 
 	// Sample for one light.
@@ -45,7 +45,8 @@ vec3 DirectLightIntegrator::income(const Ray &r,
             }
 
             // Get the light color.
-            vec3 Le = light->Le();
+            vec3 pointOnLight = shadowRay.o + shadowRay.tmax * shadowRay.d;
+            vec3 Le = light->Le(pointOnLight);
             vec3 f = hit.m->bsdf->bsdf(hit, r.d, shadowRay.d);
             float w = powerHeuristec(lightPDF, nLightSamples, hit.m->bsdf->pdf(hit, r.d, shadowRay.d), nBSDFSamples);
 

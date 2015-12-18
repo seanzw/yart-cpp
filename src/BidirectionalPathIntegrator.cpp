@@ -23,7 +23,7 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
         // If this is an intersection with the light,
         // simply return the color from the light.
         const Light *light = static_cast<const Light *>(hit.intersectable);
-        return light->Le() * clamp(dot(hit.normal, -r.d), 0.0f, 1.0f);
+        return light->Le(hit.point) * clamp(dot(hit.normal, -r.d), 0.0f, 1.0f);
     }
     else {
         // Initialize the first vertex in eye subpath.
@@ -51,7 +51,7 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
 
             // Construct the vertexLight.
             const Light *light = static_cast<const Light *>(hit.intersectable);
-            VertexLight vertexLight(hit.point, hit.normal, light->Le(), light->pdfPoint(hit.point));
+            VertexLight vertexLight(hit.point, hit.normal, light->Le(hit.point), light->pdfPoint(hit.point));
             L += computeRadianceZeroLightVertex(vertexLight, ray.d, hit.t, probFWD);
 
             break;
@@ -77,7 +77,7 @@ vec3 BidirectionalPathIntegrator::income(const Ray &r, const shared_ptr<Scene> &
         float p = get<2>(sample);
 
         // Get the special point on the light.
-        VertexLight vertexLight(point, normal, light->Le() / p, p);
+        VertexLight vertexLight(point, normal, light->Le(point) / p, p);
         lightPath.emplace_back(&vertexLight);
 
         for (int i = 0; i < lightPathLen; ++i) {

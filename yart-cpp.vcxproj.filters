@@ -141,6 +141,12 @@
     <ClCompile Include="src\DEBUG.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SphericalEnvironmentLight.cpp">
+      <Filter>Source Files\Light</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AreaLight.h">
@@ -239,6 +245,12 @@
     <ClInclude Include="src\DEBUG.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SphericalEnvironmentLight.h">
+      <Filter>Header Files\Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\yart-cpp.ll">
@@ -275,6 +287,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\sphere.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="test\env.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
   </ItemGroup>

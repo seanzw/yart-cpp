@@ -9,7 +9,7 @@
  */
 class Light : public Intersectable {
 public:
-    Light(vec3 color): c(color) {}
+    Light() {}
     virtual ~Light() {}
 
     /* Interface from Ojbect. */
@@ -45,10 +45,9 @@ public:
         cerr << "light::pdfRay() unimplemented.\n";
         exit(1);
     }
-    virtual vec3 Le() const = 0;
 
-protected:
-    vec3 c;
+    /* Returns the Le of the light along normal direction. */
+    virtual vec3 Le(const vec3 &point) const = 0;
 };
 
 #endif

@@ -50,6 +50,7 @@ string current_file;
 %token DIRECTIONAL
 %token POINT
 %token AREALIGHT
+%token ENVLIGHT
 %token ATTENUATION
 %token MATERIAL
 %token BUILDOCTREE
@@ -159,6 +160,17 @@ world_stmt: DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
 		center[0], center[1], center[2],
 		color[0], color[1], color[2]);
     yart->yartAreaLight(center, color, normal, radius);
+}
+
+| ENVLIGHT STR {
+
+    size_t pos = current_file.find_last_of('/');
+    string fn;
+    if (pos != string::npos) {
+        fn = current_file.substr(0, pos + 1);
+        fn.append($2);
+    }
+    yart->yartEnvLight(fn);
 }
 
 | ATTENUATION NUMBER NUMBER NUMBER {

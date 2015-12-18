@@ -1,7 +1,7 @@
 # Test Scene 1 
 # A simple quad viewed from different camera positions
 
-size 640 480
+size 1000 480
 #size 120 80
 output "area.png"
 

@@ -137,6 +137,7 @@ popTransform        { return POPTRANSFORM;  }
 directional         { return DIRECTIONAL;   }
 point               { return POINT;         }
 areaLight           { return AREALIGHT;     }
+envLight            { return ENVLIGHT;      }
 attenuation         { return ATTENUATION;   }
 material            { return MATERIAL;      }
 buildOCTree         { return BUILDOCTREE;   }

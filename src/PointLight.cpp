@@ -5,7 +5,7 @@ pair<Ray, float> PointLight::genShadowRay(const Intersection &hit) const {
     return make_pair(Ray(hit.point, normalize(direction), CONST_NEAR, length(direction)), 1.0f);
 }
 
-vec3 PointLight::Le() const {
+vec3 PointLight::Le(const vec3 &point) const {
     return c;
 }
 

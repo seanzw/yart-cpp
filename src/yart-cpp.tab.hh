@@ -71,9 +71,10 @@ extern int yydebug;
     DIRECTIONAL = 281,
     POINT = 282,
     AREALIGHT = 283,
-    ATTENUATION = 284,
-    MATERIAL = 285,
-    BUILDOCTREE = 286
+    ENVLIGHT = 284,
+    ATTENUATION = 285,
+    MATERIAL = 286,
+    BUILDOCTREE = 287
   };
 #endif
 
@@ -88,7 +89,7 @@ union YYSTYPE
     float num;
     vector<float> *ps;                  /* Always remember to delete this pointer... */
 
-#line 92 "yart-cpp.tab.hh" /* yacc.c:1909  */
+#line 93 "yart-cpp.tab.hh" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

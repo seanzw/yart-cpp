@@ -46,6 +46,7 @@ public:
 	void yartDirectional(const vec3 &direction, const vec3 &color);
 	void yartPoint(vec3 &position, const vec3 &color);
     void yartAreaLight(const vec3 &position, const vec3 &color, const vec3 &normal, float r);
+    void yartEnvLight(const string &fn);
 	void yartAttenuation(const vec3 &a);
     void yartMaterial(const string &brdf, const vector<float> *params);
 	void yartBuildOCTree(int level);

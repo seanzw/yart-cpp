@@ -5,7 +5,7 @@
 
 class DirectioalLight : public Light {
 public:
-    DirectioalLight(vec3 color, vec3 direction) : Light(color), d(direction) {}
+    DirectioalLight(vec3 color, vec3 direction) : Light(), c(color), d(direction) {}
     virtual ~DirectioalLight() {}
 
     virtual Intersection intersect(const Ray &r) const {
@@ -16,7 +16,10 @@ public:
         return make_pair(Ray(hit.point, d, CONST_NEAR, CONST_FAR), 1.0f);
     }
 
-    virtual vec3 Le() const { return c; }
+    virtual vec3 Le(const vec3 &point) const { return c; }
+
+protected:
+    vec3 c;
 
 private:
     vec3 d;

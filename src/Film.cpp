@@ -1,5 +1,6 @@
 #include <cstring>      /* For memcpy. */
 #include "Film.h"
+#include "FreeImage/FreeImage.h"
 
 Film::Film(int width, int height) : w(width), h(height) {
     buff = new uchar[w * h * 3];

@@ -21,7 +21,10 @@ public:
         return 1.0f / area;
     }
     virtual float pdfRay(const Intersection &hit, const vec3 &direction) const;
-    virtual vec3 Le() const;
+    virtual vec3 Le(const vec3 &point) const;
+
+protected:
+    vec3 c;
 
 private:
     vec3 center;
