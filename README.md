@@ -9,6 +9,7 @@ Build it!
 - Visual Studio 2015 (for some `C++14` features).
 - Cgywin with flex, bison and make installed.
 - Download [FreeImage](http://freeimage.sourceforge.net/) and make sure VS can find it.
+
 #####Parser
 Open Cgywin terminal and change to the repo directory.
 ```
@@ -19,7 +20,7 @@ Open Cgywin terminal and change to the repo directory.
 Simply open the VS solution and build it. This should give you no warning.
 ####Ubuntu
 #####Prerequisites
-- Clang++ (for some `C++14` features).
+- Clang++ (with g++ supporting `C++14` features).
 - Flex, bison for the parser.
 - Makepp as the build system.
 - Download [FreeImage](http://freeimage.sourceforge.net/) source code, compile it and make install.
@@ -39,9 +40,9 @@ I use [makepp](http://makepp.sourceforge.net/) to build it on Ubuntu ,as it seem
 
 And that's it!
 
-Usage
+How to use it?
 ----------------------------------------------
-To use it, simply type the following command in the terminal. At the end of this file you can find a full list of the commands to build the scene description file.
+To use it, simply type the following command in terminal. At the end of this file you can find a fully commented scene description file as an example.
 ```
 > yart-cpp.exe scene.yart
 ```
@@ -90,7 +91,8 @@ The refraction BSDF represents the perfect refraction module. Just like the spec
 Cook-Torrance BSDF is used to model the glossy material.
 
 This Cornell box image shows an example for different materials.
-<img src="outputs/cornell-box-dl.png" style="text-align:center">
+
+<img src="outputs/cornell-box-dl.png">
 
 Pixel Sampler
 ----------------------------------------------
@@ -118,96 +120,179 @@ The bidirectional path tracer in [veach's thesis](https://graphics.stanford.edu/
 
 Scene Description File
 ----------------------------------------------
-Here is a real scene description file with comments. You can find more examples in the `/test` folder.
+Here is a real scene description file with comments. You can find more examples in the `/test` folder. I really like this one:
+
+<img src="outputs/stanford-dragon.png">
+
 ```
-# Test Scene 1 
-# A simple quad viewed from different camera positions
+# Stanford Dragon
+size 1000 480
 
-size 640 480
-#size 120 80
-output "area.png"
+# Set the camera at (-10, 5, 20), look at (0, -1, 0),
+# up vector (0, 1, 0), fovy is 45 degree.
+camera -10 5 20 0 -1 0 0 1 0 45
 
-#integrator "MultipleImportance" 2 16 16
-integrator "BidirectionalPath" 4 4
-pixelSampler "JitteredPixelSampler" 4
+# Set the output file name.
+output "stanford-dragon.png"
 
-camera 0 3 10 0 0 0 0 1 0 60
-#camera 0 3 1 0 4 0 0 0 1 60
+# Use bidirectional path integrator,
+# with 6 bounces on eye subpath and 6 bounces on light subpath.
+integrator "BidirectionalPath" 6 6
 
+# Use adaptive pixel sampler.
+# Split one pixel into  a 4x4 grid and takes 16 samples each time.
+# Minimum samples: 16
+# Maximum samples: 1024
+# Terminate threshold: 0.0005
+pixelSampler "AdaptivePixelSampler" 4 16 1024 0.0005
+
+# Start to define the world.
 worldBegin
 
-# Center Power Normal Radius NSamples
-areaLight -2 4 2 70 70 70 0 -1 0 0.5
-# areaLight -4 2 0 100 100 100 0 -1 0 0.5
+    # One area light at (10, 10, 10), with power (100, 100, 100),
+    # normal vector (-15, -10, -10), radius 2
+    areaLight 10 10 10 100 100 100 -15 -10 -10 2
 
-objBegin "Mesh"
-material "Lambertian"
-pushTransform
-translate 0 0 0
-scale 100 1 100
-v -1 0 -1
-v -1 0 1
-v  1 0 1
-v  1 0 -1
-f 1 2 3
-f 3 4 1
-popTransform
-objEnd
+    # Another area light.
+    areaLight -10 7 -10 100 100 100 5 -7 10 2
 
-objBegin "Mesh"
-material "Lambertian"
-pushTransform
-translate 0 2 0
-scale 1 1 1
-rotate 0 1 0 45
-v -1 0 -1
-v -1 0 1
-v  1 0 1
-v  1 0 -1
-v -1 -1 -1
-v -1 -1 1
-v  1 -1 1
-v  1 -1 -1
-# upper
-f 1 2 3
-f 3 4 1
+    # Start to define the back wall.
+    objBegin "Mesh"
 
-# down
-f 7 6 5
-f 5 7 8
+        # Set the material to specular.
+        material "Specular"
 
-# left
-f 1 5 6
-f 1 6 2
+        # Save the current transform stack.
+        pushTransform
 
-# right
-f 3 7 8
-f 3 8 4
+        # Translate to z - 15 and scale it.
+        translate 0 0 -15
+        scale 100 100 1
 
-# front
-f 2 6 7
-f 2 7 3
+        # Define the four corner of the wall.
+        v -1 -1 0
+        v -1 1 0
+        v  1 1 0
+        v  1 -1 0
 
-# back
-f 4 8 5
-f 4 5 1
+        # Define the face of the wall in counter clockwise order.
+        f 2 1 3
+        f 4 3 1
 
-popTransform
-objEnd
+        # Restore the transform stack.
+        popTransform
 
-objBegin "Sphere"
-material "Specular" 1.0 0.84 0.0
-pushTransform
-sphere 2 0.5 2 0.5
-popTransform
-objEnd
+    # Finish defining the back wall.
+    objEnd
 
-objBegin "Sphere"
-material "CookTorrance" 1.0 1.0 1.0 1.0 1.5
-pushTransform
-sphere -2 0.5 2 0.5
-popTransform
-objEnd
+    # Front wall.
+    objBegin "Mesh"
+        # Set the color to gold.
+        material "Lambertian" 1 0.843 0
+        pushTransform
+        translate 0 0 25
+        scale 100 100 1
+        v -1 -1 0
+        v -1 1 0
+        v  1 1 0
+        v  1 -1 0
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
 
+    # Right wall.
+    objBegin "Mesh"
+        material "Specular"
+        pushTransform
+        translate 15 0 0
+        scale 1 100 100
+        v 0 -1 -1
+        v 0 -1 1
+        v 0 1 1
+        v 0 1 -1
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
+
+    # Left wall.
+    objBegin "Mesh"
+        material "Lambertian" 1 0.843 0
+        pushTransform
+        translate -15 0 0
+        scale 1 100 100
+        v 0 -1 -1
+        v 0 -1 1
+        v 0 1 1
+        v 0 1 -1
+        f 2 1 3
+        f 4 3 1
+        popTransform
+    objEnd
+
+    # Ceil.
+    objBegin "Mesh"
+        material "Lambertian" 1 1 1
+        pushTransform
+        translate 0 20 0
+        scale 100 1 100
+        v -1 0 -1
+        v -1 0 1
+        v  1 0 1
+        v  1 0 -1
+        f 2 1 3
+        f 4 3 1
+        popTransform
+    objEnd
+
+    # Ground.
+    objBegin "Mesh"
+        material "Lambertian" 1 1 1
+        pushTransform
+        translate 0 -5 0
+        scale 100 1 100
+        v -1 0 -1
+        v -1 0 1
+        v  1 0 1
+        v  1 0 -1
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
+
+    # The first glass dragon.
+    objBegin "Mesh"
+        # Set the refraction index to 1.5
+        material "Refraction" 1.5
+        pushTransform
+        translate -7 -1.9 1
+        scale 5 5 5
+
+        # Include the simplified dragon obj file.
+        include "objs/dragon-simplified.obj"
+        popTransform
+
+        # Refine the mesh with normal interpolation.
+        refineMesh
+
+        # Build a 12 level OCTree to accelerate the intersection test with this mesh.
+        buildOCTree 12
+    objEnd
+
+    objBegin "Mesh"
+        # Set the material to Cook-Torrance with
+        # color (5, 5, 5), kd 0.2, ks 0.8, rough 0.3, n 1.5
+        material "CookTorrance" 5 5 5 0.2 0.8 0.3 1.5
+        pushTransform
+        translate 3 -1.9 8
+        scale 5 5 5
+        include "objs/dragon-simplified.obj"
+        popTransform
+        #refineMesh
+        buildOCTree 12
+    objEnd
+
+# Finish defining the world.
 worldEnd
 ```
