@@ -32,7 +32,7 @@ Exactly the same as in Windows.
 > make
 ```
 #####Main
-I use [makepp](http://makepp.sourceforge.net/) to build it on Ubuntu ,as it seems to be much handy than make. To build it:
+I use [makepp](http://makepp.sourceforge.net/) to build it on Ubuntu, as it seems to be much handy than make. To build it:
 ```
 > cd unix
 > makepp
