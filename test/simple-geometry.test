@@ -1,0 +1,66 @@
+# Stanford Dragon
+size 900 650
+
+# Set the camera at (-10, 5, 20), look at (0, -1, 0), up vector (0, 1, 0), fovy is 45 degree.
+camera -3 7 4 0 0 0 0 1 0 45
+
+# Set the output file name.
+output "simple-geometry.png"
+
+# Use bidirectional path integrator,
+# with 6 bounces on eye subpath and 6 bounces on light subpath.
+integrator "BidirectionalPath" 1 1
+
+# Use adaptive pixel sampler.
+# Split one pixel into  a 4x4 grid and takes 16 samples each time.
+# Minimum samples: 16
+# Maximum samples: 1024
+# Terminate threshold: 0.0005
+pixelSampler "AdaptivePixelSampler" 4 16 1024 0.0005
+
+# Start to define the world.
+worldBegin
+
+    # One area light at (10, 10, 10), with power (100, 100, 100),
+    # normal vector (-15, -10, -10), radius 2
+    areaLight 10 5 0 20 20 20 -10 -5 0 2
+    areaLight -10 5 0 20 20 20 10 -5 0 2
+    areaLight 0 5 10 20 20 20 0 -5 -10 2
+    areaLight 0 5 -10 20 20 20 0 -5 10 2
+
+    # Ground.
+    objBegin "Mesh"
+        material "Lambertian" 1 1 1
+        pushTransform
+        translate 0 0 0
+        scale 100 1 100
+        v -1 0 -1
+        v -1 0 1
+        v  1 0 1
+        v  1 0 -1
+        f 1 2 3
+        f 3 4 1
+        popTransform
+    objEnd
+
+#    objBegin "Sphere"
+#        material "Lambertian"
+#        sphere 0 2 0 1
+#    objEnd
+
+   objBegin "Mesh"
+       # Set the material to Cook-Torrance with
+       # color (5, 5, 5), kd 0.2, ks 0.8, rough 0.3, n 1.5
+       material "Lambertian"
+       pushTransform
+       translate -0.3 1 0.5
+       rotate 0 1 0 -20
+       scale 0.5 0.5 0.5
+       include "objs/heptoroid-too-simple.obj"
+       popTransform
+       #refineMesh
+       buildOCTree 12
+   objEnd
+
+# Finish defining the world.
+worldEnd

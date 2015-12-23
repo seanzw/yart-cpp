@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Integrator" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAQAAAAAAIAAgAAAAAAAAA=</HashCode>
+      <FileName>src\Integrator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DirectLightIntegrator" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAQAAwBAIAAgAAAQAAAAA=</HashCode>
+      <FileName>src\DirectLightIntegrator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BidirectionalPathIntegrator" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAABAIAAAAAACwAAAAAIAAACAAAIQggAAAEBAgAA=</HashCode>
+      <FileName>src\BidirectioalPathIntegrator.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

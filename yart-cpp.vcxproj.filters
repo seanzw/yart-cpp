@@ -292,6 +292,10 @@
     <None Include="test\env.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
+    <None Include="test\simple-geometry.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="test\objs\Arma.obj">
