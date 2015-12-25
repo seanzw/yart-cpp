@@ -1,6 +1,8 @@
 # Yart-cpp
 Yart stands for "yet another ray tracer". This is a simple ray tracer implemented in `C++`.
 
+Thanks [Johnson](https://github.com/phisiart) for creating the UI.
+
 Just for fun.
 Build it!
 -----------------------------------------------
