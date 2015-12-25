@@ -39,9 +39,13 @@ Thumbs.db
 .vs/
 Debug/
 x64/
+yart-ui/bin/
+yart-ui/obj/
 
 # Makepp
 .makepp/
 
 # Unix
 /unix/bin/
+
+# VS
