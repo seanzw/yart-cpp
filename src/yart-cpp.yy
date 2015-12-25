@@ -271,4 +271,6 @@ obj_stmt: MAXVERTS NUMBER {
 
 void yyerror(const std::string &s) {
     std::cerr << s << std::endl;
+    system("pause");
+    exit(-1);
 }
