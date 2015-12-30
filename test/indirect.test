@@ -5,7 +5,7 @@ size 1000 480
 #size 240 160
 output "indirect-di.png"
 
-integrator "DirectLight" 2 4 4
+integrator "DirectLight" 4 1 4
 #integrator "BidirectionalPath" 2 2
 pixelSampler "JitteredPixelSampler" 32
 
