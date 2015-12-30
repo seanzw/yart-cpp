@@ -262,20 +262,11 @@
     <None Include="src\Makefile">
       <Filter>Resource Files\parser</Filter>
     </None>
-    <None Include="test\scene-dinosaur.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
-    <None Include="test\scene-kitten.test">
-      <Filter>Resource Files\scenes</Filter>
-    </None>
     <None Include="test\scene-sphere.test">
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="README.md">
       <Filter>Resource Files</Filter>
-    </None>
-    <None Include="test\scene-indirect.test">
-      <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="test\cornell-box.test">
       <Filter>Resource Files\scenes</Filter>
@@ -296,6 +287,9 @@
       <Filter>Resource Files\scenes</Filter>
     </None>
     <None Include="ClassDiagram.cd" />
+    <None Include="test\indirect.test">
+      <Filter>Resource Files\scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Object Include="test\objs\Arma.obj">

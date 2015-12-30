@@ -120,6 +120,15 @@ It samples the light and the BSDF to get a lower variance. For the weight functi
 #####Bidirectional Path Integrator
 The bidirectional path tracer in [veach's thesis](https://graphics.stanford.edu/papers/veach_thesis/) is implemented. This tracer samples the path by connecting two subpaths, one starting from the light and one from the camera. It performs much better than unidirectional path tracer when the scene is illuminated by indirect light, which are unlikely to be sampled by unidirectional path tracer. Just as mentioned in specular BSDF, special attention is needed to handle the delta function in pdf and bsdf.
 
+Bidirectional path tracer performs much better than direct light integrator when most of the scene is lighted by indirect light. Here is an image to illustrate this difference.
+
+- Left: bidirectional, light subpath 2, eye subpath 2, pixel samples 32, time 325s
+- Right: direct light, depth 2, light samples 4, bsdf samples 4, pixel samples 32, time 674s
+
+We can see that it takes much more time for direct light integrator to render the image. What's more, direct light integrator can't handle indirect light well, which makes the image darker.
+
+<img src="outputs/indirect.ng">
+
 Scene Description File
 ----------------------------------------------
 Here is a real scene description file with comments. You can find more examples in the `/test` folder. I really like this one:

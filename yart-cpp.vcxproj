@@ -194,11 +194,9 @@
     <None Include="src\yart-cpp.yy" />
     <None Include="test\area.test" />
     <None Include="test\env.test" />
+    <None Include="test\indirect.test" />
     <None Include="test\simple-geometry.test" />
     <None Include="test\sphere.test" />
-    <None Include="test\scene-dinosaur.test" />
-    <None Include="test\scene-indirect.test" />
-    <None Include="test\scene-kitten.test" />
     <None Include="test\scene-sphere.test" />
     <None Include="test\cornell-box.test" />
     <None Include="test\stanford-dragon.test" />

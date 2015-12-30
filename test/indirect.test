@@ -1,12 +1,12 @@
 # Test Scene 1 
 # A simple quad viewed from different camera positions
 
-size 640 480
-#size 120 80
-output "area-indirect.png"
+size 1000 480
+#size 240 160
+output "indirect-di.png"
 
-#integrator "MultipleImportance" 2 16 16
-integrator "BidirectionalPath" 2 2
+integrator "DirectLight" 2 4 4
+#integrator "BidirectionalPath" 2 2
 pixelSampler "JitteredPixelSampler" 32
 
 camera 0 2 10 0 2 0 0 1 0 60
@@ -14,7 +14,7 @@ camera 0 2 10 0 2 0 0 1 0 60
 worldBegin
 
 # Center Power Normal Radius
-areaLight 0 2 0 100 100 100 0 1 0 0.5
+areaLight 0 1 0 200 200 200 0 1 0 0.5
 
 objBegin "Mesh"
 material "Lambertian"
@@ -25,10 +25,11 @@ v -1 0 -1
 v -1 0 1
 v  1 0 1
 v  1 0 -1
-f 0 1 2
-f 2 3 0
+f 1 2 3
+f 3 4 1
 popTransform
 objEnd
+
 
 objBegin "Mesh"
 material "Lambertian"
@@ -39,8 +40,8 @@ v -1 0 -1
 v -1 0 1
 v  1 0 1
 v  1 0 -1
-f 0 2 1
-f 2 0 3
+f 1 3 2
+f 3 1 4
 popTransform
 objEnd
 
@@ -58,29 +59,26 @@ v -1 -1 -1
 v -1 -1 1
 v  1 -1 1
 v  1 -1 -1
-# upper
-# f 0 1 2
-# f 2 3 0
 
 # down
-f 6 5 4
-f 4 6 7
+f 7 6 5
+f 5 7 8
 
 # left
-f 0 4 5
-f 0 5 1
+f 1 5 6
+f 1 6 2
 
 # right
 f 2 6 7
 f 2 7 3
 
 # front
-f 1 5 6
-f 1 6 2
+f 3 7 8
+f 3 8 4
 
 # back
-f 3 7 4
-f 3 4 0
+f 4 8 5
+f 4 5 1
 
 popTransform
 objEnd
@@ -98,5 +96,6 @@ pushTransform
 sphere -2 0.5 2 0.5
 popTransform
 objEnd
+
 
 worldEnd

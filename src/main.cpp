@@ -33,5 +33,6 @@ int main(int argc, char *argv[]) {
 #endif
     rt.rinse();
 
+    system("pause");
     return 0;
 }
