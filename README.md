@@ -68,8 +68,14 @@ Lights
 All the lights offer an interface to do intersection test, to return the emission radiance, to sample a point on the light and return the pdf of sampling a specific point. 
 #####Point light
 A point light is defined with its position and radiance. It's a uniform light and will never be intersected with a ray.
+
 #####Area light
 Area light is a circle light. It takes four parameters: center, radius, normal direction and power.
+
+#####Environment light
+Environment light is a sphere wrapped around the whole scene. You can find a lot spheric texture online. Here is a simple demo:
+
+<img src="outputs/env.png">
 
 BSDF
 ----------------------------------------------
@@ -127,7 +133,7 @@ Bidirectional path tracer performs much better than direct light integrator when
 
 We can see that it takes much more time for direct light integrator to render the image. What's more, direct light integrator can't handle indirect light well, which makes the image darker.
 
-<img src="outputs/indirect.ng">
+<img src="outputs/indirect.png">
 
 Scene Description File
 ----------------------------------------------

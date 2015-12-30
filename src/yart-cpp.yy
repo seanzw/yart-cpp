@@ -169,6 +169,8 @@ world_stmt: DIRECTIONAL NUMBER NUMBER NUMBER NUMBER NUMBER NUMBER {
     if (pos != string::npos) {
         fn = current_file.substr(0, pos + 1);
         fn.append($2);
+    } else {
+        fn = $2;
     }
     yart->yartEnvLight(fn);
 }

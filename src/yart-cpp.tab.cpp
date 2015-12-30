@@ -475,8 +475,8 @@ static const yytype_uint16 yyrline[] =
 {
        0,    62,    62,    66,    70,    74,    78,    83,    88,    95,
      102,   108,   120,   124,   128,   132,   136,   145,   154,   165,
-     176,   181,   185,   191,   195,   199,   203,   207,   213,   222,
-     229,   233,   238,   242,   246,   251,   256,   260,   265
+     178,   183,   187,   193,   197,   201,   205,   209,   215,   224,
+     231,   235,   240,   244,   248,   253,   258,   262,   267
 };
 #endif
 
@@ -1495,83 +1495,85 @@ yyreduce:
     if (pos != string::npos) {
         fn = current_file.substr(0, pos + 1);
         fn.append((yyvsp[0].string));
+    } else {
+        fn = (yyvsp[0].string);
     }
     yart->yartEnvLight(fn);
 }
-#line 1502 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1504 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 176 "yart-cpp.yy" /* yacc.c:1646  */
+#line 178 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 a((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 	yart->yartAttenuation(a);
 }
-#line 1511 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1513 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 181 "yart-cpp.yy" /* yacc.c:1646  */
+#line 183 "yart-cpp.yy" /* yacc.c:1646  */
     {
     yart->yartObjEnd();
 }
-#line 1519 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1521 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 185 "yart-cpp.yy" /* yacc.c:1646  */
+#line 187 "yart-cpp.yy" /* yacc.c:1646  */
     {
     string type((yyvsp[0].string));
 	yart->yartObjBegin(type);
     DEBUG("PARSE OBJBEGIN %s\n", type.c_str());
 }
-#line 1529 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1531 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 191 "yart-cpp.yy" /* yacc.c:1646  */
+#line 193 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1537 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1539 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 195 "yart-cpp.yy" /* yacc.c:1646  */
+#line 197 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1545 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1547 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 199 "yart-cpp.yy" /* yacc.c:1646  */
+#line 201 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1553 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1555 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 203 "yart-cpp.yy" /* yacc.c:1646  */
+#line 205 "yart-cpp.yy" /* yacc.c:1646  */
     {
 
 }
-#line 1561 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1563 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 207 "yart-cpp.yy" /* yacc.c:1646  */
+#line 209 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 v((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 	yart->yartVertex(v);
 	// DEBUG("PARSE VERTEX %.2f %.2f %.2f\n", v[0], v[1], v[2]);
 }
-#line 1571 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1573 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 213 "yart-cpp.yy" /* yacc.c:1646  */
+#line 215 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	
 	int id1 = (int)(yyvsp[-2].num) - 1;
@@ -1580,98 +1582,98 @@ yyreduce:
 	yart->yartTri(id1, id2, id3);
 	// DEBUG("PARSE TRI %d %d %d\n", id1, id2, id3);
 }
-#line 1584 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1586 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 222 "yart-cpp.yy" /* yacc.c:1646  */
+#line 224 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 center((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
 	yart->yartSphere(center, (yyvsp[0].num));
 	DEBUG("PARSE SPHERE c %.2f %.2f %.2f | r %.2f\n",
 		center[0], center[1], center[2], (yyvsp[0].num));
 }
-#line 1595 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1597 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 229 "yart-cpp.yy" /* yacc.c:1646  */
+#line 231 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	include_push((yyvsp[0].string));
 }
-#line 1603 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1605 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 233 "yart-cpp.yy" /* yacc.c:1646  */
+#line 235 "yart-cpp.yy" /* yacc.c:1646  */
     {
     DEBUG("PARSE REFINE MESH\n");
     yart->yartRefineMesh();
 }
-#line 1612 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1614 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 238 "yart-cpp.yy" /* yacc.c:1646  */
+#line 240 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartTranslate((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
-#line 1620 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1622 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 242 "yart-cpp.yy" /* yacc.c:1646  */
+#line 244 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartScale((yyvsp[-2].num), (yyvsp[-1].num), (yyvsp[0].num));
 }
-#line 1628 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1630 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 246 "yart-cpp.yy" /* yacc.c:1646  */
+#line 248 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	vec3 axis((yyvsp[-3].num), (yyvsp[-2].num), (yyvsp[-1].num));
 	yart->yartRotate(axis, (yyvsp[0].num));
 }
-#line 1637 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1639 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 251 "yart-cpp.yy" /* yacc.c:1646  */
+#line 253 "yart-cpp.yy" /* yacc.c:1646  */
     {
     DEBUG("PARSE PUSHTRANSFORM\n");
 	yart->yartPushTransform();
 }
-#line 1646 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1648 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 256 "yart-cpp.yy" /* yacc.c:1646  */
+#line 258 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartPopTransform();
 }
-#line 1654 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1656 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 260 "yart-cpp.yy" /* yacc.c:1646  */
+#line 262 "yart-cpp.yy" /* yacc.c:1646  */
     {
     yart->yartMaterial(string((yyvsp[-1].string)), (yyvsp[0].ps));
     delete (yyvsp[0].ps);
 }
-#line 1663 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1665 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 265 "yart-cpp.yy" /* yacc.c:1646  */
+#line 267 "yart-cpp.yy" /* yacc.c:1646  */
     {
 	yart->yartBuildOCTree((int)(yyvsp[0].num));
 }
-#line 1671 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1673 "yart-cpp.tab.cc" /* yacc.c:1646  */
     break;
 
 
-#line 1675 "yart-cpp.tab.cc" /* yacc.c:1646  */
+#line 1677 "yart-cpp.tab.cc" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1899,7 +1901,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 270 "yart-cpp.yy" /* yacc.c:1906  */
+#line 272 "yart-cpp.yy" /* yacc.c:1906  */
 
 
 void yyerror(const std::string &s) {
