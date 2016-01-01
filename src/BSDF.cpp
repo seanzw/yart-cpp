@@ -51,6 +51,9 @@ pair<Ray, float> BSDFSpecular::sample(const Intersection &hit, const vec3 &in) c
 
 vec3 BSDFRefraction::bsdf(const Intersection &hit, const vec3 &in, const vec3 &out) const {
     vec3 r = hit.pos == INTERSECTION_OUT ? refract(in, hit.normal, inv_n) : refract(in, -hit.normal, n);
+    if (glm::length(r) < CONST_EPSILON) {
+        r = hit.pos == INTERSECTION_OUT ? reflect(in, hit.normal) : reflect(in, -hit.normal);
+    }
     if (abs(dot(r, out) - 1.0f) < CONST_EPSILON) {
         // If the out direction is close to the mirror reflection.
         return refraction;
@@ -66,5 +69,8 @@ float BSDFRefraction::pdf(const Intersection &hit, const vec3 &in, const vec3 &o
 
 pair<Ray, float> BSDFRefraction::sample(const Intersection &hit, const vec3 &in) const {
     vec3 out = hit.pos == INTERSECTION_OUT ? refract(in, hit.normal, inv_n) : refract(in, -hit.normal, n);
+    if (glm::length(out) < CONST_EPSILON) {
+        out = hit.pos == INTERSECTION_OUT ? reflect(in, hit.normal) : reflect(in, -hit.normal);
+    }
     return make_pair(Ray(hit.point, out, CONST_NEAR, CONST_FAR), 1.0f);
 }

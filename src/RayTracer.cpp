@@ -32,9 +32,6 @@ RayTracer::RayTracer(const string &fn) {
 
 	transforms.push(mat4(1.0f));
 
-	/*m.ambient = vec3(0.2f, 0.2f, 0.2f);
-	m.shininess = 20.0f;*/
-
 	attenuation = vec3(1.0f, 0.0f, 0.0f);
 }
 
