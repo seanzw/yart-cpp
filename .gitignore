@@ -45,7 +45,12 @@ yart-ui/obj/
 # Makepp
 .makepp/
 
+# Parser
+src/yart-cpp.tab.cpp
+src/yart-cpp.tab.hh
+src/lex.yy.cpp
+
 # Unix
-/unix/bin/
+build/
 
 # VS
